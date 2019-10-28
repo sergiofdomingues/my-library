@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="Gray">#808080</color>
+
+    <!-- Base Day -->
+    <color name="accent">#FFFFFF</color>
+
+    <!-- Others -->
+
+    <!-- Light -->
+    <color name="light_background">#FCFCFC</color>
+
+    <!-- Dark -->
+
+    <!-- Direction 1 -->
+
+    <!-- Sales -->
+
+    <!-- Disco -->
+
+    <!-- Direction 2 -->
+
+    <!-- Taxi -->
+
+    <!-- Wifi -->
+
+    <!-- Airport -->
+
+    <!-- Warning -->
+
+    <!-- Express -->
+
+    <!-- Birthday -->
+
+    <!-- Purple Wave -->
+
+    <!-- Drink -->
+
+    <!-- Morning -->
+
+    <!-- Love -->
+
+    <!-- Wish -->
+
+    <!-- Party -->
+</resources>
