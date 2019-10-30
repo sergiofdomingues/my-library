@@ -46,9 +46,7 @@ class AddBookActivity : AppCompatActivity() {
             )
 
             if (bookDetailsAreFilled(newBook)) {
-                BookRepository.addBook(newBook)
-                setResult(Activity.RESULT_OK, getResultIntent())
-                finish()
+                BookRepository.addBook(newBook) { returnToMain() }
                 return true
             } else {
                 titleInputLayout.isErrorEnabled = true
@@ -56,6 +54,11 @@ class AddBookActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun returnToMain() {
+        setResult(Activity.RESULT_OK, getResultIntent())
+        finish()
     }
 
     private fun bookDetailsAreFilled(book: Book): Boolean {

@@ -42,15 +42,25 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
     }
 
     override fun itemDelete(book: Book) {
-        BookRepository.deleteBook(book)
-        getAllBooks()
+        BookRepository.deleteBook(book) { getAllBooks() }
+        //getAllBooks()
     }
 
     private fun getAllBooks() {
+        BookRepository.getBooks { refreshList(it) }
+    }
+
+    private fun refreshList(books: List<Book>) {
+        booksList.clear()
+        booksList.addAll(books)
+        adapter.notifyDataSetChanged()
+    }
+
+/*    private fun getAllBooks() {
         booksList.clear()
         booksList.addAll(BookRepository.books)
         adapter.notifyDataSetChanged()
-    }
+    }*/
 
     companion object {
         private const val ADD_NEW_BOOK = 10

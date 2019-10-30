@@ -1,12 +1,62 @@
 package io.bloco.biblioteca
 
 import androidx.annotation.VisibleForTesting
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 object BookRepository {
 
     private val memoryDataBase by lazy { mutableListOf<Book>() }
 
-    val books: List<Book> get() = memoryDataBase.toList()
+    //val books: List<Book> get() = memoryDataBase.toList()
+
+    fun getBooks(onComplete: ((List<Book>) -> Unit)) {
+        doAsync {
+            val books = memoryDataBase.toList()
+            uiThread {
+                onComplete.invoke(books)
+            }
+        }
+    }
+
+    fun addBook(newBook: Book, onCompete: (() -> Unit)) {
+        doAsync {
+            memoryDataBase.add(newBook)
+            uiThread {
+                onCompete.invoke()
+            }
+        }
+
+    }
+
+    fun deleteBook(book: Book, onComplete: (() -> Unit)? = null) {
+        doAsync {
+            memoryDataBase.remove(book)
+            uiThread {
+                onComplete?.invoke()
+            }
+        }
+    }
+
+    @VisibleForTesting
+    fun size(): Int {
+        return memoryDataBase.size
+    }
+
+    @VisibleForTesting
+    fun clearRepository() {
+        memoryDataBase.clear()
+    }
+
+    @VisibleForTesting
+    fun deleteBookByTitle(title: String) {
+        for (i in 0 until memoryDataBase.size - 1) {
+            if (memoryDataBase[i].title == title) {
+                memoryDataBase.removeAt(i)
+                return
+            }
+        }
+    }
 
     @Suppress("unused")
     fun initBooks() {
@@ -31,27 +81,4 @@ object BookRepository {
             )
         )
     }
-
-    fun addBook(newBook: Book) {
-        memoryDataBase.add(newBook)
-    }
-
-    fun deleteBook(book: Book) {
-        memoryDataBase.remove(book)
-    }
-
-    @VisibleForTesting
-    fun clearRepository() {
-        memoryDataBase.clear()
-    }
-
-    fun deleteBookByTitle(title: String) {
-        for (i in 0 until memoryDataBase.size - 1) {
-            if (memoryDataBase[i].title == title) {
-                memoryDataBase.removeAt(i)
-                return
-            }
-        }
-    }
-
 }

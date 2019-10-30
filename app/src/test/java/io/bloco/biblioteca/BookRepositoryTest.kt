@@ -10,22 +10,37 @@ class BookRepositoryTest {
     private val bookFactory = BookFactory
 
     @Before
-    fun setUp() { repository.clearRepository() }
+    fun setUp() {
+        repository.clearRepository()
+    }
 
     @Test
     fun addBookTest() {
-        assertEquals(repository.books.size, 0)
-        repository.addBook(bookFactory.makeBook())
-        assertEquals(repository.books.size, 1)
+        assertEquals(repository.size(), 0)
+        repository.addBook(bookFactory.makeBook()) {}
+        waitForAddBookCallBack(1)
+        assertEquals(repository.size(), 1)
     }
 
     @Test
     fun removeTest() {
         val book = bookFactory.makeBook()
-        repository.addBook(book)
+        repository.addBook(book) {}
+        waitForAddBookCallBack(1)
         val book2 = bookFactory.makeBook("outro")
-        repository.addBook(book2)
+        repository.addBook(book2) {}
+        waitForAddBookCallBack(2)
         repository.deleteBookByTitle(book.title)
-        assertEquals(repository.books.size, 1)
+        assertEquals(repository.size(), 1)
+    }
+
+    // Helpers
+
+    private fun waitForAddBookCallBack(expectedBooks: Int) {
+        var counter = 1
+        while (repository.size() != expectedBooks && counter < 10) {
+            Thread.sleep(100)
+            counter++
+        }
     }
 }

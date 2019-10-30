@@ -32,9 +32,10 @@ class MainActivityTest {
     @Test
     @FlakyTest
     fun checkBookVisibility() {
-        repository.deleteBookByTitle(TEST_BOOK)
+        clearRepositoryBooks()
         val book = BookFactory.makeBook(TEST_BOOK)
-        repository.addBook(book)
+        repository.addBook(book){}
+        waitForAddBookCallBack(1)
         launchActivity()
         onView(withText(TEST_BOOK)).check(matches(isDisplayed()))
     }
@@ -44,8 +45,9 @@ class MainActivityTest {
         clearRepositoryBooks()
         val book1 = BookFactory.makeBook(TEST_BOOK)
         val book2 = BookFactory.makeBook()
-        repository.addBook(book1)
-        repository.addBook(book2)
+        repository.addBook(book1){}
+        repository.addBook(book2){}
+        waitForAddBookCallBack(2)
         launchActivity()
         onView(withText(book1.title)).check(matches(isDisplayed()))
         onView(withText(book2.title)).check(matches(isDisplayed()))
@@ -75,6 +77,14 @@ class MainActivityTest {
 
     private fun clearRepositoryBooks() {
         repository.clearRepository()
+    }
+
+    private fun waitForAddBookCallBack(expectedBooks: Int) {
+        var counter = 1
+        while (repository.size() != expectedBooks && counter < 10) {
+            Thread.sleep(100)
+            counter++
+        }
     }
 
     companion object {
