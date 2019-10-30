@@ -1,9 +1,9 @@
-package io.bloco.myapplication
+package io.bloco.biblioteca
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_book_info.*
 
 class BookInfoActivity : AppCompatActivity() {
@@ -14,10 +14,11 @@ class BookInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_info)
 
-        selectedBook = intent.getSerializableExtra(BOOK_KEY) as Book
-        bookTitle.text = selectedBook?.title //selectedBook?.title -> if selectedBook is null returns null
+        selectedBook = intent.getParcelableExtra(BOOK_KEY)
+        bookTitle.text = selectedBook?.title
         bookAuthor.text = selectedBook?.author
-
+        bookIsbn.text = selectedBook?.isbn
+        bookDate.text = selectedBook?.publishDate
     }
 
     companion object {

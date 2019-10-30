@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="io.bloco.myapplication">
+    package="io.bloco.biblioteca">
 
     <application
+        android:name="io.bloco.biblioteca.App"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".AddBookActivity" />
-        <activity android:name=".BookInfoActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name="io.bloco.biblioteca.AddBookActivity"
+            android:label="@string/add_book_activity_label"
+            android:parentActivityName="io.bloco.biblioteca.MainActivity" />
+        <activity
+            android:name="io.bloco.biblioteca.BookInfoActivity"
+            android:label="@string/book_info_activity_label"
+            android:parentActivityName="io.bloco.biblioteca.MainActivity" />
+        <activity
+            android:name="io.bloco.biblioteca.MainActivity"
+            android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

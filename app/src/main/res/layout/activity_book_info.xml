@@ -1,97 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
     android:orientation="vertical"
     tools:context=".BookInfoActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hint_book_title"
-        android:gravity="start"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/bookTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_title"
-        android:gravity="center"
-        />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/degraded_pane"
+            android:src="@drawable/ic_no_cover"
+            android:contentDescription="@string/desciprion_cover"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_book_author"
-        android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
-        android:gravity="start"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        />
+        <TextView
+            android:id="@+id/bookTitle"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/no_title"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/bookAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_author"
-        android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
-        android:gravity="center"
-        />
+        <TextView
+            android:id="@+id/bookAuthor"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/no_author"
+            android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_book_isbn"
-        android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
-        android:gravity="start"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_isbn"
-        android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
-        android:gravity="center"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_book_date"
-        android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
-        android:gravity="start"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/about_this_book"
+                android:textSize="14sp" />
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/divider"
+                android:src="@drawable/line_divider"
+                tools:ignore="ContentDescription" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_date"
-        android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
-        android:gravity="center"
-        />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-</LinearLayout>
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/hint_book_isbn"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bookIsbn"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/no_isbn"
+                    android:textSize="16sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_book_date"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bookDate"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/no_date"
+                    android:textSize="16sp" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

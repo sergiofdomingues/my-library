@@ -1,4 +1,4 @@
-package io.bloco.myapplication
+package io.bloco.biblioteca
 
 import org.junit.Test
 

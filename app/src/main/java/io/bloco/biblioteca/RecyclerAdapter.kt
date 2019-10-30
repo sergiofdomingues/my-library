@@ -1,4 +1,4 @@
-package io.bloco.myapplication
+package io.bloco.biblioteca
 
 import android.app.AlertDialog
 import android.content.Context
@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_book_info.view.bookAuthor
 import kotlinx.android.synthetic.main.activity_book_info.view.bookTitle
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
-class RecyclerAdapter(private val books: ArrayList<Book>, val interfaceRef: ListItemLongClick) :
+class RecyclerAdapter(private val books: MutableList<Book>, val interfaceRef: ListItemLongClick) :
     RecyclerView.Adapter<RecyclerAdapter.BookHolder>() {
 
     interface ListItemLongClick {
@@ -33,6 +33,11 @@ class RecyclerAdapter(private val books: ArrayList<Book>, val interfaceRef: List
         private var view: View = v
         private var book: Book? = null
         private var dialog: AlertDialog? = null
+
+        init {
+            view.setOnClickListener(this)
+            view.setOnLongClickListener(this)
+        }
 
         override fun onClick(v: View?) {
             val context = itemView.context
@@ -63,8 +68,8 @@ class RecyclerAdapter(private val books: ArrayList<Book>, val interfaceRef: List
 
         private fun openBookMenu(context: Context, book: Book) {
             dialog?.let {
-                if (dialog!!.isShowing)
-                    dialog?.dismiss()
+                if (it.isShowing)
+                    it.dismiss()
             }
             dialog = null
 
@@ -79,10 +84,7 @@ class RecyclerAdapter(private val books: ArrayList<Book>, val interfaceRef: List
             dialog?.show()
         }
 
-        init {
-            view.setOnClickListener(this)
-            view.setOnLongClickListener(this)
-        }
+
     }
 
 

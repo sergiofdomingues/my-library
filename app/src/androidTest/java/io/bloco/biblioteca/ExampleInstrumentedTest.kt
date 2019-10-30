@@ -1,4 +1,4 @@
-package io.bloco.myapplication
+package io.bloco.biblioteca
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
