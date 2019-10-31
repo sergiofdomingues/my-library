@@ -6,6 +6,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
+import io.bloco.biblioteca.helpers.Helpers.dateToString
 import io.bloco.biblioteca.testhelpers.BookFactory
 import org.junit.Rule
 import org.junit.Test
@@ -22,10 +23,10 @@ class BookInfoActivityTest {
         val book = BookFactory.makeBook()
         val intent = BookInfoActivity.getIntent(InstrumentationRegistry.getInstrumentation().targetContext, book)
         activityTestRule.launchActivity(intent)
-        // check if book details are displayed
+        // Check if book details are displayed
         onView(withText(book.title)).check(matches(isDisplayed()))
         onView(withText(book.author)).check(matches(isDisplayed()))
         onView(withText(book.isbn)).check(matches(isDisplayed()))
-        onView(withText(book.publishDate)).check(matches(isDisplayed()))
+        onView(withText(dateToString(book.publishDate))).check(matches(isDisplayed()))
     }
 }

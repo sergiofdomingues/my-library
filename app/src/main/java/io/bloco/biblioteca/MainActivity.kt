@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import io.bloco.biblioteca.database.AppDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -14,12 +16,15 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
     private val booksList = mutableListOf<Book>()
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
     private val adapter by lazy { RecyclerAdapter(booksList, this) }
+    private val bookRepository by lazy { (application as App).getBookRepository() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        BookRepository.initBooks()
+        //bookRepository.initBooks()
+        bookRepository.initBooksInDb() // Fake some books
         lisfOfBooks.layoutManager = linearLayoutManager
         lisfOfBooks.addItemDecoration(DividerItemDecoration(this))
         lisfOfBooks.itemAnimator = DefaultItemAnimator()
@@ -42,12 +47,11 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
     }
 
     override fun itemDelete(book: Book) {
-        BookRepository.deleteBook(book) { getAllBooks() }
-        //getAllBooks()
+        bookRepository.deleteBook(book) { getAllBooks() }
     }
 
     private fun getAllBooks() {
-        BookRepository.getBooks { refreshList(it) }
+        bookRepository.getBooks { refreshList(it) }
     }
 
     private fun refreshList(books: List<Book>) {
@@ -55,12 +59,6 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
         booksList.addAll(books)
         adapter.notifyDataSetChanged()
     }
-
-/*    private fun getAllBooks() {
-        booksList.clear()
-        booksList.addAll(BookRepository.books)
-        adapter.notifyDataSetChanged()
-    }*/
 
     companion object {
         private const val ADD_NEW_BOOK = 10

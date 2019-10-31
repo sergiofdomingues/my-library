@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import io.bloco.biblioteca.helpers.Helpers
 import kotlinx.android.synthetic.main.activity_add_book.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,6 +20,7 @@ class AddBookActivity : AppCompatActivity() {
     private val month = calendar.get(Calendar.MONTH)
     private val day = calendar.get(Calendar.DAY_OF_MONTH)
     private val datePicker by lazy { initializeDatePicker() }
+    private val bookRepository by lazy { (application as App).getBookRepository() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,15 +40,15 @@ class AddBookActivity : AppCompatActivity() {
         if (id == R.id.saveBook) {
 
             val newBook = Book(
-                etTitle.text.toString(),
-                etAuthor.text.toString(),
-                etDate.text.toString(),
-                etISBN.text.toString(),
-                cbRead.isChecked
+                title = etTitle.text.toString(),
+                author = etAuthor.text.toString(),
+                publishDate = Helpers.stringToDate(etDate.text.toString()),
+                isbn = etISBN.text.toString(),
+                read = cbRead.isChecked
             )
 
             if (bookDetailsAreFilled(newBook)) {
-                BookRepository.addBook(newBook) { returnToMain() }
+                bookRepository.addBook(newBook) { returnToMain() }
                 return true
             } else {
                 titleInputLayout.isErrorEnabled = true
@@ -91,7 +93,7 @@ class AddBookActivity : AppCompatActivity() {
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val myFormat = "dd/MM/yyyy"
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
                 etDate.setText(sdf.format(calendar.time))
             },
             year,

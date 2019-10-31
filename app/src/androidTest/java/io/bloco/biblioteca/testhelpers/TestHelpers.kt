@@ -4,9 +4,10 @@ import android.app.Activity
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
+import io.bloco.biblioteca.BookRepository
 import org.junit.Assert
 
-object AssertCurrentActivity {
+object TestHelpers {
 
     private val currentActivity: Activity?
         get() {
@@ -24,5 +25,13 @@ object AssertCurrentActivity {
 
     fun assertCurrentActivity(activityClass: Class<out Activity>) {
         Assert.assertEquals(activityClass.name, currentActivity?.componentName?.className)
+    }
+
+    fun waitForAddBookCallBack(expectedBooks: Int, repository: BookRepository) {
+        var threshold = 1
+        while (repository.size() != expectedBooks && threshold < 10) {
+            Thread.sleep(100)
+            threshold++
+        }
     }
 }

@@ -1,29 +1,36 @@
 package io.bloco.biblioteca
 
+import android.util.Log
 import androidx.annotation.VisibleForTesting
+import io.bloco.biblioteca.helpers.Helpers.stringToDate
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import timber.log.Timber
 
-object BookRepository {
+class BookRepository(private val bookDao: BookDao) {
 
     private val memoryDataBase by lazy { mutableListOf<Book>() }
 
-    //val books: List<Book> get() = memoryDataBase.toList()
-
     fun getBooks(onComplete: ((List<Book>) -> Unit)) {
         doAsync {
-            val books = memoryDataBase.toList()
+            //val books = memoryDataBase.toList()
+            val books = bookDao.getAllBooks()
             uiThread {
                 onComplete.invoke(books)
             }
         }
     }
 
-    fun addBook(newBook: Book, onCompete: (() -> Unit)) {
+    fun addBook(newBook: Book, onCompete: (() -> Unit)? = null) {
         doAsync {
-            memoryDataBase.add(newBook)
+            //memoryDataBase.add(newBook)
+            try {
+                bookDao.insertBook(newBook)
+            } catch (e: Exception) {
+                Log.d("Exception ", e.toString())
+            }
             uiThread {
-                onCompete.invoke()
+                onCompete?.invoke()
             }
         }
 
@@ -31,12 +38,54 @@ object BookRepository {
 
     fun deleteBook(book: Book, onComplete: (() -> Unit)? = null) {
         doAsync {
-            memoryDataBase.remove(book)
+            //memoryDataBase.remove(book)
+            bookDao.deleteBookById(book.id)
             uiThread {
                 onComplete?.invoke()
             }
         }
     }
+
+    fun initBooksInDb() {
+        doAsync {
+            if (bookDao.getAllBooks().isNotEmpty()) return@doAsync
+            bookDao.insertMultipleBooks(
+                listOf(
+                    Book(
+                        title = "Harry Potter e a Pedra Filosofal",
+                        author = "J. K. Rowling",
+                        publishDate = stringToDate("29/10/15"),
+                        isbn = "190-456-566",
+                        read = true
+                    ),
+                    Book(
+                        title = "O livro do desassossego",
+                        author = "Fernando Pessoa",
+                        publishDate = stringToDate("01/02/12"),
+                        isbn = "191-456-566",
+                        read = false
+                    ),
+                    Book(
+                        title = "War and Peace",
+                        author = "Leo Tolstoy",
+                        publishDate = stringToDate(),
+                        isbn = "192-456-566",
+                        read = false
+                    ),
+                    Book(
+                        title = "Hamlet",
+                        author = "William Shakespeare",
+                        publishDate = stringToDate("14/07/09"),
+                        isbn = "193-456-566",
+                        read = false
+                    )
+                )
+            )
+        }
+
+    }
+
+    // Volatile database stuff
 
     @VisibleForTesting
     fun size(): Int {
@@ -63,21 +112,33 @@ object BookRepository {
         memoryDataBase.addAll(
             listOf(
                 Book(
-                    "Harry Potter e a Pedra Filosofal",
-                    "J. K. Rowling",
-                    "29/10/15",
-                    "190-456-566",
-                    true
+                    title = "Harry Potter e a Pedra Filosofal",
+                    author = "J. K. Rowling",
+                    publishDate = stringToDate("29/10/15"),
+                    isbn = "190-456-566",
+                    read = true
                 ),
                 Book(
-                    "O livro do desassossego",
-                    "Fernando Pessoa",
-                    "01/02/12",
-                    "191-456-566",
-                    false
+                    title = "O livro do desassossego",
+                    author = "Fernando Pessoa",
+                    publishDate = stringToDate("01/02/12"),
+                    isbn = "191-456-566",
+                    read = false
                 ),
-                Book("War and Peace", "Leo Tolstoy", "", "192-456-566", false),
-                Book("Hamlet", "William Shakespeare", "14/07/09", "193-456-566", false)
+                Book(
+                    title = "War and Peace",
+                    author = "Leo Tolstoy",
+                    publishDate = stringToDate(),
+                    isbn = "192-456-566",
+                    read = false
+                ),
+                Book(
+                    title = "Hamlet",
+                    author = "William Shakespeare",
+                    publishDate = stringToDate("14/07/09"),
+                    isbn = "193-456-566",
+                    read = false
+                )
             )
         )
     }

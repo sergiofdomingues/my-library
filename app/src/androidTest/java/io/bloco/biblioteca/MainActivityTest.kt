@@ -8,7 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
-import io.bloco.biblioteca.testhelpers.AssertCurrentActivity.assertCurrentActivity
+import io.bloco.biblioteca.testhelpers.TestHelpers.assertCurrentActivity
+import io.bloco.biblioteca.testhelpers.TestHelpers.waitForAddBookCallBack
 import io.bloco.biblioteca.testhelpers.BookFactory
 import org.hamcrest.Matchers.equalToIgnoringCase
 import org.junit.Rule
@@ -21,7 +22,11 @@ class MainActivityTest {
 
     @get:Rule
     var activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
-    private val repository = BookRepository
+    private val repository = (activityTestRule.activity.application as App).getBookRepository()
+
+    @get:Rule
+    var activityTestRuleAddBook = ActivityTestRule<AddBookActivity>(AddBookActivity::class.java, true, false)
+
 
     @Test
     fun checkListVisibility() {
@@ -34,8 +39,8 @@ class MainActivityTest {
     fun checkBookVisibility() {
         clearRepositoryBooks()
         val book = BookFactory.makeBook(TEST_BOOK)
-        repository.addBook(book){}
-        waitForAddBookCallBack(1)
+        repository.addBook(book)
+        waitForAddBookCallBack(1, repository)
         launchActivity()
         onView(withText(TEST_BOOK)).check(matches(isDisplayed()))
     }
@@ -45,9 +50,9 @@ class MainActivityTest {
         clearRepositoryBooks()
         val book1 = BookFactory.makeBook(TEST_BOOK)
         val book2 = BookFactory.makeBook()
-        repository.addBook(book1){}
-        repository.addBook(book2){}
-        waitForAddBookCallBack(2)
+        repository.addBook(book1)
+        repository.addBook(book2)
+        waitForAddBookCallBack(2, repository)
         launchActivity()
         onView(withText(book1.title)).check(matches(isDisplayed()))
         onView(withText(book2.title)).check(matches(isDisplayed()))
@@ -64,6 +69,8 @@ class MainActivityTest {
         onView(withId(R.id.addBookBtn)).perform(click())
         assertCurrentActivity(AddBookActivity::class.java)
         onView(withId(R.id.etTitle)).perform(typeText(TEST_BOOK))
+        onView(withId(R.id.etDate)).perform(click())
+        onView(withText(equalToIgnoringCase("OK"))).perform(click())
         onView(withId(R.id.saveBook)).perform(click())
         assertCurrentActivity(MainActivity::class.java)
         onView(withText(equalToIgnoringCase(TEST_BOOK))).check(matches(isDisplayed()))
@@ -79,15 +86,18 @@ class MainActivityTest {
         repository.clearRepository()
     }
 
-    private fun waitForAddBookCallBack(expectedBooks: Int) {
-        var counter = 1
-        while (repository.size() != expectedBooks && counter < 10) {
+    // Helpers
+
+/*    private fun waitForAddBookCallBack(expectedBooks: Int) {
+        var threshold = 1
+        while (repository.size() != expectedBooks && threshold < 10) {
             Thread.sleep(100)
-            counter++
+            threshold++
         }
-    }
+    }*/
 
     companion object {
         private const val TEST_BOOK = "testbook"
+        private const val DATE_BOOK = "01/02/03"
     }
 }

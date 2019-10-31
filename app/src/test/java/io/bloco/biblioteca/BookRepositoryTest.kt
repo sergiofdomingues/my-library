@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 
 class BookRepositoryTest {
-    private val repository = BookRepository
+/*    private val repository = BookRepository
     private val bookFactory = BookFactory
 
     @Before
@@ -37,10 +37,10 @@ class BookRepositoryTest {
     // Helpers
 
     private fun waitForAddBookCallBack(expectedBooks: Int) {
-        var counter = 1
-        while (repository.size() != expectedBooks && counter < 10) {
+        var threshold = 1
+        while (repository.size() != expectedBooks && threshold < 10) {
             Thread.sleep(100)
-            counter++
+            threshold++
         }
-    }
+    }*/
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.bloco.biblioteca.helpers.Helpers.dateToString
 import kotlinx.android.synthetic.main.activity_book_info.*
 
 class BookInfoActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class BookInfoActivity : AppCompatActivity() {
         bookTitle.text = selectedBook?.title
         bookAuthor.text = selectedBook?.author
         bookIsbn.text = selectedBook?.isbn
-        bookDate.text = selectedBook?.publishDate
+        bookDate.text = dateToString(selectedBook?.publishDate)
     }
 
     companion object {
