@@ -8,13 +8,14 @@ import io.bloco.biblioteca.database.AppDatabase
 class App : Application() {
 
     private val db by lazy { AppDatabase.getDatabase(this) }
+    var testing = false
 
     override fun onCreate() {
         super.onCreate()
         //strictMode()
     }
 
-    fun getBookRepository() : BookRepository {
+    fun getBookRepository(): BookRepository {
         return BookRepository(db.bookDao())
     }
 

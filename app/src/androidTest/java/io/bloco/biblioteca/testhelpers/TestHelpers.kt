@@ -1,6 +1,7 @@
 package io.bloco.biblioteca.testhelpers
 
 import android.app.Activity
+import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
@@ -29,9 +30,13 @@ object TestHelpers {
 
     fun waitForAddBookCallBack(expectedBooks: Int, repository: BookRepository) {
         var threshold = 1
-        while (repository.size() != expectedBooks && threshold < 10) {
+        while (repository.getNumBooks() != expectedBooks && threshold < 10) {
             Thread.sleep(100)
             threshold++
         }
+    }
+
+    fun useContext(): Context {
+        return InstrumentationRegistry.getInstrumentation().targetContext.applicationContext
     }
 }

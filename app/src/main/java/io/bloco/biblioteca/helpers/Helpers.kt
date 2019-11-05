@@ -1,19 +1,20 @@
 package io.bloco.biblioteca.helpers
 
+import android.annotation.SuppressLint
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 object Helpers {
     private const val myFormat = "dd/MM/yyyy"
+    @SuppressLint("ConstantLocale")
     private val dateFormat = SimpleDateFormat(myFormat, Locale.getDefault())
 
     fun stringToDate(dateString: String = "22/10/11"): Date? {
-        try{
-            return dateFormat.parse(dateString)
-        }
-        catch (e: ParseException){
-            return null
+        return try{
+            dateFormat.parse(dateString)
+        } catch (e: ParseException){
+            null
         }
     }
 

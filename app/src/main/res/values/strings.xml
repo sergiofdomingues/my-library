@@ -20,8 +20,10 @@
     <string name="add_book_activity_label">Adicionar livro</string>
     <string name="book_info_activity_label">Detalhes do livro</string>
 
-    <!-- Toasts -->
+    <!-- Fields Validation -->
     <string name="enter_book_title">Insira o título do livro</string>
+    <string name="invalid_book_isbn">Insira um ISBN válido (13 dígitos)</string>
+    <string name="invalid_book_date">Insira uma data válida</string>
 
     <!-- Labels -->
     <string name="about_this_book">Sobre este livro</string>

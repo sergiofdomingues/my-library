@@ -27,5 +27,4 @@ class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
             }
         }
     }
-
 }

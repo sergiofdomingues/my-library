@@ -16,6 +16,4 @@ data class Book(
     val publishDate: Date?,
     val isbn: String?,
     val read: Boolean = false
-) : Parcelable {
-    //@PrimaryKey(autoGenerate = true) val id: Int = 0
-}
+) : Parcelable

@@ -6,8 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
-import io.bloco.biblioteca.database.AppDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -23,7 +21,6 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //bookRepository.initBooks()
         bookRepository.initBooksInDb() // Fake some books
         lisfOfBooks.layoutManager = linearLayoutManager
         lisfOfBooks.addItemDecoration(DividerItemDecoration(this))

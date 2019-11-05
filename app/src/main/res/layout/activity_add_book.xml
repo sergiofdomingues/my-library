@@ -27,6 +27,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/authorInputLayout"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/isbnInputLayout"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,6 +62,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dateInputLayout"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

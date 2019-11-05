@@ -9,6 +9,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import io.bloco.biblioteca.helpers.Helpers
+import io.bloco.biblioteca.helpers.Validation
+import io.bloco.biblioteca.helpers.ValidationErrors
 import kotlinx.android.synthetic.main.activity_add_book.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,27 +49,44 @@ class AddBookActivity : AppCompatActivity() {
                 read = cbRead.isChecked
             )
 
-            if (bookDetailsAreFilled(newBook)) {
+            val errorList = Validation().validateBook(newBook)
+            if (errorList.isEmpty()) {
                 bookRepository.addBook(newBook) { returnToMain() }
                 return true
             } else {
-                titleInputLayout.isErrorEnabled = true
-                titleInputLayout.error = getString(R.string.enter_book_title)
+                titleInputLayout.isErrorEnabled = false
+                isbnInputLayout.isErrorEnabled = false
+                dateInputLayout.isErrorEnabled = false
+
+                checkErrorList(errorList)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun checkErrorList(errorList: List<String>) {
+
+        for (error in errorList) {
+            when (error) {
+                ValidationErrors.TITLEINVALID.name -> {
+                    titleInputLayout.isErrorEnabled = true
+                    titleInputLayout.error = getString(R.string.enter_book_title)
+                }
+                ValidationErrors.ISBNINVALID.name -> {
+                    isbnInputLayout.isErrorEnabled = true
+                    isbnInputLayout.error = getString(R.string.invalid_book_isbn)
+                }
+                ValidationErrors.DATEINVALID.name -> {
+                    dateInputLayout.isErrorEnabled = true
+                    dateInputLayout.error = getString(R.string.invalid_book_date)
+                }
+            }
+        }
+    }
+
     private fun returnToMain() {
         setResult(Activity.RESULT_OK, getResultIntent())
         finish()
-    }
-
-    private fun bookDetailsAreFilled(book: Book): Boolean {
-        if (book.title.isEmpty())
-            return false
-
-        return true
     }
 
     companion object {

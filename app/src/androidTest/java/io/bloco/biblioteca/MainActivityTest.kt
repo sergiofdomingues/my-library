@@ -8,10 +8,12 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
+import io.bloco.biblioteca.testhelpers.BookFactory
+import io.bloco.biblioteca.testhelpers.TestHelpers
 import io.bloco.biblioteca.testhelpers.TestHelpers.assertCurrentActivity
 import io.bloco.biblioteca.testhelpers.TestHelpers.waitForAddBookCallBack
-import io.bloco.biblioteca.testhelpers.BookFactory
 import org.hamcrest.Matchers.equalToIgnoringCase
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,11 +24,12 @@ class MainActivityTest {
 
     @get:Rule
     var activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
-    private val repository = (activityTestRule.activity.application as App).getBookRepository()
+    private val repository = (TestHelpers.useContext() as App).getBookRepository()
 
-    @get:Rule
-    var activityTestRuleAddBook = ActivityTestRule<AddBookActivity>(AddBookActivity::class.java, true, false)
-
+    @Before
+    fun setup() {
+        (TestHelpers.useContext() as App).testing = true
+    }
 
     @Test
     fun checkListVisibility() {
@@ -37,7 +40,7 @@ class MainActivityTest {
     @Test
     @FlakyTest
     fun checkBookVisibility() {
-        clearRepositoryBooks()
+        repository.deleteAllBooksInDb()
         val book = BookFactory.makeBook(TEST_BOOK)
         repository.addBook(book)
         waitForAddBookCallBack(1, repository)
@@ -47,7 +50,7 @@ class MainActivityTest {
 
     @Test
     fun checkBookDeletionFromList() {
-        clearRepositoryBooks()
+        repository.deleteAllBooksInDb()
         val book1 = BookFactory.makeBook(TEST_BOOK)
         val book2 = BookFactory.makeBook()
         repository.addBook(book1)
@@ -64,7 +67,7 @@ class MainActivityTest {
 
     @Test
     fun addBook() {
-        clearRepositoryBooks()
+        repository.deleteAllBooksInDb()
         launchActivity()
         onView(withId(R.id.addBookBtn)).perform(click())
         assertCurrentActivity(AddBookActivity::class.java)
@@ -82,22 +85,8 @@ class MainActivityTest {
         activityTestRule.launchActivity(null)
     }
 
-    private fun clearRepositoryBooks() {
-        repository.clearRepository()
-    }
-
-    // Helpers
-
-/*    private fun waitForAddBookCallBack(expectedBooks: Int) {
-        var threshold = 1
-        while (repository.size() != expectedBooks && threshold < 10) {
-            Thread.sleep(100)
-            threshold++
-        }
-    }*/
-
     companion object {
         private const val TEST_BOOK = "testbook"
-        private const val DATE_BOOK = "01/02/03"
     }
+
 }

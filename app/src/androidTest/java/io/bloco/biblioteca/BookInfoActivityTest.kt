@@ -1,11 +1,12 @@
 package io.bloco.biblioteca
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.ActivityTestRule
 import io.bloco.biblioteca.helpers.Helpers.dateToString
 import io.bloco.biblioteca.testhelpers.BookFactory
 import org.junit.Rule
@@ -16,12 +17,16 @@ import org.junit.runner.RunWith
 class BookInfoActivityTest {
 
     @get:Rule
-    var activityTestRule = ActivityTestRule<BookInfoActivity>(BookInfoActivity::class.java, true, false)
+    var activityTestRule =
+        ActivityTestRule<BookInfoActivity>(BookInfoActivity::class.java, true, false)
 
     @Test
     fun checkIfBookDetailsAreDisplayed() {
         val book = BookFactory.makeBook()
-        val intent = BookInfoActivity.getIntent(InstrumentationRegistry.getInstrumentation().targetContext, book)
+        val intent = BookInfoActivity.getIntent(
+            InstrumentationRegistry.getInstrumentation().targetContext,
+            book
+        )
         activityTestRule.launchActivity(intent)
         // Check if book details are displayed
         onView(withText(book.title)).check(matches(isDisplayed()))
