@@ -2,15 +2,28 @@ package io.bloco.biblioteca.testhelpers
 
 import io.bloco.biblioteca.Book
 import io.bloco.biblioteca.helpers.Helpers.stringToDate
+import java.util.*
 
 object BookFactory {
 
-    fun makeBook(title: String = "Harry Potter") =
+    fun makeIncompleteBook(
+        title: String, author: String?,
+        publishDate: Date? = stringToDate(), isbn: String?, read: Boolean
+    ) =
+        Book(
+            title = title,
+            author = author,
+            publishDate = publishDate,
+            isbn = isbn,
+            read = read
+        )
+
+    fun makeCompleteBook(title: String = "Harry Potter") =
         Book(
             title = title,
             author = "JK Rowling",
-            publishDate = stringToDate("23/05/15"),
-            isbn = "12345",
-            read = false
+            publishDate = stringToDate("07/10/2012"),
+            isbn = "1234567891234",
+            read = true
         )
 }

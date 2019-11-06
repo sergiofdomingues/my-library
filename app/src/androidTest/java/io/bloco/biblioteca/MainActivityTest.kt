@@ -35,7 +35,7 @@ class MainActivityTest {
     @FlakyTest
     fun checkBookVisibility() {
         repository.deleteAllBooksInDb()
-        val book = BookFactory.makeBook(TEST_BOOK)
+        val book = BookFactory.makeCompleteBook(TEST_BOOK)
         repository.addBook(book)
         waitForAddBookCallBack(1, repository)
         launchActivity()
@@ -45,8 +45,8 @@ class MainActivityTest {
     @Test
     fun checkBookDeletionFromList() {
         repository.deleteAllBooksInDb()
-        val book1 = BookFactory.makeBook(TEST_BOOK)
-        val book2 = BookFactory.makeBook()
+        val book1 = BookFactory.makeCompleteBook(TEST_BOOK)
+        val book2 = BookFactory.makeCompleteBook()
         repository.addBook(book1)
         repository.addBook(book2)
         waitForAddBookCallBack(2, repository)

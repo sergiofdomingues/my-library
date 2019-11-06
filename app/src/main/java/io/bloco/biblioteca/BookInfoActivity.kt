@@ -25,6 +25,22 @@ class BookInfoActivity : AppCompatActivity() {
         requestExernalStorageReadPermissions()
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>,
+        grantResults: IntArray) {
+        when (requestCode) {
+            RECORD_REQUEST_CODE -> {
+                if (permissions.isEmpty()) {
+                    Timber.i(getString(R.string.perm_denied))
+                } else {
+                    Timber.i(getString(R.string.perm_granted))
+                    loadImageFromDevice()
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     private fun initDetailFields() {
         tvBookTitle.text = selectedBook?.title
         if (tvBookTitle.text == "")
@@ -60,23 +76,6 @@ class BookInfoActivity : AppCompatActivity() {
             } else
                 loadImageFromDevice()
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            RECORD_REQUEST_CODE -> {
-                if (permissions.isEmpty()) {
-                    Timber.i(getString(R.string.perm_denied))
-                } else {
-                    Timber.i(getString(R.string.perm_granted))
-                    loadImageFromDevice()
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun loadImageFromDevice() {

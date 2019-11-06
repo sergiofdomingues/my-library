@@ -18,7 +18,7 @@ class BookRepositoryInstrumentedTest {
     fun addBookTest() {
         repository.deleteAllBooksInDb()
         assertEquals(repository.getNumBooks(), 0)
-        repository.addBook(bookFactory.makeBook())
+        repository.addBook(bookFactory.makeCompleteBook())
         waitForAddBookCallBack(1)
         assertEquals(repository.getNumBooks(), 1)
     }
@@ -26,11 +26,11 @@ class BookRepositoryInstrumentedTest {
     @Test
     fun removeTest() {
         repository.deleteAllBooksInDb()
-        val book = bookFactory.makeBook()
+        val book = bookFactory.makeCompleteBook()
         repository.addBook(book) {}
         waitForAddBookCallBack(1)
         assertEquals(repository.getNumBooks(), 1)
-        val book2 = bookFactory.makeBook("other")
+        val book2 = bookFactory.makeCompleteBook("other")
         repository.addBook(book2) {}
         waitForAddBookCallBack(2)
         assertEquals(repository.getNumBooks(), 2)

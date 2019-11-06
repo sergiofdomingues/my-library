@@ -22,7 +22,7 @@ class BookInfoActivityTest {
 
     @Test
     fun checkIfBookDetailsAreDisplayed() {
-        val book = BookFactory.makeBook()
+        val book = BookFactory.makeCompleteBook()
         val intent = BookInfoActivity.getIntent(
             InstrumentationRegistry.getInstrumentation().targetContext,
             book
