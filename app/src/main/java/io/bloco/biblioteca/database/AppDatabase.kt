@@ -19,10 +19,10 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
-            return when ((context.applicationContext as App).testing) {
-                true -> INSTANCE?.let { it }
+            return when ((context.applicationContext as App).mode) {
+                App.Mode.TEST -> INSTANCE?.let { it }
                     ?: buildDatabaseTest(context).also { INSTANCE = it }
-                false -> INSTANCE?.let { it }
+                App.Mode.NORMAL -> INSTANCE?.let { it }
                     ?: buildDatabase(context).also { INSTANCE = it }
             }
         }

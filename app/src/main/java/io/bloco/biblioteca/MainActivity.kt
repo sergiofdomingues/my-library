@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
         setContentView(R.layout.activity_main)
 
         bookRepository.initBooksInDb() // Fake some books
-        lisfOfBooks.layoutManager = linearLayoutManager
-        lisfOfBooks.addItemDecoration(DividerItemDecoration(this))
-        lisfOfBooks.itemAnimator = DefaultItemAnimator()
-        lisfOfBooks.adapter = adapter
+        recViewBooksList.layoutManager = linearLayoutManager
+        recViewBooksList.addItemDecoration(DividerItemDecoration(this))
+        recViewBooksList.itemAnimator = DefaultItemAnimator()
+        recViewBooksList.adapter = adapter
 
-        addBookBtn.setOnClickListener {
+        fabAddBook.setOnClickListener {
             val intentAddBook = AddBookActivity.getIntent(this)
             startActivityForResult(intentAddBook, ADD_NEW_BOOK)
         }

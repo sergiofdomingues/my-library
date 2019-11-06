@@ -13,7 +13,6 @@ import io.bloco.biblioteca.testhelpers.TestHelpers
 import io.bloco.biblioteca.testhelpers.TestHelpers.assertCurrentActivity
 import io.bloco.biblioteca.testhelpers.TestHelpers.waitForAddBookCallBack
 import org.hamcrest.Matchers.equalToIgnoringCase
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,15 +25,10 @@ class MainActivityTest {
     var activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
     private val repository = (TestHelpers.useContext() as App).getBookRepository()
 
-    @Before
-    fun setup() {
-        (TestHelpers.useContext() as App).testing = true
-    }
-
     @Test
     fun checkListVisibility() {
         launchActivity()
-        onView(withId(R.id.lisfOfBooks)).check(matches(isDisplayed()))
+        onView(withId(R.id.recViewBooksList)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -69,12 +63,12 @@ class MainActivityTest {
     fun addBook() {
         repository.deleteAllBooksInDb()
         launchActivity()
-        onView(withId(R.id.addBookBtn)).perform(click())
+        onView(withId(R.id.fabAddBook)).perform(click())
         assertCurrentActivity(AddBookActivity::class.java)
         onView(withId(R.id.etTitle)).perform(typeText(TEST_BOOK))
         onView(withId(R.id.etDate)).perform(click())
-        onView(withText(equalToIgnoringCase("OK"))).perform(click())
-        onView(withId(R.id.saveBook)).perform(click())
+        onView(withId(android.R.id.button1)).perform(click())
+        onView(withId(R.id.itemSaveBook)).perform(click())
         assertCurrentActivity(MainActivity::class.java)
         onView(withText(equalToIgnoringCase(TEST_BOOK))).check(matches(isDisplayed()))
     }

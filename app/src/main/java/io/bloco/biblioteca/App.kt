@@ -8,7 +8,8 @@ import io.bloco.biblioteca.database.AppDatabase
 class App : Application() {
 
     private val db by lazy { AppDatabase.getDatabase(this) }
-    var testing = false
+    //var testing = false
+    var mode = Mode.NORMAL
 
     override fun onCreate() {
         super.onCreate()
@@ -31,5 +32,19 @@ class App : Application() {
                 .detectAll()
                 .build()
         )
+    }
+
+    // Test loading a random test class, to check if we're in test mode
+    private fun checkTestMode() {
+        mode = try {
+            classLoader.loadClass("io.bloco.biblioteca.MainActivityTest")
+            Mode.TEST
+        } catch (e: Exception) {
+            Mode.NORMAL
+        }
+    }
+
+    enum class Mode {
+        NORMAL, TEST
     }
 }

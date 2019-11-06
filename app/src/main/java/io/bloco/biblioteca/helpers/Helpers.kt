@@ -6,19 +6,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object Helpers {
-    private const val myFormat = "dd/MM/yyyy"
-    @SuppressLint("ConstantLocale")
-    private val dateFormat = SimpleDateFormat(myFormat, Locale.getDefault())
 
-    fun stringToDate(dateString: String = "22/10/11"): Date? {
-        return try{
+    private const val myFormat = "dd/MM/yyyy"
+
+    @SuppressLint("ConstantLocale")
+    val dateFormat = SimpleDateFormat(myFormat, Locale.getDefault())
+
+    fun stringToDate(dateString: String = ""): Date? {
+        return try {
             dateFormat.parse(dateString)
-        } catch (e: ParseException){
+        } catch (e: ParseException) {
             null
         }
     }
 
-    fun dateToString(date: Date?): String {
-        return date?.let { dateFormat.format(it) } ?: ""
-    }
+    fun dateToString(date: Date?): String = date?.let { dateFormat.format(it) } ?: ""
+
+    fun dateToStringDatePicker(dateFromPicker: Date): String =
+        SimpleDateFormat(myFormat, Locale.getDefault()).format(dateFromPicker)
 }

@@ -5,22 +5,20 @@ import java.util.*
 
 class Validation {
 
-    fun validateBook(book: Book): List<String> {
-        val errorList = mutableListOf<String>()
+    fun validateBook(book: Book): List<ValidationErrors> {
+        val errorList = mutableListOf<ValidationErrors>()
 
         // Check title
         if (bookTitleIsNotFilled(book.title)) {
-            errorList.add(ValidationErrors.TITLEINVALID.name)
+            errorList.add(ValidationErrors.TITLE_INVALID)
         }
-
         // Check isbn
         if (bookIsbnIsNotValid(book.isbn)) {
-            errorList.add(ValidationErrors.ISBNINVALID.name)
+            errorList.add(ValidationErrors.ISBN_INVALID)
         }
-
         // Check date
         if (bookDateIsNotValid(book.publishDate)) {
-            errorList.add(ValidationErrors.DATEINVALID.name)
+            errorList.add(ValidationErrors.DATE_INVALID)
         }
 
         return errorList
@@ -28,17 +26,13 @@ class Validation {
 
 
     private fun bookTitleIsNotFilled(bookTitle: String): Boolean {
-        if (bookTitle.isEmpty())
-            return true
-        return false
+        return bookTitle.isEmpty()
     }
 
     private fun bookIsbnIsNotValid(bookIsbn: String?): Boolean {
         if (bookIsbn!!.isEmpty())
             return false
-        if (bookIsbn.length != 13)
-            return true
-        return false
+        return bookIsbn.length != ISBN_DIGITS
     }
 
     private fun bookDateIsNotValid(bookDate: Date?): Boolean {
@@ -46,8 +40,10 @@ class Validation {
             return false
 
         val current = Date()
-        if ((bookDate.time) >= current.time)
-            return true
-        return false
+        return bookDate.time >= current.time
+    }
+
+    companion object {
+        private const val ISBN_DIGITS = 13
     }
 }

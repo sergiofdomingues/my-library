@@ -1,5 +1,5 @@
 package io.bloco.biblioteca.helpers
 
 enum class ValidationErrors {
-    TITLEINVALID, ISBNINVALID, DATEINVALID
+    TITLE_INVALID, ISBN_INVALID, DATE_INVALID
 }

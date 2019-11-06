@@ -15,5 +15,6 @@ data class Book(
     val author: String?,
     val publishDate: Date?,
     val isbn: String?,
-    val read: Boolean = false
+    val read: Boolean = false,
+    val uriCover: String? = null
 ) : Parcelable

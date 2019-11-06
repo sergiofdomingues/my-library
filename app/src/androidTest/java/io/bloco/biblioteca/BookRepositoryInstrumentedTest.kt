@@ -4,7 +4,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.bloco.biblioteca.testhelpers.BookFactory
 import io.bloco.biblioteca.testhelpers.TestHelpers
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -15,16 +14,11 @@ class BookRepositoryInstrumentedTest {
     private val bookFactory = BookFactory
     private val repository = (TestHelpers.useContext() as App).getBookRepository()
 
-    @Before
-    fun setUp() {
-        (TestHelpers.useContext() as App).testing = true
-    }
-
     @Test
     fun addBookTest() {
         repository.deleteAllBooksInDb()
         assertEquals(repository.getNumBooks(), 0)
-        repository.addBook(bookFactory.makeBook()) {}
+        repository.addBook(bookFactory.makeBook())
         waitForAddBookCallBack(1)
         assertEquals(repository.getNumBooks(), 1)
     }
