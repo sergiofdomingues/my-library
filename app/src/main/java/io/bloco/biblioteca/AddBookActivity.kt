@@ -129,7 +129,7 @@ class AddBookActivity : AppCompatActivity() {
         // Take a pic
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Glide.with(this).load(currentPhotoPath).into(ivCoverThumbnail)
-            bookPhotoPath = Uri.fromFile(File(currentPhotoPath!!)).toString()
+            bookPhotoPath = Uri.fromFile(File(currentPhotoPath)).toString()
 
         }
         // Load a pic
