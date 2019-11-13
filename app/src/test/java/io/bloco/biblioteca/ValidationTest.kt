@@ -2,6 +2,7 @@ package io.bloco.biblioteca
 
 import io.bloco.biblioteca.helpers.Validation
 import io.bloco.biblioteca.helpers.ValidationErrors
+import io.bloco.biblioteca.model.Book
 import io.bloco.biblioteca.testhelpers.BookFactory.makeIncompleteBook
 import org.junit.Assert.assertEquals
 import org.junit.Before

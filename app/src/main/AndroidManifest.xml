@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.bloco.biblioteca">
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="io.bloco.biblioteca.App"
+        android:name=".app.App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -17,17 +23,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name="io.bloco.biblioteca.app.activities.SearchBookActivity"/>
         <activity
-            android:name="io.bloco.biblioteca.AddBookActivity"
+            android:name="io.bloco.biblioteca.app.activities.AddBookActivity"
             android:label="@string/add_book_activity_label"
-            android:parentActivityName="io.bloco.biblioteca.MainActivity" />
+            android:parentActivityName="io.bloco.biblioteca.app.activities.MainActivity" />
         <activity
-            android:name="io.bloco.biblioteca.BookInfoActivity"
+            android:name="io.bloco.biblioteca.app.activities.BookInfoActivity"
             android:label="@string/book_info_activity_label"
-            android:parentActivityName="io.bloco.biblioteca.MainActivity" />
+            android:parentActivityName="io.bloco.biblioteca.app.activities.MainActivity" />
         <activity
-            android:name="io.bloco.biblioteca.MainActivity"
+            android:name="io.bloco.biblioteca.app.activities.MainActivity"
             android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +51,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

@@ -1,6 +1,6 @@
 package io.bloco.biblioteca.helpers
 
-import io.bloco.biblioteca.Book
+import io.bloco.biblioteca.model.Book
 import java.util.*
 
 class Validation {

@@ -1,6 +1,8 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.database.repository
 
 import androidx.annotation.VisibleForTesting
+import io.bloco.biblioteca.model.Book
+import io.bloco.biblioteca.database.BookDao
 import io.bloco.biblioteca.helpers.Helpers.stringToDate
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

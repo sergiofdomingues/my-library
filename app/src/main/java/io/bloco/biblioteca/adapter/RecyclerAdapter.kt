@@ -1,10 +1,14 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.adapter
 
 import android.app.AlertDialog
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import io.bloco.biblioteca.model.Book
+import io.bloco.biblioteca.R
+import io.bloco.biblioteca.app.activities.BookInfoActivity
+import io.bloco.biblioteca.helpers.inflate
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
 class RecyclerAdapter(private val books: MutableList<Book>, val interfaceRef: ListItemLongClick) :
@@ -81,9 +85,5 @@ class RecyclerAdapter(private val books: MutableList<Book>, val interfaceRef: Li
             dialog = builder.create()
             dialog?.show()
         }
-
-
     }
-
-
 }

@@ -1,4 +1,4 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.helpers
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,9 +6,12 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import io.bloco.biblioteca.R
 
 class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
-    private val divider: Drawable? = ContextCompat.getDrawable(context, R.drawable.line_divider)
+    private val divider: Drawable? = ContextCompat.getDrawable(context,
+        R.drawable.line_divider
+    )
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val left: Int = parent.paddingLeft

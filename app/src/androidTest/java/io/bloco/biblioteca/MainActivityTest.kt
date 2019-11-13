@@ -8,6 +8,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
+import io.bloco.biblioteca.app.activities.AddBookActivity
+import io.bloco.biblioteca.app.App
+import io.bloco.biblioteca.app.activities.MainActivity
+import io.bloco.biblioteca.app.activities.SearchBookActivity
 import io.bloco.biblioteca.testhelpers.BookFactory
 import io.bloco.biblioteca.testhelpers.TestHelpers
 import io.bloco.biblioteca.testhelpers.TestHelpers.assertCurrentActivity
@@ -64,6 +68,8 @@ class MainActivityTest {
         repository.deleteAllBooksInDb()
         launchActivity()
         onView(withId(R.id.fabAddBook)).perform(click())
+        assertCurrentActivity(SearchBookActivity::class.java)
+        onView(withId(R.id.itemAddBook)).perform(click())
         assertCurrentActivity(AddBookActivity::class.java)
         onView(withId(R.id.etTitle)).perform(typeText(TEST_BOOK))
         onView(withId(R.id.etDate)).perform(click())

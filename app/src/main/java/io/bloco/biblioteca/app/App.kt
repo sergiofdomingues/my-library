@@ -1,19 +1,26 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.app
 
 import android.app.Application
+import android.content.Context
 import android.os.StrictMode
+import io.bloco.biblioteca.database.repository.BookRepository
 import io.bloco.biblioteca.database.AppDatabase
+import io.bloco.biblioteca.rest.ApiCaller
 
 @Suppress("unused")
 class App : Application() {
 
     private val db by lazy { AppDatabase.getDatabase(this) }
-    //var testing = false
     var mode = Mode.NORMAL
+    private val api by lazy { ApiCaller() }
 
     override fun onCreate() {
         super.onCreate()
         //strictMode()
+    }
+
+    fun getApiCaller() : ApiCaller {
+        return api
     }
 
     fun getBookRepository(): BookRepository {
@@ -42,6 +49,10 @@ class App : Application() {
         } catch (e: Exception) {
             Mode.NORMAL
         }
+    }
+
+    fun getAppContext() : Context {
+        return this
     }
 
     enum class Mode {

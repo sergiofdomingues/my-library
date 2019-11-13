@@ -1,4 +1,4 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.helpers
 
 import android.view.LayoutInflater
 import android.view.View

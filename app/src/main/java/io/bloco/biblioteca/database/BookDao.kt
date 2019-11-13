@@ -1,9 +1,10 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.bloco.biblioteca.model.Book
 
 @Dao
 interface BookDao {

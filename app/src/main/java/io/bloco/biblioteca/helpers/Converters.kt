@@ -1,4 +1,4 @@
-package io.bloco.biblioteca.database
+package io.bloco.biblioteca.helpers
 
 import androidx.room.TypeConverter
 import java.util.*

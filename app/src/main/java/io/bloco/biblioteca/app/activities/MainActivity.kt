@@ -1,4 +1,4 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.app.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -6,6 +6,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.bloco.biblioteca.*
+import io.bloco.biblioteca.adapter.RecyclerAdapter
+import io.bloco.biblioteca.app.App
+import io.bloco.biblioteca.helpers.DividerItemDecoration
+import io.bloco.biblioteca.model.Book
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -28,7 +33,7 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
         recViewBooksList.adapter = adapter
 
         fabAddBook.setOnClickListener {
-            val intentAddBook = AddBookActivity.getIntent(this)
+            val intentAddBook = SearchBookActivity.getIntent(this)
             startActivityForResult(intentAddBook, ADD_NEW_BOOK)
         }
         getAllBooks()

@@ -1,6 +1,7 @@
 package io.bloco.biblioteca
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import io.bloco.biblioteca.app.App
 import io.bloco.biblioteca.testhelpers.BookFactory
 import io.bloco.biblioteca.testhelpers.TestHelpers
 import org.junit.Assert.assertEquals

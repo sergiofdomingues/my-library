@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import io.bloco.biblioteca.app.activities.BookInfoActivity
 import io.bloco.biblioteca.helpers.Helpers.dateToString
 import io.bloco.biblioteca.testhelpers.BookFactory
 import org.junit.Rule

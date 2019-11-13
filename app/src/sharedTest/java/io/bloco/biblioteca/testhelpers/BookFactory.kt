@@ -1,6 +1,6 @@
 package io.bloco.biblioteca.testhelpers
 
-import io.bloco.biblioteca.Book
+import io.bloco.biblioteca.model.Book
 import io.bloco.biblioteca.helpers.Helpers.stringToDate
 import java.util.*
 

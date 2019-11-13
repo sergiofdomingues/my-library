@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".AddBookActivity">
+    tools:context=".app.activities.AddBookActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,10 +57,10 @@
                 android:hint="@string/hint_book_title"
                 android:importantForAutofill="no"
                 android:inputType="textCapWords" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inLayoutAuthor"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

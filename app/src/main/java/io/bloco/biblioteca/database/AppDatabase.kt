@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import io.bloco.biblioteca.App
-import io.bloco.biblioteca.Book
-import io.bloco.biblioteca.BookDao
+import io.bloco.biblioteca.app.App
+import io.bloco.biblioteca.model.Book
+import io.bloco.biblioteca.helpers.Converters
 
 @Database(entities = [Book::class], version = 1)
 @TypeConverters(Converters::class)

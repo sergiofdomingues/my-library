@@ -1,6 +1,7 @@
 package io.bloco.biblioteca.helpers
 
 import android.annotation.SuppressLint
+import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -8,9 +9,39 @@ import java.util.*
 object Helpers {
 
     private const val myFormat = "dd/MM/yyyy"
+    private const val googleApiFormat = "yyyy-MM-dd"
 
     @SuppressLint("ConstantLocale")
     val dateFormat = SimpleDateFormat(myFormat, Locale.getDefault())
+    @SuppressLint("ConstantLocale")
+    private val gApiFormat = SimpleDateFormat(googleApiFormat, Locale.getDefault())
+
+    fun stringFromGApiToDate(dateString: String = ""): Date? {
+
+        try {
+            return gApiFormat.parse(dateString)
+        } catch (e: ParseException) {
+            if (isValidYear(dateString)) {
+                return try {
+                    gApiFormat.parse("$dateString-01-01")
+                } catch (ex: Exception) {
+                    Timber.d("NumberFormatException trying to parse")
+                    null
+                }
+            }
+            return null
+        }
+    }
+
+    private fun isValidYear(str: String): Boolean {
+        return try {
+            Integer.parseInt(str)
+            return (str.length == 4)
+        } catch (e: NumberFormatException) {
+            Timber.d("NumberFormatException trying to parse String to Int")
+            false
+        }
+    }
 
     fun stringToDate(dateString: String = ""): Date? {
         return try {

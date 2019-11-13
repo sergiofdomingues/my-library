@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
-import io.bloco.biblioteca.BookRepository
+import io.bloco.biblioteca.database.repository.BookRepository
 import org.junit.Assert
 
 object TestHelpers {
