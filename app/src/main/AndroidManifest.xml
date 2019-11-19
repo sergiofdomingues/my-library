@@ -44,7 +44,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="io.bloco.biblioteca.fileprovider"
+            android:authorities="@string/fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

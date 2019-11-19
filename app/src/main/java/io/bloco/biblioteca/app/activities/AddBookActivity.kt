@@ -11,7 +11,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.bumptech.glide.Glide
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.app.App
 import io.bloco.biblioteca.helpers.Helpers
@@ -19,6 +18,7 @@ import io.bloco.biblioteca.helpers.Helpers.dateToStringDatePicker
 import io.bloco.biblioteca.helpers.Validation
 import io.bloco.biblioteca.helpers.ValidationErrors
 import io.bloco.biblioteca.helpers.files.FileManager
+import io.bloco.biblioteca.helpers.imageloader.ImageLoader
 import io.bloco.biblioteca.model.Book
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.activity_add_book.*
@@ -40,6 +40,7 @@ class AddBookActivity : AppCompatActivity() {
     private var chosenBook: FoundBook? = null
     private var bookSuccessfullyAdded = false
     private val fileManager by lazy { FileManager(this) }
+    private val imageLoader by lazy { ImageLoader(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,28 +62,23 @@ class AddBookActivity : AppCompatActivity() {
         return true
     }
 
+    private fun showLayoutErrors() {
+        inLayoutTitle.isErrorEnabled = false
+        inLayoutIsbn.isErrorEnabled = false
+        inLayoutDate.isErrorEnabled = false
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id: Int? = item?.itemId
         if (id == R.id.itemSaveBook) {
 
-            val newBook = Book(
-                title = etTitle.text.toString(),
-                author = etAuthor.text.toString(),
-                publishDate = Helpers.stringFromGApiToDate(etDate.text.toString()),
-                isbn = etIsbn.text.toString(),
-                read = cbRead.isChecked,
-                uriCover = bookPhotoPath
-            )
-
+            val newBook = makeBookFromFields()
             val errorList = Validation().validateBook(newBook)
             if (errorList.isEmpty()) {
                 bookRepository.addBook(newBook) { returnToSearchActivity() }
                 return true
             } else {
-                inLayoutTitle.isErrorEnabled = false
-                inLayoutIsbn.isErrorEnabled = false
-                inLayoutDate.isErrorEnabled = false
-
+                showLayoutErrors()
                 checkErrorList(errorList)
             }
         }
@@ -93,16 +89,19 @@ class AddBookActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         // Take a pic
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Glide.with(this).load(fileManager.currentPhotoPath).into(ivCoverThumbnail)
-            bookPhotoPath = Uri.fromFile(File(fileManager.currentPhotoPath)).toString()
-
+            fileManager.currentPhotoPath?.let {
+                imageLoader.loadImageInto(it, ivCoverThumbnail)
+                bookPhotoPath = Uri.fromFile(File(it)).toString()
+            }
         }
         // Load a pic
         if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
-            data?.let {
-                fileManager.copyPhotoFileToAppStorage(data.data)
-                Glide.with(this).load(fileManager.currentPhotoPath).into(ivCoverThumbnail)
-                bookPhotoPath = Uri.fromFile(File(fileManager.currentPhotoPath)).toString()
+            data?.data?.let {
+                fileManager.copyPhotoFileToAppStorage(it)
+                fileManager.currentPhotoPath?.let { path ->
+                    imageLoader.loadImageInto(path, ivCoverThumbnail)
+                    bookPhotoPath = Uri.fromFile(File(path)).toString()
+                }
             }
         }
     }
@@ -192,20 +191,8 @@ class AddBookActivity : AppCompatActivity() {
         etDate.setText(chosenBook?.publishedDate)
         etIsbn.setText(chosenBook?.isbn)
         chosenBook?.thumbnail?.let {
-            Glide.with(this).load(it).into(ivCoverThumbnail)
+            imageLoader.loadImageInto(it, ivCoverThumbnail)
         }
-
-        if (etTitle.text.toString() == "")
-            etTitle.setText(getString(R.string.no_title))
-
-        if (etAuthor.text.toString() == "")
-            etAuthor.setText(getString(R.string.no_author))
-
-        if (etDate.text.toString() == "")
-            etDate.setText(getString(R.string.no_date))
-
-        if (etIsbn.text.toString() == "")
-            etIsbn.setText(getString(R.string.no_isbn))
     }
 
     private fun initializeDatePicker(): DatePickerDialog {
@@ -220,6 +207,17 @@ class AddBookActivity : AppCompatActivity() {
             year,
             month,
             day
+        )
+    }
+
+    private fun makeBookFromFields(): Book {
+        return Book(
+            title = etTitle.text.toString(),
+            author = etAuthor.text.toString(),
+            publishDate = Helpers.stringFromGApiToDate(etDate.text.toString()),
+            isbn = etIsbn.text.toString(),
+            read = cbRead.isChecked,
+            uriCover = bookPhotoPath
         )
     }
 

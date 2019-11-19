@@ -7,11 +7,10 @@
     android:padding="16dp"
     tools:context=".app.activities.SearchBookActivity">
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/divider"
-        android:src="@color/divider" />
+        android:layout_height="1dp"
+        android:background="@color/divider" />
 
     <ScrollView
         android:layout_width="match_parent"
