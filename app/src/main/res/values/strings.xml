@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Common -->
     <string name="app_name">Library</string>
     <string name="hint_book_title">Title</string>
     <string name="hint_book_isbn">Isbn</string>
@@ -14,6 +15,7 @@
     <string name="save_book_icon">Save</string>
     <string name="book_title">Book title</string>
     <string name="book_author" tools:ignore="Typos">Book author</string>
+    <string name="fileprovider">io.bloco.biblioteca.fileprovider</string>
 
     <!-- Activity label name -->
     <string name="main_activity_label">Books</string>

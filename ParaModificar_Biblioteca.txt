@@ -1,0 +1,34 @@
+TODO:
+
+-Prioritário:
+
+-Os métodos performSearch() da classe ApiCaller() têm um bug: o onResponse é assincrono e eu estou retornar a foundBooksList no metodo performSearch 
+antes de a fazer addNewFoundBook para a foundBooksList dentro do callback. Daqui resulta o bug das primeiras inserções de carateres na search view de 
+pesquisa nao retornarem nada. Rever também esta forma de fazer refresh da lista no recyclerview, nao devo andar a passar esta lista de foundBooksList 
+mas sim usar um callback no metodo performSearchByQuery(callback) e performSearchByIsbn(callback), e este metodo callback ser implementado na activity, 
+este método é que iria depois fazer o notifydatasetchange depois de a api retornar os resultados.
+
+-private val apiService = RetrofitInstance().getClient()?.create(ApiInterface::class.java) o retrofit não deve ser inicializado na classe 
+ApiCaller mas sim na App.
+
+-Retirar codigo das activities que possa estar fora da activity, para classes separadas.
+
+-Essas classes devem receber as dependencias no construtor
+
+-BookHolder deve deixar de ser inner class dos recycleradapters e passar a ser uma classe à parte.
+
+-Fazer testes ao search da API, tentar fazer MockWebServer ou algo do genero que substitua as chamadas reais à api e que em vez disso retorne 
+respostas fake (jsons guardados num package da app por exemplo).
+
+-Reorganizar packages:
+Criar uma separação de packages inicial mais abrangente e em cima dessa criar uma organização de packages por feature, exemplo: o SearchBooksAdapter 
+e a SearchBookActivity estariam dentro do mesmo package.
+
+-Gravar ficheiros deve ser assincrono.
+
+-Talvez fazer testes também à classe FileManager
+
+-Ver e corrigir warnings do type mismatch e corrigi-los como está já corrigido no método deletePhotoFile da classe FileManager.
+ 
+Não prioritário: -----
+-Implementar as minhas próprias custom views (por exemplo a parte dos campos de preenchimento do livro ser uma class custom view)
