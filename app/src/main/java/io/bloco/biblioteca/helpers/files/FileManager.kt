@@ -2,6 +2,8 @@ package io.bloco.biblioteca.helpers.files
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.net.toFile
+import androidx.core.net.toUri
 import androidx.core.util.Preconditions
 import timber.log.Timber
 import java.io.*
@@ -12,13 +14,8 @@ class FileManager(val context: Context) {
     var currentPhotoPath: String? = null
 
     fun deletePhotoFile(bookPhotoPath: String?) {
-
-        try {
-            val unusedFile = File(Uri.parse(bookPhotoPath).path)
-            if (unusedFile.exists())
-                unusedFile.delete()
-        } catch (e: NullPointerException) {
-            Timber.e("Error trying to delete file")
+        bookPhotoPath?.toUri()?.toFile()?.apply {
+            if (exists()) delete()
         }
     }
 

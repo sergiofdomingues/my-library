@@ -3,23 +3,25 @@ package io.bloco.biblioteca.app
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
-import io.bloco.biblioteca.database.repository.BookRepository
 import io.bloco.biblioteca.database.AppDatabase
+import io.bloco.biblioteca.database.repository.BookRepository
 import io.bloco.biblioteca.rest.ApiCaller
+import io.bloco.biblioteca.rest.ApiInterface
+import io.bloco.biblioteca.rest.RetrofitInstance
 
 @Suppress("unused")
 class App : Application() {
 
     private val db by lazy { AppDatabase.getDatabase(this) }
     var mode = Mode.NORMAL
-    private val api by lazy { ApiCaller() }
+    private val api by lazy { ApiCaller(RetrofitInstance().getClient()?.create(ApiInterface::class.java)) }
 
     override fun onCreate() {
         super.onCreate()
         //strictMode()
     }
 
-    fun getApiCaller() : ApiCaller {
+    fun getApiCaller(): ApiCaller {
         return api
     }
 
@@ -51,7 +53,7 @@ class App : Application() {
         }
     }
 
-    fun getAppContext() : Context {
+    fun getAppContext(): Context {
         return this
     }
 

@@ -61,7 +61,7 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksAdapter.ListItemClick
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    refreshFoundBooksList(api.performBookSearch(newText))
+                    performBookSearch(newText)
                     return true
                 }
             })
@@ -89,14 +89,25 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksAdapter.ListItemClick
         }
     }
 
+    private fun performBookSearch(query: String) {
+        if (api.queryIsAnIsbn(query))
+            api.performSearchByIsbn(query, foundBooksList) { refreshFoundBooksList() }
+        else
+            api.performSearchByQuery(query, foundBooksList) { refreshFoundBooksList() }
+    }
+
+    private fun refreshFoundBooksList() {
+        adapter.notifyDataSetChanged()
+    }
+
     private fun internetEnabled(): Boolean {
         val cManager =
             (applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
 
         if (Build.VERSION.SDK_INT < 23) run {
             val ni: NetworkInfo = cManager.activeNetworkInfo
-                return (ni.isConnected && ni.type == ConnectivityManager.TYPE_WIFI
-                        || ni.type == ConnectivityManager.TYPE_MOBILE)
+            return (ni.isConnected && ni.type == ConnectivityManager.TYPE_WIFI
+                    || ni.type == ConnectivityManager.TYPE_MOBILE)
         } else {
             val activeNetwork = cManager.activeNetwork
             if (activeNetwork != null) {
@@ -138,12 +149,6 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksAdapter.ListItemClick
             getResultIntent()
         )
         finish()
-    }
-
-    private fun refreshFoundBooksList(tmpList: List<FoundBook>) {
-        foundBooksList.clear()
-        foundBooksList.addAll(tmpList)
-        adapter.notifyDataSetChanged()
     }
 
     companion object {

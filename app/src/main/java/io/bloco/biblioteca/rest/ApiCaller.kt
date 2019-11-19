@@ -7,22 +7,72 @@ import retrofit2.Response
 import timber.log.Timber
 import java.text.ParseException
 
-class ApiCaller {
+class ApiCaller(private val apiService: ApiInterface?) {
 
-    private val apiService = RetrofitInstance().getClient()?.create(ApiInterface::class.java)
-    private val foundBooksList = mutableListOf<FoundBook>()
+    fun performSearchByQuery(
+        query: String,
+        currentBooksList: MutableList<FoundBook>,
+        onComplete: (() -> Unit)
+    ) {
+        val call: Call<BookResponse>? =
+            apiService?.getBookByQuery(query, API_KEY)
+        call?.enqueue(object : Callback<BookResponse> {
 
-    fun performBookSearch(query: String): MutableList<FoundBook> {
-        query.let {
-            if (queryIsAnIsbn(query))
-                performSearchByIsbn(query)
-            else
-                performSearchByQuery(query)
-        }
-        return foundBooksList
+            override fun onResponse(
+                call: Call<BookResponse>?,
+                response: Response<BookResponse>?
+            ) {
+
+                val booksList: List<Item>? = response?.body()?.items
+                booksList?.let {
+                    if (booksList.isEmpty()) {
+                        Timber.e("Books list empty")
+                    } else {
+                        currentBooksList.clear()
+                        for (element in booksList) {
+                            val bookInfo = element.volumeInfo
+                            bookInfo?.let {
+                                val title = bookInfo.title
+                                val authors = bookInfo.authors
+                                var authorsStr = ""
+                                authors?.let {
+                                    authorsStr = authors.take(FIRST_3_AUTHORS).joinToString { it }
+                                }
+                                val pubDate = bookInfo.publishedDate
+                                val isbnList = bookInfo.industryIdentifiers
+                                var isbn: String? = null
+                                isbnList?.let { isbn = getIsbn(isbnList) }
+                                val googleId = element.id
+                                val thumbnail = bookInfo.imageLinks?.smallThumbnail
+                                if (title != null && googleId != null) {
+                                    addNewFoundBook(
+                                        title,
+                                        authorsStr,
+                                        pubDate,
+                                        isbn,
+                                        googleId,
+                                        thumbnail,
+                                        currentBooksList
+                                    )
+                                    onComplete.invoke()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<BookResponse>?, t: Throwable?) {
+                Timber.d("MYCALLBACK FAIL: ${t.toString()}")
+            }
+        })
     }
 
-    private fun performSearchByIsbn(query: String) {
+    fun performSearchByIsbn(
+        query: String,
+        currentBooksList: MutableList<FoundBook>,
+        onComplete: (() -> Unit)
+    ) {
         val call: Call<BookResponse>? =
             apiService?.getBookByIsbn(query, API_KEY)
         call?.enqueue(object : Callback<BookResponse> {
@@ -38,7 +88,7 @@ class ApiCaller {
                     if (booksList.isEmpty()) {
                         Timber.e("Books list empty")
                     } else {
-                        foundBooksList.clear()
+                        currentBooksList.clear()
                         for (element in booksList) {
                             val bookInfo = element.volumeInfo
                             bookInfo?.let {
@@ -54,67 +104,18 @@ class ApiCaller {
                                 isbnList?.let { isbn = getIsbn(isbnList) }
                                 val googleId = element.id
                                 val thumbnail = bookInfo.imageLinks?.smallThumbnail
-                                if (title != null && googleId != null)
+                                if (title != null && googleId != null) {
                                     addNewFoundBook(
                                         title,
                                         authorsStr,
                                         pubDate,
                                         isbn,
                                         googleId,
-                                        thumbnail
+                                        thumbnail,
+                                        currentBooksList
                                     )
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>?, t: Throwable?) {
-                Timber.d("MYCALLBACK FAIL: ${t.toString()}")
-            }
-        })
-    }
-
-    private fun performSearchByQuery(query: String) {
-        val call: Call<BookResponse>? =
-            apiService?.getBookByQuery(query, API_KEY)
-        call?.enqueue(object : Callback<BookResponse> {
-
-            override fun onResponse(
-                call: Call<BookResponse>?,
-                response: Response<BookResponse>?
-            ) {
-
-                val booksList: List<Item>? = response?.body()?.items
-                booksList?.let {
-                    if (booksList.isEmpty()) {
-                        Timber.e("Books list empty")
-                    } else {
-                        foundBooksList.clear()
-                        for (element in booksList) {
-                            val bookInfo = element.volumeInfo
-                            bookInfo?.let {
-                                val title = bookInfo.title
-                                val authors = bookInfo.authors
-                                var authorsStr = ""
-                                authors?.let {
-                                    authorsStr = authors.take(FIRST_3_AUTHORS).joinToString { it }
+                                    onComplete.invoke()
                                 }
-                                val pubDate = bookInfo.publishedDate
-                                val isbnList = bookInfo.industryIdentifiers
-                                var isbn: String? = null
-                                isbnList?.let { isbn = getIsbn(isbnList) }
-                                val googleId = element.id
-                                val thumbnail = bookInfo.imageLinks?.smallThumbnail
-                                if (title != null && googleId != null)
-                                    addNewFoundBook(
-                                        title,
-                                        authorsStr,
-                                        pubDate,
-                                        isbn,
-                                        googleId,
-                                        thumbnail
-                                    )
                             }
                         }
                     }
@@ -128,10 +129,15 @@ class ApiCaller {
     }
 
     private fun addNewFoundBook(
-        title: String, author: String?, pubDate: String?,
-        isbn: String?, googleId: String, thumbnail: String?
+        title: String,
+        author: String?,
+        pubDate: String?,
+        isbn: String?,
+        googleId: String,
+        thumbnail: String?,
+        currentBooksList: MutableList<FoundBook>
     ) {
-        foundBooksList.add(FoundBook(title, author, pubDate, isbn, googleId, thumbnail))
+        currentBooksList.add(FoundBook(title, author, pubDate, isbn, googleId, thumbnail))
     }
 
     private fun getIsbn(isbnList: List<IndustryIdentifier>): String? {
@@ -156,7 +162,7 @@ class ApiCaller {
         return null
     }
 
-    private fun queryIsAnIsbn(query: String?): Boolean {
+    fun queryIsAnIsbn(query: String?): Boolean {
         return try {
             query?.toLong()
             true
