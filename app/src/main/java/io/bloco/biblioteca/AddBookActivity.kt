@@ -46,7 +46,7 @@ class AddBookActivity : AppCompatActivity() {
             val intentOpenGallery =
                 Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             // Start the intent with a request code
-            startActivityForResult(intentOpenGallery, SELECT_A_PHOTO)
+            startActivityForResult(intentOpenGallery, REQUEST_SELECT_PHOTO)
         }
     }
 
@@ -133,7 +133,7 @@ class AddBookActivity : AppCompatActivity() {
 
         }
         // Load a pic
-        if (requestCode == SELECT_A_PHOTO && resultCode == RESULT_OK) {
+        else if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
             data?.let {
                 val selectedPhoto = data.data
                 Glide.with(this).load(selectedPhoto).into(ivCoverThumbnail)
@@ -201,6 +201,6 @@ class AddBookActivity : AppCompatActivity() {
 
         // Photo loader
         private const val REQUEST_TAKE_PHOTO = 1
-        private const val SELECT_A_PHOTO = 2
+        private const val REQUEST_SELECT_PHOTO = 2
     }
 }

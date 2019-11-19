@@ -21,7 +21,9 @@ class BookInfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_book_info)
 
         selectedBook = intent.getParcelableExtra(BOOK_KEY)
-        initDetailFields()
+        selectedBook?.let {
+            initDetailFields(it)
+        }
         requestExernalStorageReadPermissions()
     }
 
@@ -41,22 +43,11 @@ class BookInfoActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    private fun initDetailFields() {
-        tvBookTitle.text = selectedBook?.title
-        if (tvBookTitle.text == "")
-            tvBookTitle.text = getString(R.string.no_title)
-
-        tvBookAuthor.text = selectedBook?.author
-        if (tvBookAuthor.text == "")
-            tvBookAuthor.text = getString(R.string.no_author)
-
-        tvBookIsbn.text = selectedBook?.isbn
-        if (tvBookIsbn.text == "")
-            tvBookIsbn.text = getString(R.string.no_isbn)
-
-        tvBookDate.text = dateToString(selectedBook?.publishDate)
-        if (tvBookDate.text == "")
-            tvBookDate.text = getString(R.string.no_date)
+    private fun initDetailFields(selectedBook: Book) {
+        tvBookTitle.text = selectedBook.title
+        tvBookAuthor.text = selectedBook.author ?: ""
+        tvBookIsbn.text = selectedBook.isbn ?: ""
+        tvBookDate.text = dateToString(selectedBook.publishDate)
     }
 
     private fun requestExernalStorageReadPermissions() {
