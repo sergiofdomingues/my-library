@@ -98,7 +98,7 @@ class AddBookActivity : AppCompatActivity() {
 
         }
         // Load a pic
-        if (requestCode == SELECT_A_PHOTO && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
             data?.let {
                 fileManager.copyPhotoFileToAppStorage(data.data)
                 Glide.with(this).load(fileManager.currentPhotoPath).into(ivCoverThumbnail)
@@ -156,7 +156,7 @@ class AddBookActivity : AppCompatActivity() {
         // Start the intent with a request code
         startActivityForResult(
             intentOpenGallery,
-            SELECT_A_PHOTO
+            REQUEST_SELECT_PHOTO
         )
     }
 
@@ -174,7 +174,7 @@ class AddBookActivity : AppCompatActivity() {
                 // Continue only if the File was successfully created
                 photoFile?.also {
                     val photoURI: Uri = FileProvider.getUriForFile(
-                        this, FILE_PROVIDER, it
+                        this, getString(R.string.fileprovider), it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(
@@ -250,7 +250,6 @@ class AddBookActivity : AppCompatActivity() {
 
         // Photo loader
         private const val REQUEST_TAKE_PHOTO = 1
-        private const val SELECT_A_PHOTO = 2
-        private const val FILE_PROVIDER = "io.bloco.biblioteca.fileprovider"
+        private const val REQUEST_SELECT_PHOTO = 2
     }
 }

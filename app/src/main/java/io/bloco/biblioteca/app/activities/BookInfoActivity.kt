@@ -19,28 +19,18 @@ class BookInfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_book_info)
 
         selectedBook = intent.getParcelableExtra(BOOK_KEY)
-        initDetailFields()
-        loadImageFromDevice()
+        selectedBook?.let {
+            initDetailFields(it)
+        }
     }
 
-    private fun initDetailFields() {
-        tvBookTitle.text = selectedBook?.title
-        if (tvBookTitle.text == "")
-            tvBookTitle.text = getString(R.string.no_title)
+    private fun initDetailFields(selectedBook: Book) {
+        tvBookTitle.text = selectedBook.title
+        tvBookAuthor.text = selectedBook.author ?: ""
+        tvBookIsbn.text = selectedBook.isbn ?: ""
+        tvBookDate.text = dateToString(selectedBook.publishDate)
 
-        tvBookAuthor.text = selectedBook?.author
-        if (tvBookAuthor.text == "")
-            tvBookAuthor.text = getString(R.string.no_author)
-
-        tvBookIsbn.text = selectedBook?.isbn
-        if (tvBookIsbn.text == "")
-            tvBookIsbn.text = getString(R.string.no_isbn)
-
-        tvBookDate.text = dateToString(selectedBook?.publishDate)
-        if (tvBookDate.text == "")
-            tvBookDate.text = getString(R.string.no_date)
-
-        Glide.with(this).load(selectedBook?.uriCover).into(ivBookCover)
+        loadImageFromDevice()
     }
 
     private fun loadImageFromDevice() {
