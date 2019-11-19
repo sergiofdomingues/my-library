@@ -14,18 +14,20 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
     private val booksList = mutableListOf<Book>()
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
     private val adapter by lazy { RecyclerAdapter(booksList, this) }
+    private val bookRepository by lazy { (application as App).getBookRepository() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        BookRepository.initBooks()
-        lisfOfBooks.layoutManager = linearLayoutManager
-        lisfOfBooks.addItemDecoration(DividerItemDecoration(this))
-        lisfOfBooks.itemAnimator = DefaultItemAnimator()
-        lisfOfBooks.adapter = adapter
+        bookRepository.initBooksInDb() // Fake some books
+        recViewBooksList.layoutManager = linearLayoutManager
+        recViewBooksList.addItemDecoration(DividerItemDecoration(this))
+        recViewBooksList.itemAnimator = DefaultItemAnimator()
+        recViewBooksList.adapter = adapter
 
-        addBookBtn.setOnClickListener {
+        fabAddBook.setOnClickListener {
             val intentAddBook = AddBookActivity.getIntent(this)
             startActivityForResult(intentAddBook, ADD_NEW_BOOK)
         }
@@ -42,13 +44,16 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
     }
 
     override fun itemDelete(book: Book) {
-        BookRepository.deleteBook(book)
-        getAllBooks()
+        bookRepository.deleteBook(book) { getAllBooks() }
     }
 
     private fun getAllBooks() {
+        bookRepository.getBooks { refreshList(it) }
+    }
+
+    private fun refreshList(books: List<Book>) {
         booksList.clear()
-        booksList.addAll(BookRepository.books)
+        booksList.addAll(books)
         adapter.notifyDataSetChanged()
     }
 

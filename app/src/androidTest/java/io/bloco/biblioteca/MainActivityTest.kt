@@ -8,8 +8,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
-import io.bloco.biblioteca.testhelpers.AssertCurrentActivity.assertCurrentActivity
 import io.bloco.biblioteca.testhelpers.BookFactory
+import io.bloco.biblioteca.testhelpers.TestHelpers
+import io.bloco.biblioteca.testhelpers.TestHelpers.assertCurrentActivity
+import io.bloco.biblioteca.testhelpers.TestHelpers.waitForAddBookCallBack
 import org.hamcrest.Matchers.equalToIgnoringCase
 import org.junit.Rule
 import org.junit.Test
@@ -21,31 +23,33 @@ class MainActivityTest {
 
     @get:Rule
     var activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
-    private val repository = BookRepository
+    private val repository = (TestHelpers.useContext() as App).getBookRepository()
 
     @Test
     fun checkListVisibility() {
         launchActivity()
-        onView(withId(R.id.lisfOfBooks)).check(matches(isDisplayed()))
+        onView(withId(R.id.recViewBooksList)).check(matches(isDisplayed()))
     }
 
     @Test
     @FlakyTest
     fun checkBookVisibility() {
-        repository.deleteBookByTitle(TEST_BOOK)
-        val book = BookFactory.makeBook(TEST_BOOK)
+        repository.deleteAllBooksInDb()
+        val book = BookFactory.makeCompleteBook(TEST_BOOK)
         repository.addBook(book)
+        waitForAddBookCallBack(1, repository)
         launchActivity()
         onView(withText(TEST_BOOK)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkBookDeletionFromList() {
-        clearRepositoryBooks()
-        val book1 = BookFactory.makeBook(TEST_BOOK)
-        val book2 = BookFactory.makeBook()
+        repository.deleteAllBooksInDb()
+        val book1 = BookFactory.makeCompleteBook(TEST_BOOK)
+        val book2 = BookFactory.makeCompleteBook()
         repository.addBook(book1)
         repository.addBook(book2)
+        waitForAddBookCallBack(2, repository)
         launchActivity()
         onView(withText(book1.title)).check(matches(isDisplayed()))
         onView(withText(book2.title)).check(matches(isDisplayed()))
@@ -57,12 +61,14 @@ class MainActivityTest {
 
     @Test
     fun addBook() {
-        clearRepositoryBooks()
+        repository.deleteAllBooksInDb()
         launchActivity()
-        onView(withId(R.id.addBookBtn)).perform(click())
+        onView(withId(R.id.fabAddBook)).perform(click())
         assertCurrentActivity(AddBookActivity::class.java)
         onView(withId(R.id.etTitle)).perform(typeText(TEST_BOOK))
-        onView(withId(R.id.saveBook)).perform(click())
+        onView(withId(R.id.etDate)).perform(click())
+        onView(withId(android.R.id.button1)).perform(click())
+        onView(withId(R.id.itemSaveBook)).perform(click())
         assertCurrentActivity(MainActivity::class.java)
         onView(withText(equalToIgnoringCase(TEST_BOOK))).check(matches(isDisplayed()))
     }
@@ -73,11 +79,8 @@ class MainActivityTest {
         activityTestRule.launchActivity(null)
     }
 
-    private fun clearRepositoryBooks() {
-        repository.clearRepository()
-    }
-
     companion object {
         private const val TEST_BOOK = "testbook"
     }
+
 }

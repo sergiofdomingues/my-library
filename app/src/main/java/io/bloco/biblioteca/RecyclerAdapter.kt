@@ -5,8 +5,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_book_info.view.bookAuthor
-import kotlinx.android.synthetic.main.activity_book_info.view.bookTitle
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
 class RecyclerAdapter(private val books: MutableList<Book>, val interfaceRef: ListItemLongClick) :
@@ -58,11 +56,11 @@ class RecyclerAdapter(private val books: MutableList<Book>, val interfaceRef: Li
 
         fun bindBook(book: Book) {
             this.book = book
-            view.bookTitle.text = book.title
-            view.bookAuthor.text = book.author
+            view.tvBookTitle.text = book.title
+            view.tvBookAuthor.text = book.author
             when (book.read) {
-                true -> view.bookRead.text = view.context.resources.getString(R.string.read)
-                false -> view.bookRead.text = view.context.resources.getString(R.string.not_read)
+                true -> view.tvBookRead.text = view.context.resources.getString(R.string.read)
+                false -> view.tvBookRead.text = view.context.resources.getString(R.string.not_read)
             }
         }
 

@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/ivBookCover"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginBottom="16dp"
@@ -21,7 +22,7 @@
             android:contentDescription="@string/desciprion_cover"/>
 
         <TextView
-            android:id="@+id/bookTitle"
+            android:id="@+id/tvBookTitle"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/bookAuthor"
+            android:id="@+id/tvBookAuthor"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,7 +75,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/bookIsbn"
+                    android:id="@+id/tvBookIsbn"
                     style="@style/TextAppearance.AppCompat.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,7 +97,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/bookDate"
+                    android:id="@+id/tvBookDate"
                     style="@style/TextAppearance.AppCompat.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

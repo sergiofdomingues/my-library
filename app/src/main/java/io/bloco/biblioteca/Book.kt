@@ -1,13 +1,20 @@
 package io.bloco.biblioteca
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
+@Entity
 data class Book(
-    val title: String,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @NonNull val title: String,
     val author: String?,
-    val publishDate: String?,
+    val publishDate: Date?,
     val isbn: String?,
-    val read: Boolean = false
+    val read: Boolean = false,
+    val uriCover: String? = null
 ) : Parcelable
