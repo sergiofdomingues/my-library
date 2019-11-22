@@ -12,10 +12,6 @@ class Validation {
         if (bookTitleIsNotFilled(book.title)) {
             errorList.add(ValidationErrors.TITLE_INVALID)
         }
-        // Check isbn
-        if (bookIsbnIsNotValid(book.isbn)) {
-            errorList.add(ValidationErrors.ISBN_INVALID)
-        }
         // Check date
         if (bookDateIsNotValid(book.publishDate)) {
             errorList.add(ValidationErrors.DATE_INVALID)
@@ -29,11 +25,6 @@ class Validation {
         return bookTitle.isEmpty()
     }
 
-    private fun bookIsbnIsNotValid(bookIsbn: String?): Boolean {
-        if (bookIsbn!!.isEmpty())
-            return false
-        return bookIsbn.length != ISBN_DIGITS
-    }
 
     private fun bookDateIsNotValid(bookDate: Date?): Boolean {
         if (bookDate == null)
@@ -41,9 +32,5 @@ class Validation {
 
         val current = Date()
         return bookDate.time >= current.time
-    }
-
-    companion object {
-        private const val ISBN_DIGITS = 13
     }
 }

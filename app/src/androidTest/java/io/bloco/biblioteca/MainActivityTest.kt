@@ -8,14 +8,13 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
-import io.bloco.biblioteca.app.activities.AddBookActivity
-import io.bloco.biblioteca.app.App
-import io.bloco.biblioteca.app.activities.MainActivity
-import io.bloco.biblioteca.app.activities.SearchBookActivity
+import io.bloco.biblioteca.activities.AddBookActivity
+import io.bloco.biblioteca.activities.MainActivity
+import io.bloco.biblioteca.activities.SearchBookActivity
+import io.bloco.biblioteca.testhelpers.ActivityAsserter.assertCurrentActivity
 import io.bloco.biblioteca.testhelpers.BookFactory
-import io.bloco.biblioteca.testhelpers.TestHelpers
-import io.bloco.biblioteca.testhelpers.TestHelpers.assertCurrentActivity
-import io.bloco.biblioteca.testhelpers.TestHelpers.waitForAddBookCallBack
+import io.bloco.biblioteca.testhelpers.InstrumentationContext
+import io.bloco.biblioteca.testhelpers.Waiter.waitForAddBookCallBack
 import org.hamcrest.Matchers.equalToIgnoringCase
 import org.junit.Rule
 import org.junit.Test
@@ -26,8 +25,10 @@ import org.junit.runner.RunWith
 class MainActivityTest {
 
     @get:Rule
-    var activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
-    private val repository = (TestHelpers.useContext() as App).getBookRepository()
+    var activityTestRule = ActivityTestRule<MainActivity>(
+        MainActivity::class.java, true, false
+    )
+    private val repository = (InstrumentationContext.useContext() as App).getBookRepository()
 
     @Test
     fun checkListVisibility() {

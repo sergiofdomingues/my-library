@@ -6,7 +6,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-object Helpers {
+object DateHelpers {
 
     private const val myFormat = "dd/MM/yyyy"
     private const val googleApiFormat = "yyyy-MM-dd"
@@ -16,7 +16,7 @@ object Helpers {
     @SuppressLint("ConstantLocale")
     private val gApiFormat = SimpleDateFormat(googleApiFormat, Locale.getDefault())
 
-    fun stringFromGApiToDate(dateString: String = ""): Date? {
+    private fun stringFromGApiToDate(dateString: String = ""): Date? {
 
         try {
             return gApiFormat.parse(dateString)
@@ -30,6 +30,24 @@ object Helpers {
                 }
             }
             return null
+        }
+    }
+
+    fun parseStringToDate(dateString: String = "") : Date?{
+
+        return if(isInMyFormat(dateString)) {
+            stringToDate(dateString)
+        } else {
+            stringFromGApiToDate(dateString)
+        }
+    }
+
+    private fun isInMyFormat(dateString: String) : Boolean {
+        return try {
+            dateFormat.parse(dateString)
+            true
+        } catch (e: ParseException) {
+            false
         }
     }
 

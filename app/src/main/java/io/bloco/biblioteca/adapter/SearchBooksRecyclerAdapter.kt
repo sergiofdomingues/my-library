@@ -1,18 +1,19 @@
 package io.bloco.biblioteca.adapter
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import io.bloco.biblioteca.R
-import io.bloco.biblioteca.helpers.inflate
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
-class SearchBooksAdapter(
+class SearchBooksRecyclerAdapter(
     private val books: MutableList<FoundBook>,
     val interfaceRef: ListItemClick
 ) :
-    RecyclerView.Adapter<SearchBooksAdapter.BookHolder>() {
+    RecyclerView.Adapter<SearchBooksRecyclerAdapter.BookHolder>() {
 
     interface ListItemClick {
         fun itemClick(book: FoundBook)
@@ -58,5 +59,9 @@ class SearchBooksAdapter(
         private fun openSelectedBook(book: FoundBook) {
             interfaceRef.itemClick(book)
         }
+    }
+
+    private fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
+        return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
     }
 }

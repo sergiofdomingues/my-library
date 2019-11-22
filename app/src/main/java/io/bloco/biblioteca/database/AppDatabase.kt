@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import io.bloco.biblioteca.app.App
-import io.bloco.biblioteca.model.Book
+import io.bloco.biblioteca.App
 import io.bloco.biblioteca.helpers.Converters
+import io.bloco.biblioteca.model.Book
 
 @Database(entities = [Book::class], version = 1)
 @TypeConverters(Converters::class)
@@ -36,9 +36,5 @@ abstract class AppDatabase : RoomDatabase() {
             context,
             AppDatabase::class.java, "testdatabase.db"
         ).build()
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
     }
 }

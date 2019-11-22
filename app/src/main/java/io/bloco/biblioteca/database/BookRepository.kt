@@ -1,9 +1,8 @@
-package io.bloco.biblioteca.database.repository
+package io.bloco.biblioteca.database
 
 import androidx.annotation.VisibleForTesting
+import io.bloco.biblioteca.helpers.DateHelpers.stringToDate
 import io.bloco.biblioteca.model.Book
-import io.bloco.biblioteca.database.BookDao
-import io.bloco.biblioteca.helpers.Helpers.stringToDate
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import timber.log.Timber
@@ -29,7 +28,7 @@ class BookRepository(private val bookDao: BookDao) {
         }
     }
 
-    fun addBook(newBook: Book, onCompete: (() -> Unit)? = null) {
+    fun addBook(newBook: Book, onComplete: (() -> Unit)? = null) {
         doAsync {
             //memoryDataBase.add(newBook)
             try {
@@ -38,7 +37,7 @@ class BookRepository(private val bookDao: BookDao) {
                 Timber.d("ExceptionAddingBook%s", e.toString())
             }
             uiThread {
-                onCompete?.invoke()
+                onComplete?.invoke()
             }
         }
 

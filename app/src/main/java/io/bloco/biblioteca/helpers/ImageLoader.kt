@@ -1,4 +1,4 @@
-package io.bloco.biblioteca.helpers.imageloader
+package io.bloco.biblioteca.helpers
 
 import android.app.Activity
 import android.widget.ImageView

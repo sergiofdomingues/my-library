@@ -1,4 +1,4 @@
-package io.bloco.biblioteca.rest
+package io.bloco.biblioteca.api
 
 import retrofit2.Call
 import retrofit2.http.GET

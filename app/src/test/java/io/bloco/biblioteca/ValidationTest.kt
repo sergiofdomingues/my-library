@@ -28,30 +28,12 @@ class ValidationTest {
         val validator = Validation()
 
         setValidDate()
-        book = makeIncompleteBook(INVALID_TITLE, AUTHOR, calendar.time, VALID_ISBN, READ)
+        book = makeIncompleteBook(INVALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
         errorList = validator.validateBook(book)
         assertEquals(errorList.size, 1)
         assertEquals(errorList[0], ValidationErrors.TITLE_INVALID)
 
-        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, VALID_ISBN, READ)
-        errorList = validator.validateBook(book)
-        assertEquals(errorList.size, 0)
-    }
-
-    @Test
-    fun validateBookIsbn() {
-
-        var errorList: List<ValidationErrors>?
-        var book: Book?
-        val validator = Validation()
-
-        setValidDate()
-        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, INVALID_ISBN, READ)
-        errorList = validator.validateBook(book)
-        assertEquals(errorList.size, 1)
-        assertEquals(errorList[0], ValidationErrors.ISBN_INVALID)
-
-        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, VALID_ISBN, READ)
+        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
         errorList = validator.validateBook(book)
         assertEquals(errorList.size, 0)
     }
@@ -65,14 +47,14 @@ class ValidationTest {
 
         // Invalid book
         setInvalidDate()
-        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, VALID_ISBN, READ)
+        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
         errorList = validator.validateBook(book)
         assertEquals(errorList.size, 1)
         assertEquals(errorList[0], ValidationErrors.DATE_INVALID)
 
         // Valid book
         setValidDate()
-        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, VALID_ISBN, READ)
+        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
         errorList = validator.validateBook(book)
         assertEquals(errorList.size, 0)
     }
@@ -85,7 +67,7 @@ class ValidationTest {
         val validator = Validation()
 
         setInvalidDate()
-        book = makeIncompleteBook(INVALID_TITLE, AUTHOR, calendar.time, VALID_ISBN, READ)
+        book = makeIncompleteBook(INVALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
         errorList = validator.validateBook(book)
         assertEquals(errorList.size, 2)
         assert(
@@ -100,39 +82,31 @@ class ValidationTest {
         setValidDate()
         book = makeIncompleteBook(
             INVALID_TITLE, AUTHOR, calendar.time,
-            INVALID_ISBN, READ
+            ISBN, READ
         )
+        errorList = validator.validateBook(book)
+        assertEquals(errorList.size, 1)
+        assert(errorList.contains(ValidationErrors.TITLE_INVALID))
+
+        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
+        errorList = validator.validateBook(book)
+        assert(errorList.isEmpty())
+
+        setInvalidDate()
+        book = makeIncompleteBook(INVALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
         errorList = validator.validateBook(book)
         assertEquals(errorList.size, 2)
         assert(
             errorList.containsAll(
                 listOf(
-                    ValidationErrors.TITLE_INVALID,
-                    ValidationErrors.ISBN_INVALID
-                )
-            )
-        )
-
-        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, INVALID_ISBN, READ)
-        errorList = validator.validateBook(book)
-        assertEquals(errorList.size, 1)
-        assert(errorList.contains(ValidationErrors.ISBN_INVALID))
-
-        setInvalidDate()
-        book = makeIncompleteBook(INVALID_TITLE, AUTHOR, calendar.time, INVALID_ISBN, READ)
-        errorList = validator.validateBook(book)
-        assertEquals(errorList.size, 3)
-        assert(
-            errorList.containsAll(
-                listOf(
                     ValidationErrors.DATE_INVALID,
-                    ValidationErrors.ISBN_INVALID, ValidationErrors.TITLE_INVALID
+                    ValidationErrors.TITLE_INVALID
                 )
             )
         )
 
         setValidDate()
-        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, VALID_ISBN, READ)
+        book = makeIncompleteBook(VALID_TITLE, AUTHOR, calendar.time, ISBN, READ)
         errorList = validator.validateBook(book)
         assert(errorList.isEmpty())
     }
@@ -141,8 +115,7 @@ class ValidationTest {
         private const val VALID_TITLE = "Harry Potter"
         private const val INVALID_TITLE = ""
         private const val AUTHOR = "J. K. Rowling"
-        private const val VALID_ISBN = "1234567890123"
-        private const val INVALID_ISBN = "123456789012"
+        private const val ISBN = "1234567890123"
         private const val READ = false
     }
 

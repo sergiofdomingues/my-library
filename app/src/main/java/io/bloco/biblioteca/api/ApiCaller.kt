@@ -1,4 +1,4 @@
-package io.bloco.biblioteca.rest
+package io.bloco.biblioteca.api
 
 import io.bloco.biblioteca.model.FoundBook
 import retrofit2.Call
@@ -11,8 +11,7 @@ class ApiCaller(private val apiService: ApiInterface?) {
 
     fun performSearchByQuery(
         query: String,
-        currentBooksList: MutableList<FoundBook>,
-        onComplete: (() -> Unit)
+        onComplete: ((List<FoundBook>) -> Unit)? = null
     ) {
         val call: Call<BookResponse>? =
             apiService?.getBookByQuery(query, API_KEY)
@@ -23,12 +22,13 @@ class ApiCaller(private val apiService: ApiInterface?) {
                 response: Response<BookResponse>?
             ) {
 
-                val booksList: List<Item>? = response?.body()?.items
+                val booksList: List<BookResponse.Item>? = response?.body()?.items
+                val newFoundBooksList = mutableListOf<FoundBook>()
+
                 booksList?.let {
                     if (booksList.isEmpty()) {
                         Timber.e("Books list empty")
                     } else {
-                        currentBooksList.clear()
                         for (element in booksList) {
                             val bookInfo = element.volumeInfo
                             bookInfo?.let {
@@ -52,9 +52,9 @@ class ApiCaller(private val apiService: ApiInterface?) {
                                         isbn,
                                         googleId,
                                         thumbnail,
-                                        currentBooksList
+                                        newFoundBooksList
                                     )
-                                    onComplete.invoke()
+                                    onComplete?.invoke(newFoundBooksList)
                                 }
                             }
                         }
@@ -70,8 +70,7 @@ class ApiCaller(private val apiService: ApiInterface?) {
 
     fun performSearchByIsbn(
         query: String,
-        currentBooksList: MutableList<FoundBook>,
-        onComplete: (() -> Unit)
+        onComplete: ((List<FoundBook>) -> Unit)
     ) {
         val call: Call<BookResponse>? =
             apiService?.getBookByIsbn(query, API_KEY)
@@ -82,13 +81,13 @@ class ApiCaller(private val apiService: ApiInterface?) {
                 response: Response<BookResponse>?
             ) {
 
-                val booksList: List<Item>? = response?.body()?.items
+                val booksList: List<BookResponse.Item>? = response?.body()?.items
+                val newFoundBooksList = mutableListOf<FoundBook>()
 
                 booksList?.let {
                     if (booksList.isEmpty()) {
                         Timber.e("Books list empty")
                     } else {
-                        currentBooksList.clear()
                         for (element in booksList) {
                             val bookInfo = element.volumeInfo
                             bookInfo?.let {
@@ -112,9 +111,9 @@ class ApiCaller(private val apiService: ApiInterface?) {
                                         isbn,
                                         googleId,
                                         thumbnail,
-                                        currentBooksList
+                                        newFoundBooksList
                                     )
-                                    onComplete.invoke()
+                                    onComplete.invoke(newFoundBooksList)
                                 }
                             }
                         }
@@ -140,7 +139,7 @@ class ApiCaller(private val apiService: ApiInterface?) {
         currentBooksList.add(FoundBook(title, author, pubDate, isbn, googleId, thumbnail))
     }
 
-    private fun getIsbn(isbnList: List<IndustryIdentifier>): String? {
+    private fun getIsbn(isbnList: List<BookResponse.IndustryIdentifier>): String? {
 
         when {
             isbnList.any { IndustryIdentifier ->

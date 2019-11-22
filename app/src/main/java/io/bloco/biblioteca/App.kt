@@ -1,13 +1,13 @@
-package io.bloco.biblioteca.app
+package io.bloco.biblioteca
 
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
 import io.bloco.biblioteca.database.AppDatabase
-import io.bloco.biblioteca.database.repository.BookRepository
-import io.bloco.biblioteca.rest.ApiCaller
-import io.bloco.biblioteca.rest.ApiInterface
-import io.bloco.biblioteca.rest.RetrofitInstance
+import io.bloco.biblioteca.database.BookRepository
+import io.bloco.biblioteca.api.ApiCaller
+import io.bloco.biblioteca.api.ApiInterface
+import io.bloco.biblioteca.api.RetrofitInstance
 
 @Suppress("unused")
 class App : Application() {
@@ -18,7 +18,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //strictMode()
+        strictMode()
     }
 
     fun getApiCaller(): ApiCaller {

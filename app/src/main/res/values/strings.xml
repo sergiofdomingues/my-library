@@ -22,7 +22,6 @@
 
     <!-- Fields Validation -->
     <string name="enter_book_title">Enter book title</string>
-    <string name="invalid_book_isbn">Enter a valid ISBN (13 digits)</string>
     <string name="invalid_book_date">Enter a valid date</string>
 
     <!-- Labels -->
@@ -37,10 +36,6 @@
 
     <!-- Dialog options -->
     <string name="delete_option">Delete</string>
-    <string name="option_cancel">Cancel</string>
-    <string name="option_yes">Yes</string>
-    <string name="option_enable_wifi">To search books you need internet connection. Do you want to enable wifi?</string>
-    <string name="no_internet">No internet connection</string>
 
     <!-- Hints -->
     <string name="hint_book_title">Title</string>
@@ -48,6 +43,12 @@
     <string name="hint_book_date">Publication date</string>
     <string name="search_query_hint">Enter book title or ISBN</string>
     <string name="search">Search</string>
+
+    <!-- Search Book Activity-->
+    <string name="connection_error">
+        Seems like you\'re not connected to internet.
+        Please check your connection and try again.
+    </string>
 </resources>
 
 

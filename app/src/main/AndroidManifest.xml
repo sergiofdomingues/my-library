@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".app.App"
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -23,17 +23,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="io.bloco.biblioteca.app.activities.SearchBookActivity"/>
+        <activity android:name="io.bloco.biblioteca.activities.SearchBookActivity"/>
         <activity
-            android:name="io.bloco.biblioteca.app.activities.AddBookActivity"
+            android:name="io.bloco.biblioteca.activities.AddBookActivity"
             android:label="@string/add_book_activity_label"
-            android:parentActivityName="io.bloco.biblioteca.app.activities.MainActivity" />
+            android:parentActivityName="io.bloco.biblioteca.activities.MainActivity" />
         <activity
-            android:name="io.bloco.biblioteca.app.activities.BookInfoActivity"
+            android:name="io.bloco.biblioteca.activities.BookInfoActivity"
             android:label="@string/book_info_activity_label"
-            android:parentActivityName="io.bloco.biblioteca.app.activities.MainActivity" />
+            android:parentActivityName="io.bloco.biblioteca.activities.MainActivity" />
         <activity
-            android:name="io.bloco.biblioteca.app.activities.MainActivity"
+            android:name="io.bloco.biblioteca.activities.MainActivity"
             android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

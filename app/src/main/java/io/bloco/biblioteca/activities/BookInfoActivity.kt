@@ -1,12 +1,12 @@
-package io.bloco.biblioteca.app.activities
+package io.bloco.biblioteca.activities
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.bloco.biblioteca.R
-import io.bloco.biblioteca.helpers.Helpers.dateToString
-import io.bloco.biblioteca.helpers.imageloader.ImageLoader
+import io.bloco.biblioteca.helpers.DateHelpers.dateToString
+import io.bloco.biblioteca.helpers.ImageLoader
 import io.bloco.biblioteca.model.Book
 import kotlinx.android.synthetic.main.activity_book_info.*
 

@@ -1,24 +1,27 @@
-package io.bloco.biblioteca.app.activities
+package io.bloco.biblioteca.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.bloco.biblioteca.*
-import io.bloco.biblioteca.adapter.RecyclerAdapter
-import io.bloco.biblioteca.app.App
+import io.bloco.biblioteca.App
+import io.bloco.biblioteca.R
+import io.bloco.biblioteca.adapter.BooksRecyclerAdapter
 import io.bloco.biblioteca.helpers.DividerItemDecoration
+import io.bloco.biblioteca.helpers.FileManager
 import io.bloco.biblioteca.model.Book
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.doAsync
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
+class MainActivity : AppCompatActivity(), BooksRecyclerAdapter.ListItemLongClick {
 
     private val booksList = mutableListOf<Book>()
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
-    private val adapter by lazy { RecyclerAdapter(booksList, this) }
+    private val adapter by lazy { BooksRecyclerAdapter(booksList, this) }
     private val bookRepository by lazy { (application as App).getBookRepository() }
 
 
@@ -33,8 +36,12 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
         recViewBooksList.adapter = adapter
 
         fabAddBook.setOnClickListener {
-            val intentAddBook = SearchBookActivity.getIntent(this)
-            startActivityForResult(intentAddBook, ADD_NEW_BOOK)
+            startActivityForResult(
+                SearchBookActivity.getIntent(
+                    this
+                ),
+                ADD_NEW_BOOK
+            )
         }
         getAllBooks()
     }
@@ -49,6 +56,14 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.ListItemLongClick {
     }
 
     override fun itemDelete(book: Book) {
+        book.uriCover?.let {
+            if (!it.startsWith("http")) {
+                val fileManager = FileManager(this)
+                doAsync {
+                    fileManager.deletePhotoFile(Uri.parse(book.uriCover))
+                }
+            }
+        }
         bookRepository.deleteBook(book) { getAllBooks() }
     }
 

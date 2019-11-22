@@ -1,9 +1,8 @@
 package io.bloco.biblioteca
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import io.bloco.biblioteca.app.App
 import io.bloco.biblioteca.testhelpers.BookFactory
-import io.bloco.biblioteca.testhelpers.TestHelpers
+import io.bloco.biblioteca.testhelpers.InstrumentationContext
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,7 +12,7 @@ import org.junit.runner.RunWith
 class BookRepositoryInstrumentedTest {
 
     private val bookFactory = BookFactory
-    private val repository = (TestHelpers.useContext() as App).getBookRepository()
+    private val repository = (InstrumentationContext.useContext() as App).getBookRepository()
 
     @Test
     fun addBookTest() {
