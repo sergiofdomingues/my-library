@@ -3,7 +3,7 @@ package io.bloco.biblioteca
 import android.net.Uri
 import io.bloco.biblioteca.helpers.FileManager
 import io.bloco.biblioteca.testhelpers.InstrumentationContext
-import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThat
@@ -18,8 +18,8 @@ class FileManagerTest {
     fun fileCreationTest() {
         val file = fileManager.createImageFile()
         assertNotNull(file)
-        assert(file.name.startsWith("JPEG"))
-        assert(file.name.endsWith(".jpg"))
+        assertThat(file.name, startsWith("JPEG"))
+        assertThat(file.name, endsWith(".jpg"))
     }
 
     @Test
@@ -50,9 +50,9 @@ class FileManagerTest {
         val appStorageFile = fileManager.copyPhotoFileToAppStorage(uri)
         assertNotNull(appStorageFile)
         assert(appStorageFile!!.exists())
-        assert(appStorageFile.name.startsWith("JPEG"))
-        assert(appStorageFile.name.endsWith(".jpg"))
+        assertThat(appStorageFile.name, startsWith("JPEG"))
+        assertThat(appStorageFile.name, endsWith(".jpg"))
         val path = appStorageFile.path
-        assert(path.contains(context.packageName))
+        assertThat(path, containsString(context.packageName))
     }
 }

@@ -171,7 +171,6 @@ class AddBookActivity : AppCompatActivity() {
     }
 
     private fun showLayoutErrors(errorList: List<ValidationErrors>) {
-
         for (error in errorList) {
             when (error) {
                 ValidationErrors.TITLE_INVALID -> {
@@ -241,17 +240,17 @@ class AddBookActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun getResultIntent() =
+        Intent().also {
+            it.putExtra(
+                RESULT_NEW_BOOK,
+                ADD_NEW_BOOK
+            )
+        }
+
     // Static
 
     companion object {
-
-        fun getResultIntent() =
-            Intent().also {
-                it.putExtra(
-                    RESULT_NEW_BOOK,
-                    ADD_NEW_BOOK
-                )
-            }
 
         fun getIntent(context: Context): Intent {
             return Intent(context, AddBookActivity::class.java)

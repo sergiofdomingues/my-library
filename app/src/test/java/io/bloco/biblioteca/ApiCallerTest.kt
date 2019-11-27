@@ -9,7 +9,7 @@ import org.junit.Test
 
 class ApiCallerTest {
     private val api =
-        ApiCaller(RetrofitInstance().getDebugClient()?.create(ApiInterface::class.java))
+        ApiCaller(RetrofitInstance().getDebugClient().create(ApiInterface::class.java))
     private val foundBooksList = mutableListOf<FoundBook>()
 
     @Test
@@ -20,9 +20,11 @@ class ApiCallerTest {
         assertEquals(foundBooksList.size, 10)
     }
 
-    private fun receiveUpdatedFoundBooksList(updatedList: List<FoundBook>) {
-        foundBooksList.clear()
-        foundBooksList.addAll(updatedList)
+    private fun receiveUpdatedFoundBooksList(updatedList: List<FoundBook>?) {
+        updatedList?.let {
+            foundBooksList.clear()
+            foundBooksList.addAll(it)
+        }
     }
 
     private fun waitForCallBack() {

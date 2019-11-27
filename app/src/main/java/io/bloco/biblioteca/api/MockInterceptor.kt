@@ -1,7 +1,7 @@
 package io.bloco.biblioteca.api
 
 import okhttp3.Interceptor
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Response
 import okhttp3.ResponseBody
 
@@ -11,7 +11,7 @@ class MockInterceptor : Interceptor {
             .newBuilder()
             .body(
                 ResponseBody.create(
-                    MediaType.parse("application/json"),
+                    "application/json".toMediaTypeOrNull(),
                     JsonFileLoader().loadFile(JSON_RESPONSE_FILE).toByteArray()
                 )
             )

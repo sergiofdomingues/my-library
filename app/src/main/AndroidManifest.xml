@@ -23,7 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="io.bloco.biblioteca.activities.SearchBookActivity"/>
+        <activity android:name="io.bloco.biblioteca.activities.SearchBookActivity"
+            android:label="@string/search_book_activity_label"
+            android:parentActivityName="io.bloco.biblioteca.activities.MainActivity" />
         <activity
             android:name="io.bloco.biblioteca.activities.AddBookActivity"
             android:label="@string/add_book_activity_label"

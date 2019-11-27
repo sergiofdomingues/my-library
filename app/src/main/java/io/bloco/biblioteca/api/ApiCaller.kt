@@ -11,7 +11,7 @@ class ApiCaller(private val apiService: ApiInterface?) {
 
     fun performSearchByQuery(
         query: String,
-        onComplete: ((List<FoundBook>) -> Unit)? = null
+        onComplete: ((List<FoundBook>?) -> Unit)
     ) {
         val call: Call<BookResponse>? =
             apiService?.getBookByQuery(query, API_KEY)
@@ -45,16 +45,17 @@ class ApiCaller(private val apiService: ApiInterface?) {
                                 val googleId = element.id
                                 val thumbnail = bookInfo.imageLinks?.smallThumbnail
                                 if (title != null && googleId != null) {
-                                    addNewFoundBook(
-                                        title,
-                                        authorsStr,
-                                        pubDate,
-                                        isbn,
-                                        googleId,
-                                        thumbnail,
-                                        newFoundBooksList
+                                    newFoundBooksList.add(
+                                        FoundBook(
+                                            title,
+                                            authorsStr,
+                                            pubDate,
+                                            isbn,
+                                            googleId,
+                                            thumbnail
+                                        )
                                     )
-                                    onComplete?.invoke(newFoundBooksList)
+                                    onComplete.invoke(newFoundBooksList)
                                 }
                             }
                         }
@@ -64,13 +65,14 @@ class ApiCaller(private val apiService: ApiInterface?) {
 
             override fun onFailure(call: Call<BookResponse>?, t: Throwable?) {
                 Timber.d("MYCALLBACK FAIL: ${t.toString()}")
+                onComplete.invoke(null)
             }
         })
     }
 
     fun performSearchByIsbn(
         query: String,
-        onComplete: ((List<FoundBook>) -> Unit)
+        onComplete: ((List<FoundBook>?) -> Unit)
     ) {
         val call: Call<BookResponse>? =
             apiService?.getBookByIsbn(query, API_KEY)
@@ -104,14 +106,15 @@ class ApiCaller(private val apiService: ApiInterface?) {
                                 val googleId = element.id
                                 val thumbnail = bookInfo.imageLinks?.smallThumbnail
                                 if (title != null && googleId != null) {
-                                    addNewFoundBook(
-                                        title,
-                                        authorsStr,
-                                        pubDate,
-                                        isbn,
-                                        googleId,
-                                        thumbnail,
-                                        newFoundBooksList
+                                    newFoundBooksList.add(
+                                        FoundBook(
+                                            title,
+                                            authorsStr,
+                                            pubDate,
+                                            isbn,
+                                            googleId,
+                                            thumbnail
+                                        )
                                     )
                                     onComplete.invoke(newFoundBooksList)
                                 }
@@ -123,20 +126,9 @@ class ApiCaller(private val apiService: ApiInterface?) {
 
             override fun onFailure(call: Call<BookResponse>?, t: Throwable?) {
                 Timber.d("MYCALLBACK FAIL: ${t.toString()}")
+                onComplete.invoke(null)
             }
         })
-    }
-
-    private fun addNewFoundBook(
-        title: String,
-        author: String?,
-        pubDate: String?,
-        isbn: String?,
-        googleId: String,
-        thumbnail: String?,
-        currentBooksList: MutableList<FoundBook>
-    ) {
-        currentBooksList.add(FoundBook(title, author, pubDate, isbn, googleId, thumbnail))
     }
 
     private fun getIsbn(isbnList: List<BookResponse.IndustryIdentifier>): String? {

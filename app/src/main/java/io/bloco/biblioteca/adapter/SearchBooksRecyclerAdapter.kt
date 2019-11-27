@@ -31,23 +31,17 @@ class SearchBooksRecyclerAdapter(
         holder.bindBook(itemBook)
     }
 
-    inner class BookHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener,
-        View.OnLongClickListener {
+    inner class BookHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         private var view: View = v
         private var book: FoundBook? = null
 
         init {
             view.setOnClickListener(this)
-            view.setOnLongClickListener(this)
         }
 
         override fun onClick(v: View?) {
             book?.let { openSelectedBook(it) }
-        }
-
-        override fun onLongClick(v: View?): Boolean {
-            return false
         }
 
         fun bindBook(book: FoundBook) {

@@ -8,6 +8,8 @@ apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply from: 'jacoco.gradle'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -23,6 +25,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled true
         }
     }
 
@@ -44,20 +50,16 @@ android {
         }
     }
 
-    defaultConfig {
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [
-                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
-                        "room.incremental"     : "true",
-                        "room.expandProjection": "true"]
-            }
-        }
-    }
-
     testOptions {
         unitTests {
             returnDefaultValues = true
+        }
+    }
+
+    kapt {
+        correctErrorTypes = true
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
         }
     }
 }
@@ -88,6 +90,7 @@ dependencies {
     // Retrofit Library
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"

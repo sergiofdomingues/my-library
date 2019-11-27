@@ -49,6 +49,7 @@
         Seems like you\'re not connected to internet.
         Please check your connection and try again.
     </string>
+    <string name="search_book_activity_label">Search book</string>
 </resources>
 
 

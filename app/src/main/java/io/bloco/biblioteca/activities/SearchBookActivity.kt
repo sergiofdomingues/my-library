@@ -3,7 +3,6 @@ package io.bloco.biblioteca.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,7 +14,6 @@ import io.bloco.biblioteca.App
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.adapter.SearchBooksRecyclerAdapter
 import io.bloco.biblioteca.common.MessageManager
-import io.bloco.biblioteca.connection.Connection
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.activity_search_book.*
 import timber.log.Timber
@@ -29,12 +27,6 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListI
         MessageManager(
             this,
             resources
-        )
-    }
-    private val connection by lazy {
-        Connection(
-            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE)
-                    as ConnectivityManager
         )
     }
 
@@ -77,8 +69,6 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListI
                 AddBookActivity.getIntent(this),
                 ADD_NEW_BOOK
             )
-        } else if (id == R.id.itemSearchBook) {
-            verifyInternetConnection()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -99,15 +89,14 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListI
             api.performSearchByQuery(query) { refreshFoundBooksList(it) }
     }
 
-    private fun refreshFoundBooksList(responseBooksList: List<FoundBook>) {
-        foundBooksList.clear()
-        foundBooksList.addAll(responseBooksList)
-        adapter.notifyDataSetChanged()
-    }
-
-    private fun verifyInternetConnection() {
-        if (!connection.internetEnabled()) {
+    private fun refreshFoundBooksList(responseBooksList: (List<FoundBook>)?) {
+        if (responseBooksList == null) {
             messageManager.showError(R.string.connection_error)
+        }
+        responseBooksList?.let {
+            foundBooksList.clear()
+            foundBooksList.addAll(it)
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -131,15 +120,15 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListI
         }
     }
 
-    companion object {
+    private fun getResultIntent() =
+        Intent().also {
+            it.putExtra(
+                RESULT_NEW_BOOK,
+                ADD_NEW_BOOK
+            )
+        }
 
-        fun getResultIntent() =
-            Intent().also {
-                it.putExtra(
-                    RESULT_NEW_BOOK,
-                    ADD_NEW_BOOK
-                )
-            }
+    companion object {
 
         fun getIntent(context: Context): Intent {
             return Intent(context, SearchBookActivity::class.java)

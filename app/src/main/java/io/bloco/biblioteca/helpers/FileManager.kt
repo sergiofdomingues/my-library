@@ -43,7 +43,6 @@ class FileManager(val context: Context) {
         bookPhotoPath?.let {
             val file = try {
                 File(bookPhotoPath.toFile().path)
-                //File(uri)
             } catch (e: IOException) {
                 null
             }
