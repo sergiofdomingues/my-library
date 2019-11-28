@@ -4,8 +4,9 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
+import javax.inject.Inject
 
-class JsonFileLoader {
+class JsonFileLoader @Inject constructor() {
 
     fun loadFile(fileName: String) : String {
         try {

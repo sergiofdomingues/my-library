@@ -9,9 +9,10 @@ import timber.log.Timber
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 
-class FileManager(val context: Context) {
+class FileManager @Inject constructor(val context: Context) {
 
     @Throws(IOException::class)
     fun createImageFile(): File {

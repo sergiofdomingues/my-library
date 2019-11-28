@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import io.bloco.biblioteca.App
 import io.bloco.biblioteca.R
+import io.bloco.biblioteca.database.BookRepository
 import io.bloco.biblioteca.helpers.DateHelpers
 import io.bloco.biblioteca.helpers.DateHelpers.dateToStringDatePicker
 import io.bloco.biblioteca.helpers.IntentManager
@@ -29,16 +30,16 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 
 
 class AddBookActivity : AppCompatActivity() {
+    @Inject lateinit var bookRepository: BookRepository
+    @Inject lateinit var fileManager: FileManager
+    @Inject lateinit var imageLoader: ImageLoader
+    @Inject lateinit var intentManager: IntentManager
 
-    private val fileManager by lazy { FileManager(this) }
-    private val imageLoader by lazy { ImageLoader(this) }
     private val datePicker by lazy { initializeDatePicker() }
-    private val bookRepository by lazy { (application as App).getBookRepository() }
-    private val intentManager by lazy { IntentManager() }
-
     private val calendar = Calendar.getInstance()
     private var bookSuccessfullyAdded = false
     private var currentPhotoPath: String? = null
@@ -46,8 +47,9 @@ class AddBookActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_book)
+        (applicationContext as App).component.inject(this)
 
+        setContentView(R.layout.activity_add_book)
         val chosenBook: FoundBook? = intent.getParcelableExtra(CHOSEN_BOOK)
         chosenBook?.let {
             initDetailFields(it)

@@ -6,8 +6,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 import java.text.ParseException
+import javax.inject.Inject
 
-class ApiCaller(private val apiService: ApiInterface?) {
+//class ApiCaller @Inject constructor(private val apiService: ApiInterface?) {
+class ApiCaller @Inject constructor(private val apiService: ApiInterface?) {
 
     fun performSearchByQuery(
         query: String,

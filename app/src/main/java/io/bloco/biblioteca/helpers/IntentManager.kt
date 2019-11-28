@@ -3,10 +3,10 @@ package io.bloco.biblioteca.helpers
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
+import javax.inject.Inject
 
-class IntentManager {
+class IntentManager @Inject constructor(){
 
-    //passar para outra class
     fun getUploadPictureIntent(): Intent {
         // Create intent to select photo from the gallery
         val intentOpenGallery =

@@ -6,12 +6,12 @@ import io.bloco.biblioteca.model.Book
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import timber.log.Timber
+import javax.inject.Inject
 
-class BookRepository(private val bookDao: BookDao) {
+class BookRepository @Inject constructor(private val bookDao: BookDao) {
 
     fun getBooks(onComplete: ((List<Book>) -> Unit)) {
         doAsync {
-            //val books = memoryDataBase.toList()
             val books = bookDao.getAllBooks()
             uiThread {
                 onComplete.invoke(books)

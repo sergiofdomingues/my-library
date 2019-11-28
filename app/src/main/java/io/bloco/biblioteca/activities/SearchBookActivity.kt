@@ -13,27 +13,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.bloco.biblioteca.App
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.adapter.SearchBooksRecyclerAdapter
+import io.bloco.biblioteca.api.ApiCaller
 import io.bloco.biblioteca.common.MessageManager
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.activity_search_book.*
 import timber.log.Timber
+import javax.inject.Inject
 
 class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListItemClick {
+
+    @Inject lateinit var messageManager: MessageManager
+    @Inject lateinit var api: ApiCaller
+    private val adapter by lazy { SearchBooksRecyclerAdapter(foundBooksList, this) }
+
     private val foundBooksList = mutableListOf<FoundBook>()
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
-    private val adapter by lazy { SearchBooksRecyclerAdapter(foundBooksList, this) }
-    private val api by lazy { (application as App).getApiCaller() }
-    private val messageManager: MessageManager by lazy {
-        MessageManager(
-            this,
-            resources
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_book)
+        (applicationContext as App).component.inject(this)
 
+        setContentView(R.layout.activity_search_book)
         recViewBooksFoundList.layoutManager = linearLayoutManager
         recViewBooksFoundList.addItemDecoration(
             io.bloco.biblioteca.helpers.DividerItemDecoration(

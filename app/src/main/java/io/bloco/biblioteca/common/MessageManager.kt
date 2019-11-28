@@ -5,8 +5,9 @@ import android.content.res.Resources
 import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
-class MessageManager(private val activity: Activity, private val resources: Resources) {
+class MessageManager @Inject constructor(private val activity: Activity, private val resources: Resources) {
 
     fun showError(@StringRes errorResId: Int) =
         showError(resources.getString(errorResId))

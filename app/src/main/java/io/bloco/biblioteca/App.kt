@@ -2,30 +2,25 @@ package io.bloco.biblioteca
 
 import android.app.Application
 import android.os.StrictMode
-import io.bloco.biblioteca.api.ApiCaller
-import io.bloco.biblioteca.api.ApiInterface
-import io.bloco.biblioteca.api.RetrofitInstance
-import io.bloco.biblioteca.database.AppDatabase
-import io.bloco.biblioteca.database.BookRepository
+import io.bloco.biblioteca.common.di.ApplicationComponent
+import io.bloco.biblioteca.common.di.ApplicationModule
+import io.bloco.biblioteca.common.di.DaggerApplicationComponent
 
 @Suppress("unused")
 class App : Application() {
 
-    private val db by lazy { AppDatabase.getDatabase(this) }
     var mode = Mode.NORMAL
-    private val api by lazy { ApiCaller(RetrofitInstance().getClient().create(ApiInterface::class.java)) }
+    val component: ApplicationComponent by lazy {
+        DaggerApplicationComponent
+            .builder()
+            .applicationModule(ApplicationModule(this))
+            .build()
+    }
 
     override fun onCreate() {
         super.onCreate()
+        component.inject(this)
         strictMode()
-    }
-
-    fun getApiCaller(): ApiCaller {
-        return api
-    }
-
-    fun getBookRepository(): BookRepository {
-        return BookRepository(db.bookDao())
     }
 
     private fun strictMode() {
