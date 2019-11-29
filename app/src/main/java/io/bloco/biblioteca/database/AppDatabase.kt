@@ -8,7 +8,6 @@ import io.bloco.biblioteca.model.Book
 
 @Database(entities = [Book::class], version = 1)
 @TypeConverters(Converters::class)
-//abstract class AppDatabase @Inject constructor(private val app: App) : RoomDatabase() {
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun bookDao(): BookDao

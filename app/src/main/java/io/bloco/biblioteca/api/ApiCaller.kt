@@ -8,14 +8,14 @@ import timber.log.Timber
 import java.text.ParseException
 import javax.inject.Inject
 
-class ApiCaller @Inject constructor(private val apiService: ApiInterface?) {
+class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
 
     fun performSearchByQuery(
         query: String,
         onComplete: ((List<FoundBook>?) -> Unit)
     ) {
         val call: Call<BookResponse>? =
-            apiService?.getBookByQuery(query, API_KEY)
+            apiService.getBookByQuery(query, API_KEY)
         call?.enqueue(object : Callback<BookResponse> {
 
             override fun onResponse(
@@ -76,7 +76,7 @@ class ApiCaller @Inject constructor(private val apiService: ApiInterface?) {
         onComplete: ((List<FoundBook>?) -> Unit)
     ) {
         val call: Call<BookResponse>? =
-            apiService?.getBookByIsbn(query, API_KEY)
+            apiService.getBookByIsbn(query, API_KEY)
         call?.enqueue(object : Callback<BookResponse> {
 
             override fun onResponse(

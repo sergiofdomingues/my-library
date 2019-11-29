@@ -29,16 +29,4 @@ import javax.inject.Singleton
     @Provides
     @Singleton
     fun glide() = Glide.with(app)
-
-    @Provides
-    fun mainActivity() = MainActivity
-
-    @Provides
-    fun searchBookActivity() = SearchBookActivity()
-
-    @Provides
-    fun boonInfoActivity() = BookInfoActivity
-
-    @Provides
-    fun addBookActivity() = AddBookActivity
 }

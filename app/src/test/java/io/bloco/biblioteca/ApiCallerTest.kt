@@ -2,12 +2,12 @@ package io.bloco.biblioteca
 
 import io.bloco.biblioteca.api.ApiCaller
 import io.bloco.biblioteca.model.FoundBook
+import io.bloco.biblioteca.testhelpers.NetworkHelper.provideApi
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import javax.inject.Inject
 
 class ApiCallerTest {
-    @Inject lateinit var api: ApiCaller
+    private var api = ApiCaller(provideApi())
     private val foundBooksList = mutableListOf<FoundBook>()
 
     @Test

@@ -1,14 +1,15 @@
 package io.bloco.biblioteca
 
-import io.bloco.biblioteca.database.BookRepository
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import io.bloco.biblioteca.testhelpers.AppHelper.app
 import io.bloco.biblioteca.testhelpers.BookFactory
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import javax.inject.Inject
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class BookRepositoryTest {
-
-    @Inject lateinit var repository: BookRepository
+    private var repository = app.component.bookRepository()
     private val bookFactory = BookFactory
 
     @Test

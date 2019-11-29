@@ -1,7 +1,9 @@
 package io.bloco.biblioteca.common.di
 
+import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
+import io.bloco.biblioteca.R
 import io.bloco.biblioteca.api.ApiInterface
 import io.bloco.biblioteca.api.MockInterceptor
 import okhttp3.OkHttpClient
@@ -15,29 +17,26 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApi(): ApiInterface {
-        return provideRetrofit().create(ApiInterface::class.java)
-    }
+    fun provideApi(resources: Resources): ApiInterface =
+        provideRetrofit(resources).create(ApiInterface::class.java)
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+    fun provideRetrofit(resources: Resources): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(resources.getString(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
             .client(provideHttpClient())
             .build()
-    }
 
     @Provides
     @Singleton
-    fun provideRetrofitDebug(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+    fun provideRetrofitDebug(resources: Resources): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(resources.getString(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
             .client(provideHttpTestClient())
             .build()
-    }
 
     @Provides
     @Singleton
@@ -57,9 +56,4 @@ class NetworkModule {
         .Builder()
         .addInterceptor(MockInterceptor())
         .build()
-
-    companion object {
-        private const val BASE_URL = "https://www.googleapis.com/books/v1/"
-    }
-
 }

@@ -12,7 +12,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class FileManager @Inject constructor(val context: Context) {
+class FileManager @Inject constructor(private val context: Context) {
 
     @Throws(IOException::class)
     fun createImageFile(): File {
