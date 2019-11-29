@@ -4,10 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.bloco.biblioteca.App
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.adapter.BooksRecyclerAdapter
 import io.bloco.biblioteca.database.BookRepository
@@ -19,7 +17,7 @@ import org.jetbrains.anko.doAsync
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), BooksRecyclerAdapter.ListItemLongClick {
+class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
 
     @Inject lateinit var bookRepository: BookRepository
     private val adapter by lazy { BooksRecyclerAdapter(booksList, this) }
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity(), BooksRecyclerAdapter.ListItemLongClick
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (applicationContext as App).component.inject(this)
+        getActivityComponent().inject(this)
 
         setContentView(R.layout.activity_main)
         bookRepository.initBooksInDb() // Fake some books

@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.bloco.biblioteca.App
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.adapter.SearchBooksRecyclerAdapter
 import io.bloco.biblioteca.api.ApiCaller
@@ -20,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_search_book.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListItemClick {
+class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemClick {
 
     @Inject lateinit var messageManager: MessageManager
     @Inject lateinit var api: ApiCaller
@@ -31,7 +29,7 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (applicationContext as App).component.inject(this)
+        getActivityComponent().inject(this)
 
         setContentView(R.layout.activity_search_book)
         recViewBooksFoundList.layoutManager = linearLayoutManager

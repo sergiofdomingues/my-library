@@ -15,18 +15,15 @@ class DbModule {
     @Provides
     @Singleton
     fun provideDatabase(app: App): AppDatabase {
-        return Room.databaseBuilder(app, AppDatabase::class.java, "booksdatabase.db")
-            .allowMainThreadQueries()
-            .build()
+        return if (app.mode == App.Mode.NORMAL)
+            Room.databaseBuilder(app, AppDatabase::class.java, "booksdatabase.db")
+                .allowMainThreadQueries()
+                .build()
+        else
+            Room.databaseBuilder(app, AppDatabase::class.java, "testdatabase.db")
+                .allowMainThreadQueries()
+                .build()
     }
-
-/*    @Provides
-    @Singleton
-    internal fun provideDatabaseTest(app: Application): AppDatabase {
-        return Room.databaseBuilder(app, AppDatabase::class.java, "testdatabase.db")
-            .allowMainThreadQueries()
-            .build()
-    }*/
 
     @Provides
     @Singleton

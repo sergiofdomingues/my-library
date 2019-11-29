@@ -1,14 +1,13 @@
 package io.bloco.biblioteca
 
 import io.bloco.biblioteca.api.ApiCaller
-import io.bloco.biblioteca.api.ApiInterface
 import io.bloco.biblioteca.model.FoundBook
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import javax.inject.Inject
 
-class ApiCallerTest @Inject constructor(private val api: ApiCaller) {
-    //private val api = ApiCaller(RetrofitInstance().getDebugClient().create(ApiInterface::class.java))
+class ApiCallerTest {
+    @Inject lateinit var api: ApiCaller
     private val foundBooksList = mutableListOf<FoundBook>()
 
     @Test

@@ -11,14 +11,15 @@ import androidx.test.rule.ActivityTestRule
 import io.bloco.biblioteca.activities.AddBookActivity
 import io.bloco.biblioteca.activities.MainActivity
 import io.bloco.biblioteca.activities.SearchBookActivity
+import io.bloco.biblioteca.database.BookRepository
 import io.bloco.biblioteca.testhelpers.ActivityAsserter.assertCurrentActivity
 import io.bloco.biblioteca.testhelpers.BookFactory
-import io.bloco.biblioteca.testhelpers.InstrumentationContext
 import io.bloco.biblioteca.testhelpers.Waiter.waitForAddBookCallBack
 import org.hamcrest.Matchers.equalToIgnoringCase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
 
 
 @RunWith(AndroidJUnit4::class)
@@ -28,7 +29,7 @@ class MainActivityTest {
     var activityTestRule = ActivityTestRule<MainActivity>(
         MainActivity::class.java, true, false
     )
-    private val repository = (InstrumentationContext.useContext() as App).getBookRepository()
+    @Inject lateinit var repository: BookRepository
 
     @Test
     fun checkListVisibility() {

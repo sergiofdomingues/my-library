@@ -8,7 +8,6 @@ import timber.log.Timber
 import java.text.ParseException
 import javax.inject.Inject
 
-//class ApiCaller @Inject constructor(private val apiService: ApiInterface?) {
 class ApiCaller @Inject constructor(private val apiService: ApiInterface?) {
 
     fun performSearchByQuery(
