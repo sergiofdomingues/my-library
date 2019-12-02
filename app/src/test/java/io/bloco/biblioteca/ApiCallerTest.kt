@@ -2,6 +2,7 @@ package io.bloco.biblioteca
 
 import io.bloco.biblioteca.api.ApiCaller
 import io.bloco.biblioteca.api.ApiInterface
+import io.bloco.biblioteca.api.BookSearchResult
 import io.bloco.biblioteca.api.RetrofitInstance
 import io.bloco.biblioteca.model.FoundBook
 import org.junit.Assert.assertEquals
@@ -20,10 +21,12 @@ class ApiCallerTest {
         assertEquals(foundBooksList.size, 10)
     }
 
-    private fun receiveUpdatedFoundBooksList(updatedList: List<FoundBook>?) {
-        updatedList?.let {
-            foundBooksList.clear()
-            foundBooksList.addAll(it)
+    private fun receiveUpdatedFoundBooksList(response: (BookSearchResult<Any>)) {
+        when(response) {
+            is BookSearchResult.Success -> {
+                foundBooksList.clear()
+                foundBooksList.addAll(response.data as List<FoundBook>)
+            }
         }
     }
 

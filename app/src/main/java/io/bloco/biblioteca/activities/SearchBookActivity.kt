@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.bloco.biblioteca.App
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.adapter.SearchBooksRecyclerAdapter
+import io.bloco.biblioteca.api.BookSearchResult
 import io.bloco.biblioteca.common.MessageManager
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.activity_search_book.*
@@ -83,20 +84,18 @@ class SearchBookActivity : AppCompatActivity(), SearchBooksRecyclerAdapter.ListI
     }
 
     private fun performBookSearch(query: String) {
-        if (api.queryIsAnIsbn(query))
-            api.performSearchByIsbn(query) { refreshFoundBooksList(it) }
-        else
-            api.performSearchByQuery(query) { refreshFoundBooksList(it) }
+        api.performSearchByQuery(query) { refreshFoundBooksList(it) }
     }
 
-    private fun refreshFoundBooksList(responseBooksList: (List<FoundBook>)?) {
-        if (responseBooksList == null) {
-            messageManager.showError(R.string.connection_error)
-        }
-        responseBooksList?.let {
-            foundBooksList.clear()
-            foundBooksList.addAll(it)
-            adapter.notifyDataSetChanged()
+    private fun refreshFoundBooksList(response: (BookSearchResult<Any>)) {
+        when(response) {
+            is BookSearchResult.Success -> {
+                foundBooksList.clear()
+                foundBooksList.addAll(response.data as List<FoundBook>)
+                adapter.notifyDataSetChanged()
+            }
+            is BookSearchResult.Error ->
+                messageManager.showError(R.string.connection_error)
         }
     }
 
