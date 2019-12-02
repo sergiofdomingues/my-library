@@ -11,6 +11,8 @@ import io.bloco.biblioteca.adapter.BooksRecyclerAdapter
 import io.bloco.biblioteca.database.BookRepository
 import io.bloco.biblioteca.helpers.DividerItemDecoration
 import io.bloco.biblioteca.helpers.FileManager
+import io.bloco.biblioteca.helpers.IntentManager
+import io.bloco.biblioteca.helpers.IntentManager.Companion.ADD_NEW_BOOK
 import io.bloco.biblioteca.model.Book
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
@@ -20,6 +22,7 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
 
     @Inject lateinit var bookRepository: BookRepository
+    @Inject lateinit var intentManager: IntentManager
     private val adapter by lazy { BooksRecyclerAdapter(booksList, this) }
 
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
@@ -38,7 +41,7 @@ class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
 
         fabAddBook.setOnClickListener {
             startActivityForResult(
-                SearchBookActivity.getIntent(
+                intentManager.getIntentSearchBookActivity(
                     this
                 ),
                 ADD_NEW_BOOK
@@ -76,9 +79,5 @@ class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
         booksList.clear()
         booksList.addAll(books)
         adapter.notifyDataSetChanged()
-    }
-
-    companion object {
-        private const val ADD_NEW_BOOK = 10
     }
 }

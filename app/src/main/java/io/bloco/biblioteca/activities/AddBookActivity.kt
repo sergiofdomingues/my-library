@@ -2,7 +2,6 @@ package io.bloco.biblioteca.activities
 
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +13,7 @@ import io.bloco.biblioteca.R
 import io.bloco.biblioteca.database.BookRepository
 import io.bloco.biblioteca.helpers.*
 import io.bloco.biblioteca.helpers.DateHelpers.dateToStringDatePicker
+import io.bloco.biblioteca.helpers.IntentManager.Companion.CHOSEN_BOOK
 import io.bloco.biblioteca.model.Book
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.activity_add_book.*
@@ -229,36 +229,14 @@ class AddBookActivity : BaseActivity() {
         bookSuccessfullyAdded = true
         setResult(
             Activity.RESULT_OK,
-            getResultIntent()
+            intentManager.getResultIntent()
         )
         finish()
     }
 
-    private fun getResultIntent() =
-        Intent().also {
-            it.putExtra(
-                RESULT_NEW_BOOK,
-                ADD_NEW_BOOK
-            )
-        }
-
     // Static
 
     companion object {
-
-        fun getIntent(context: Context): Intent {
-            return Intent(context, AddBookActivity::class.java)
-        }
-
-        fun getIntent(context: Context, book: FoundBook) =
-            Intent(context, AddBookActivity::class.java).also {
-                it.putExtra(CHOSEN_BOOK, book)
-            }
-
-        private const val ADD_NEW_BOOK = 10
-        private const val RESULT_NEW_BOOK = "ADDED_BOOK"
-        private const val CHOSEN_BOOK = "ADDING_BOOK"
-
         // Photo loader
         private const val REQUEST_TAKE_PHOTO = 1
         private const val REQUEST_SELECT_PHOTO = 2

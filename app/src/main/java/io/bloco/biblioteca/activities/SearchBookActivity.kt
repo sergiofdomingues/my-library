@@ -1,7 +1,5 @@
 package io.bloco.biblioteca.activities
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -15,11 +13,12 @@ import io.bloco.biblioteca.api.ApiCaller
 import io.bloco.biblioteca.common.MessageManager
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.activity_search_book.*
-import timber.log.Timber
 import javax.inject.Inject
 
-class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemClick {
+class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemClick,
+    SearchBookPresenter.View {
 
+    @Inject lateinit var presenter: SearchBookPresenter
     @Inject lateinit var messageManager: MessageManager
     @Inject lateinit var api: ApiCaller
     private val adapter by lazy { SearchBooksRecyclerAdapter(foundBooksList, this) }
@@ -40,13 +39,11 @@ class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemCl
         )
         recViewBooksFoundList.itemAnimator = DefaultItemAnimator()
         recViewBooksFoundList.adapter = adapter
+        presenter.start(this)
     }
 
     override fun itemClick(book: FoundBook) {
-        startActivityForResult(
-            AddBookActivity.getIntent(this, book),
-            ADD_NEW_BOOK
-        )
+        presenter.itemClicked(this, book)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -61,49 +58,15 @@ class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemCl
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id: Int? = item.itemId
-        if (id == R.id.itemAddBook) {
-            startActivityForResult(
-                AddBookActivity.getIntent(this),
-                ADD_NEW_BOOK
-            )
+        if (item.itemId == R.id.itemAddBook) {
+            presenter.addBookClicked(this)
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            returnToMainActivity()
-        } else if (resultCode == Activity.RESULT_CANCELED) {
-            Timber.d("ResultCanceled")
-        }
-    }
-
-    private fun performBookSearch(query: String) {
-        if (api.queryIsAnIsbn(query))
-            api.performSearchByIsbn(query) { refreshFoundBooksList(it) }
-        else
-            api.performSearchByQuery(query) { refreshFoundBooksList(it) }
-    }
-
-    private fun refreshFoundBooksList(responseBooksList: (List<FoundBook>)?) {
-        if (responseBooksList == null) {
-            messageManager.showError(R.string.connection_error)
-        }
-        responseBooksList?.let {
-            foundBooksList.clear()
-            foundBooksList.addAll(it)
-            adapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun returnToMainActivity() {
-        setResult(
-            Activity.RESULT_OK,
-            getResultIntent()
-        )
-        finish()
+        presenter.onActivityResultPerformed(resultCode)
     }
 
     private inner class QueryTextListener : SearchView.OnQueryTextListener {
@@ -113,26 +76,29 @@ class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemCl
         }
 
         override fun onQueryTextChange(newText: String): Boolean {
-            performBookSearch(newText)
+            presenter.queryTextChanged(newText)
             return true
         }
     }
 
-    private fun getResultIntent() =
-        Intent().also {
-            it.putExtra(
-                RESULT_NEW_BOOK,
-                ADD_NEW_BOOK
-            )
-        }
+    // Interface
 
-    companion object {
+    override fun showError(errorId: Int) {
+        messageManager.showError(errorId)
+    }
 
-        fun getIntent(context: Context): Intent {
-            return Intent(context, SearchBookActivity::class.java)
-        }
+    override fun updateFoundBooksList(newList: List<FoundBook>) {
+        foundBooksList.clear()
+        foundBooksList.addAll(newList)
+        adapter.notifyDataSetChanged()
+    }
 
-        private const val ADD_NEW_BOOK = 10
-        private const val RESULT_NEW_BOOK = "ADDED_BOOK"
+    override fun returnToMainActivity(intent: Intent) {
+        setResult(RESULT_OK, intent)
+        finish()
+    }
+
+    override fun startAddBookActivityForResult(intent: Intent, requestCode: Int) {
+        startActivityForResult(intent, requestCode)
     }
 }
