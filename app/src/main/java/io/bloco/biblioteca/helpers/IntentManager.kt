@@ -55,6 +55,8 @@ class IntentManager @Inject constructor() {
     companion object {
         const val ADD_NEW_BOOK = 10
         const val CHOSEN_BOOK = "ADDING_BOOK"
+        const val REQUEST_TAKE_PHOTO = 1
+        const val REQUEST_SELECT_PHOTO = 2
         private const val RESULT_NEW_BOOK = "ADDED_BOOK"
         private const val BOOK_KEY = "BOOK"
     }
