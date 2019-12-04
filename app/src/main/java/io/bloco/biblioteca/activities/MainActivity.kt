@@ -19,7 +19,8 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
 
-    @Inject lateinit var bookRepository: BookRepository
+    @Inject
+    lateinit var bookRepository: BookRepository
     private val adapter by lazy { BooksRecyclerAdapter(booksList, this) }
 
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
@@ -65,9 +66,25 @@ class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
                 }
             }
         }
-        bookRepository.deleteBook(book) { getAllBooks() }
+        bookRepository.deleteBook(book).subscribe {
+            getAllBooks()
+        }
     }
 
+    private fun getAllBooks() {
+        bookRepository.getBooks().subscribe {
+            booksList.clear()
+            booksList.addAll(it)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    companion object {
+        private const val ADD_NEW_BOOK = 10
+    }
+}
+
+/*
     private fun getAllBooks() {
         bookRepository.getBooks { refreshList(it) }
     }
@@ -77,8 +94,4 @@ class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
         booksList.addAll(books)
         adapter.notifyDataSetChanged()
     }
-
-    companion object {
-        private const val ADD_NEW_BOOK = 10
-    }
-}
+*/

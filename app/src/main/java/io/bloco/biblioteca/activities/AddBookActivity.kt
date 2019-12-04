@@ -60,7 +60,9 @@ class AddBookActivity : BaseActivity() {
             val errorList = Validation().validateBook(newBook)
             if (errorList.isEmpty()) {
                 bookSuccessfullyAdded = true
-                bookRepository.addBook(newBook) { returnToSearchActivity() }
+                bookRepository.addBook(newBook).subscribe {
+                    returnToSearchActivity()
+                }
                 return true
             } else {
                 bookSuccessfullyAdded = false

@@ -1,6 +1,7 @@
 package io.bloco.biblioteca.api
 
 import io.bloco.biblioteca.model.FoundBook
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,9 +12,10 @@ import javax.inject.Inject
 class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
 
     fun performSearchByQuery(
-        query: String,
-        onComplete: ((List<FoundBook>?) -> Unit)
-    ) {
+        query: String//, onComplete: ((List<FoundBook>?) -> Unit)
+    ): Observable<List<FoundBook>>? {
+        var observableList: Observable<List<FoundBook>>? = null
+
         val call: Call<BookResponse>? =
             apiService.getBookByQuery(query, API_KEY)
         call?.enqueue(object : Callback<BookResponse> {
@@ -22,41 +24,44 @@ class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
                 call: Call<BookResponse>?,
                 response: Response<BookResponse>?
             ) {
+                observableList = Observable.create { emitter ->
 
-                val booksList: List<BookResponse.Item>? = response?.body()?.items
-                val newFoundBooksList = mutableListOf<FoundBook>()
+                    val booksList: List<BookResponse.Item>? = response?.body()?.items
+                    val newFoundBooksList = mutableListOf<FoundBook>()
 
-                booksList?.let {
-                    if (booksList.isEmpty()) {
-                        Timber.e("Books list empty")
-                    } else {
-                        for (element in booksList) {
-                            val bookInfo = element.volumeInfo
-                            bookInfo?.let {
-                                val title = bookInfo.title
-                                val authors = bookInfo.authors
-                                var authorsStr = ""
-                                authors?.let {
-                                    authorsStr = authors.take(FIRST_3_AUTHORS).joinToString { it }
-                                }
-                                val pubDate = bookInfo.publishedDate
-                                val isbnList = bookInfo.industryIdentifiers
-                                var isbn: String? = null
-                                isbnList?.let { isbn = getIsbn(isbnList) }
-                                val googleId = element.id
-                                val thumbnail = bookInfo.imageLinks?.smallThumbnail
-                                if (title != null && googleId != null) {
-                                    newFoundBooksList.add(
-                                        FoundBook(
-                                            title,
-                                            authorsStr,
-                                            pubDate,
-                                            isbn,
-                                            googleId,
-                                            thumbnail
+                    booksList?.let {
+                        if (booksList.isEmpty()) {
+                            Timber.e("Books list empty")
+                        } else {
+                            for (element in booksList) {
+                                val bookInfo = element.volumeInfo
+                                bookInfo?.let {
+                                    val title = bookInfo.title
+                                    val authors = bookInfo.authors
+                                    var authorsStr = ""
+                                    authors?.let {
+                                        authorsStr = authors.take(FIRST_3_AUTHORS).joinToString { it }
+                                    }
+                                    val pubDate = bookInfo.publishedDate
+                                    val isbnList = bookInfo.industryIdentifiers
+                                    var isbn: String? = null
+                                    isbnList?.let { isbn = getIsbn(isbnList) }
+                                    val googleId = element.id
+                                    val thumbnail = bookInfo.imageLinks?.smallThumbnail
+                                    if (title != null && googleId != null) {
+                                        newFoundBooksList.add(
+                                            FoundBook(
+                                                title,
+                                                authorsStr,
+                                                pubDate,
+                                                isbn,
+                                                googleId,
+                                                thumbnail
+                                            )
                                         )
-                                    )
-                                    onComplete.invoke(newFoundBooksList)
+                                        //onComplete.invoke(newFoundBooksList)
+                                        emitter.onNext(newFoundBooksList)
+                                    }
                                 }
                             }
                         }
@@ -66,9 +71,10 @@ class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
 
             override fun onFailure(call: Call<BookResponse>?, t: Throwable?) {
                 Timber.d("MYCALLBACK FAIL: ${t.toString()}")
-                onComplete.invoke(null)
+                //onComplete.invoke(null)
             }
         })
+        return observableList
     }
 
     fun performSearchByIsbn(

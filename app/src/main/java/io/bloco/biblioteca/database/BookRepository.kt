@@ -3,6 +3,9 @@ package io.bloco.biblioteca.database
 import androidx.annotation.VisibleForTesting
 import io.bloco.biblioteca.helpers.DateHelpers.stringToDate
 import io.bloco.biblioteca.model.Book
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import timber.log.Timber
@@ -10,12 +13,28 @@ import javax.inject.Inject
 
 class BookRepository @Inject constructor(private val bookDao: BookDao) {
 
-    fun getBooks(onComplete: ((List<Book>) -> Unit)) {
-        doAsync {
+    fun getBooks(): Observable<List<Book>> {
+
+        val observable: Observable<List<Book>> = Observable.create { emitter ->
             val books = bookDao.getAllBooks()
-            uiThread {
-                onComplete.invoke(books)
-            }
+            emitter.onNext(books)
+        }
+        observable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+        return observable
+    }
+
+    fun addBook(newBook: Book): Observable<Unit> {
+        return Observable.create { emitter ->
+            bookDao.insertBook(newBook)
+            emitter.onNext(Unit)
+        }
+    }
+
+    fun deleteBook(book: Book): Observable<Unit> {
+        return Observable.create {emitter ->
+            bookDao.deleteBookById(book.id)
+            emitter.onNext(Unit)
         }
     }
 
@@ -24,30 +43,6 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
             val booksCount = bookDao.countBooks()
             uiThread {
                 onComplete?.invoke(booksCount)
-            }
-        }
-    }
-
-    fun addBook(newBook: Book, onComplete: (() -> Unit)? = null) {
-        doAsync {
-            //memoryDataBase.add(newBook)
-            try {
-                bookDao.insertBook(newBook)
-            } catch (e: Exception) {
-                Timber.d("ExceptionAddingBook%s", e.toString())
-            }
-            uiThread {
-                onComplete?.invoke()
-            }
-        }
-
-    }
-
-    fun deleteBook(book: Book, onComplete: (() -> Unit)? = null) {
-        doAsync {
-            bookDao.deleteBookById(book.id)
-            uiThread {
-                onComplete?.invoke()
             }
         }
     }
@@ -113,3 +108,36 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
         }
     }
 }
+
+/*    fun getBooks(onComplete: ((List<Book>) -> Unit)) {
+        doAsync {
+            val books = bookDao.getAllBooks()
+            uiThread {
+                onComplete.invoke(books)
+            }
+        }
+
+            fun addBook(newBook: Book, onComplete: (() -> Unit)? = null) {
+        doAsync {
+            //memoryDataBase.add(newBook)
+            try {
+                bookDao.insertBook(newBook)
+            } catch (e: Exception) {
+                Timber.d("ExceptionAddingBook%s", e.toString())
+            }
+            uiThread {
+                onComplete?.invoke()
+            }
+        }
+    }
+
+    fun deleteBook(book: Book, onComplete: (() -> Unit)? = null) {
+        doAsync {
+            bookDao.deleteBookById(book.id)
+            uiThread {
+                onComplete?.invoke()
+            }
+        }
+    }
+
+    }*/
