@@ -1,0 +1,728 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 12,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "PDcQCwAAQBAJ",
+      "etag": "QQa7s29/NSQ",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/PDcQCwAAQBAJ",
+      "volumeInfo": {
+        "title": "Harry Potter e a Pedra Filosofal",
+        "authors": [
+          "J.K. Rowling"
+        ],
+        "publisher": "Pottermore Publishing",
+        "publishedDate": "2015-12-08",
+        "description": "Harry Potter não é um herói habitual. É apenas um miúdo magricela, míope e desajeitado com uma estranha cicatriz na testa. Estranha, de facto, porque afinal encerra misteriosos poderes que o distinguem do cinzento mundo dos muggles (os complicados humanos) e que irá fazer dele uma criança especialmente dotada para o universo da magia. Admitido na escola de Hogwarts onde se formam os mais famosos feiticeiros do mundo, Harry Potter irá viver todas as aventuras que a sua imaginação lhe irá proporcionar.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781781103074"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1781103070"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 254,
+        "printType": "BOOK",
+        "categories": [
+          "Fiction"
+        ],
+        "averageRating": 4.0,
+        "ratingsCount": 3,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.5.8.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=PDcQCwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=PDcQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "pt",
+        "previewLink": "http://books.google.pt/books?id=PDcQCwAAQBAJ&printsec=frontcover&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=1&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=PDcQCwAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=PDcQCwAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 8.99,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amount": 8.99,
+          "currencyCode": "EUR"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=PDcQCwAAQBAJ&rdid=book-PDcQCwAAQBAJ&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 8990000.0,
+              "currencyCode": "EUR"
+            },
+            "retailPrice": {
+              "amountInMicros": 8990000.0,
+              "currencyCode": "EUR"
+            }
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.pt/books/download/Harry_Potter_e_a_Pedra_Filosofal-sample-epub.acsm?id=PDcQCwAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.pt/books/download/Harry_Potter_e_a_Pedra_Filosofal-sample-pdf.acsm?id=PDcQCwAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=PDcQCwAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Harry Potter não é um herói habitual. É apenas um miúdo magricela, míope e desajeitado com uma estranha cicatriz na testa."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "pfs-swEACAAJ",
+      "etag": "je3+QwX/VLk",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/pfs-swEACAAJ",
+      "volumeInfo": {
+        "title": "Harry Potter E A Camara Secreta - Ediçao Ilustrada",
+        "authors": [
+          "J. K. Rowling",
+          "Jim Kay",
+          "Lia Wyler"
+        ],
+        "description": "Depois de Harry Potter e a Pedra Filosofal, Harry Potter e a Câmara Secreta chega às prateleiras em edição ilustrada e capa dura. Cenas de tirar o fôlego, momentos tensos da trama e personagens inesquecíveis esperam os leitores nesta edição mágica que traz o texto integral de J.K. Rowling e desenhos do premiado Jim Kay. Com tinta, papel e pixels, o ilustrador britânico cria um mundo encantado como nunca antes visto para acompanhar o segundo ano de Harry Potter na Escola de Magia de Hogwarts. O jovem aluno começa a ser atormentado por vozes estranhas, que parecem sair de dentro da sua cabeça. Ele descobre ser ofidioglota, característica rara entre os bruxos, o que levanta suspeitas dele ter sido o responsável por abrir a Câmara Secreta, que guarda o terrível monstro Basilisco. Manipulada por Voldemort, Gina Weasley, irmã de Rony, é capturada e levada à Câmara - e somente Harry pode salvá-la. Até Hermione, amiga querida de Potter, é atacada pelo monstro e se transforma numa estátua. Só resta ao nosso herói tentar resolver o mistério por conta própria.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8532530559"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788532530554"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 272,
+        "printType": "BOOK",
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "language": "pt",
+        "previewLink": "http://books.google.pt/books?id=pfs-swEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=2&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=pfs-swEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Harry_Potter_E_A_Camara_Secreta_Edi%C3%A7ao.html?hl=&id=pfs-swEACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=pfs-swEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Cenas de tirar o fôlego, momentos tensos da trama e personagens inesquecíveis esperam os leitores nesta edição mágica que traz o texto integral de J.K. Rowling e desenhos do premiado Jim Kay."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "o2OwNAEACAAJ",
+      "etag": "iofJrwzy0y4",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/o2OwNAEACAAJ",
+      "volumeInfo": {
+        "title": "Box Harry Potter (ediçao De Colecionador)",
+        "subtitle": "07 VOLUMES",
+        "authors": [
+          "J. K. Rowling",
+          "Mario Alberto",
+          "Lia Wyler"
+        ],
+        "description": "O box Harry Potter - Edição de colecionador reúne os sete volumes da saga criada por J. K. Rowling em capa dura com ilustrações inéditas. 'Harry Potter e a Pedra Filosofal' conta a história de um menino que dorme embaixo de uma escada na casa dos tios. Quando ainda bebê, Harry teve sua casa invadida por um terrível bruxo responsável pelo assassinato de seus pais e é o único sobrevivente. Porém, Harry não sabe disso, e acha que é apenas um garoto normal que às vezes parece fazer coisas estranhas acontecerem. Entretanto, no dia de seu aniversário de 11 anos, Harry recebe uma visita inesperada e descobre que é um bruxo, assim como seus pais foram, e que está convidado a ingressar na Escola de Magia e Bruxaria de Hogwarts. Harry, então, vai para Hogwarts, onde irá aprender poções, feitiços e a jogar Quadribol, e se meter em aventurar que irão ensiná-lo sobre a vida. 'Harry Potter e a Câmara Secreta' - Depois de férias aborrecidas na casa dos tios trouxas, está na hora de Harry Potter voltar a estudar. Coisas acontecem, no entanto, para dificultar o regresso de Harry. Persistente e astuto, o herói não se deixa intimidar pelos obstáculos e, com a ajuda dos fiéis amigos Weasley, começa o ano letivo na Escola de Magia e Bruxaria de Hogwarts. As novidades não são poucas. Novos colegas, novos professores, muitas e boas descobertas e um grande e perigosos desafio. Alguém ou alguma coisa ameaça a segurança e a tranquilidade dos membros de Hogwarts. 'Harry Potter e o Cálice de Fogo' - O feiticeiro cresceu e está com 14 anos. Em um novo torneio, os alunos de Hogwarts terão de demonstrar todas as habilidade mágicas e não-mágicas que vêm adquirindo ao longo de suas vidas. Harry é escolhido pelo Cálice de Fogo para competir como um dos campeões de Hogwarts, tendo ao lado seus fiéis amigos. Muitos desafios, feitiços, poções e confusões estão reservados para Harry. Além disso, ele terá que lidar ainda com os problemas comuns da adolescência - amor, amizade, aceitação e rejeição. 'Harry Potter e a Ordem da Fenix' - Harry não é mais um garoto. Aos 15 anos, continua sofrendo a rejeição dos Dursdley, sua estranha família no mundo dos 'trouxas'. Também continua contando com Rony Weasley e Hermione Granger, seus melhores amigos em Hogwarts, para levar adiante suas investigações e aventuras. Mas o bruxinho começa a sentir e descobrir coisas novas, como o primeiro amor e a sexualidade. Nos volumes anteriores, J. K. Rowling mostrou como Harry foi transformado em celebridade no mundo da magia por ter derrotado, ainda bebê, Voldemort, o todo-poderoso bruxo das trevas que assassinou seus pais. Harry vai enfrentar as investidas de Voldemort sem a proteção de Dumbledore, já que o diretor de Hogwarts é afastado da escola. E vai ser sem a ajuda de seu protetor que o jovem herói enfrentará descobertas sobre a personalidade controversa de seu pai, Tiago Potter, e a morte de alguém muito próximo. 'Harry Potter e o Enigma do Príncipe' dá continuidade à partir do momento em que fica provado que o poder de Voldemort e dos Comensais da Morte, seus seguidores, cresce mais a cada dia, em meio à batalha entre o bem e o mal. A onda de terror provocada pelo Lorde das Trevas estaria afetando, até mesmo, o mundo dos trouxas (não-bruxos), e sendo agravada pela ação dos dementadores, criaturas mágicas aterrorizantes que 'sugam' a esperança e a felicidade das pessoas. Harry, que acabou de completar 16 anos, parte rumo ao sexto ano na Escola de Magia e Bruxaria de Hogwarts, animado e ao mesmo tempo apreensivo com a perspectiva de ter aulas particulares com o professor Dumbledore, o diretor da escola e o bruxo mais respeitado em toda comunidade mágica. Harry, longe de ser aquele menino magricela que vivia no quarto debaixo da escada na casa dos tios trouxas, é um dos principais nomes entre aqueles que lutam contra Voldemort, e se vê cada vez mais isolado à medida que os rumores de que ele é O Eleito - o único capaz de derrotar o Lorde das Trevas, se espalham pelo mundo dos bruxos. Dois atentados contra a vida de estudantes, a certeza de Harry quanto ao envolvimento de Draco Malfoy com os Comensais da Morte e o comportamento de Snape, suspeito como sempre, adicionam ainda mais tensão ao já inquietante período. 'Harry Potter e as Relíquias da Morte' - Voldemorte está cada vez mais forte e Harry Potter precisa encontrar e aniquilar as Horcruxes para enfraquecer o lorde e poder enfrentá-lo. Nessa busca desenfreada, contando apenas com os amigos Rony e Hermione, Harry descobre as Relíquias da Morte, que serão úteis na batalha do bem contra o mal.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8532501907"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788532501905"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "printType": "BOOK",
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "language": "pt",
+        "previewLink": "http://books.google.pt/books?id=o2OwNAEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=3&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=o2OwNAEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Box_Harry_Potter_edi%C3%A7ao_De_Colecionador.html?hl=&id=o2OwNAEACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=o2OwNAEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "O box Harry Potter - Edição de colecionador reúne os sete volumes da saga criada por J. K. Rowling em capa dura com ilustrações inéditas."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "M3x3twAACAAJ",
+      "etag": "YUiMTZ1TtUE",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/M3x3twAACAAJ",
+      "volumeInfo": {
+        "title": "Harry Potter i la pedra filosofal",
+        "authors": [
+          "J. K. Rowling"
+        ],
+        "publishedDate": "2010-06-01",
+        "description": "Harry Potter és orfe i viu en unes condicions infrahumanes a casa d'uns tiets despietats fins al dia que descobreix que té dots de bruixot i és convidat a estudiar a una escola de màgia i bruixeria. Allà, a més d'aprendre l'ofici, haurà de combatre Voldemort, que encarna les forces del mal, i defensar la joia de l'escola, una pedra filosofal que, segons sembla, n'hi ha més d'un que vol trobar.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8499301517"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788499301518"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 304,
+        "printType": "BOOK",
+        "categories": [
+          "Education"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=M3x3twAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=M3x3twAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "ca",
+        "previewLink": "http://books.google.pt/books?id=M3x3twAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=4&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=M3x3twAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Harry_Potter_i_la_pedra_filosofal.html?hl=&id=M3x3twAACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=M3x3twAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Harry Potter és orfe i viu en unes condicions infrahumanes a casa d&#39;uns tiets despietats fins al dia que descobreix que té dots de bruixot i és convidat a estudiar a una escola de màgia i bruixeria."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "lNzYjwEACAAJ",
+      "etag": "hh1lQSmsGCQ",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/lNzYjwEACAAJ",
+      "volumeInfo": {
+        "title": "Livro - Coleção Harry Potter (7 Volumes).",
+        "publishedDate": "2015",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8532512941"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788532512949"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "printType": "BOOK",
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "language": "pt",
+        "previewLink": "http://books.google.pt/books?id=lNzYjwEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=5&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=lNzYjwEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Livro_Cole%C3%A7%C3%A3o_Harry_Potter_7_Volumes.html?hl=&id=lNzYjwEACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=lNzYjwEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Os sete livros da saga criada por J. K. Rowling - que acompanha a jornada do adorado aprendiz de bruxo contra o maléfico Voldemort - ganham novas capas e novas ilustrações e vêm num box exclusivo.br /br / Harry Potter E A Pedra ..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "2zgRDXFWkm8C",
+      "etag": "MKH6mbo+OAc",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/2zgRDXFWkm8C",
+      "volumeInfo": {
+        "title": "Harry Potter y la piedra filosofal",
+        "authors": [
+          "J.K. Rowling"
+        ],
+        "publisher": "Pottermore Publishing",
+        "publishedDate": "2015-12-08",
+        "description": "Harry vive con sus horribles tíos y el insoportable primo Dudley, hasta que su ingreso en el Colegio Hogwarts de Magia y Hechicería cambia su vida para siempre. Allí aprenderá trucos y encantamientos fabulosos, y hará un puñado de buenos amigos... aunque también algunos temibles enemigos. Y, sobre todo, conocerá los secretos que lo ayudarán a cumplir con su destino.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781781101315"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1781101310"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 264,
+        "printType": "BOOK",
+        "categories": [
+          "Fiction"
+        ],
+        "averageRating": 4.0,
+        "ratingsCount": 103,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.11.12.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=2zgRDXFWkm8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=2zgRDXFWkm8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.pt/books?id=2zgRDXFWkm8C&printsec=frontcover&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=6&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=2zgRDXFWkm8C&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=2zgRDXFWkm8C"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 8.99,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amount": 8.99,
+          "currencyCode": "EUR"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=2zgRDXFWkm8C&rdid=book-2zgRDXFWkm8C&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 8990000.0,
+              "currencyCode": "EUR"
+            },
+            "retailPrice": {
+              "amountInMicros": 8990000.0,
+              "currencyCode": "EUR"
+            }
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.pt/books/download/Harry_Potter_y_la_piedra_filosofal-sample-epub.acsm?id=2zgRDXFWkm8C&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.pt/books/download/Harry_Potter_y_la_piedra_filosofal-sample-pdf.acsm?id=2zgRDXFWkm8C&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=2zgRDXFWkm8C&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Harry vive con sus horribles tíos y el insoportable primo Dudley, hasta que su ingreso en el Colegio Hogwarts de Magia y Hechicería cambia su vida para siempre."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "sLc-vwEACAAJ",
+      "etag": "qZeWMDhj+S4",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/sLc-vwEACAAJ",
+      "volumeInfo": {
+        "title": "Harry Potter i la pedra filosofal (Hufflepuff)",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8417016686"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788417016685"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 368,
+        "printType": "BOOK",
+        "categories": [
+          "Juvenile Nonfiction"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "language": "en",
+        "previewLink": "http://books.google.pt/books?id=sLc-vwEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=7&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=sLc-vwEACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Harry_Potter_i_la_pedra_filosofal_Huffle.html?hl=&id=sLc-vwEACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=sLc-vwEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "V9XOAAAACAAJ",
+      "etag": "ZG7/zteHxzc",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/V9XOAAAACAAJ",
+      "volumeInfo": {
+        "title": "Harry Potter i el calze de foc",
+        "authors": [
+          "J. K. Rowling"
+        ],
+        "publisher": "Editorial Empúries",
+        "publishedDate": "2001",
+        "description": "Després de passar l'estiu a casa dels seus tiets i d'assistir amb els seus amics, el Ron i l'Hermione, a la final del Mundial de Quidditch, el Harry torna a l'Escola de Màgia i Bruixeria de Hogwarts per fer-hi el quart curs. Abans, però, han succeït alguns fets estranys, com l'aparició de la marca de les forces del mal després de la final del Mundial i, sobretot, el fet que al Harry li torna a fer mal la cicatriu que té al front en forma de llamp, cosa que només li passa quan Vldemort és a prop.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8475967906"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788475967905"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 704,
+        "printType": "BOOK",
+        "categories": [
+          "Literary Criticism"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=V9XOAAAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=V9XOAAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "ca",
+        "previewLink": "http://books.google.pt/books?id=V9XOAAAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=8&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=V9XOAAAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Harry_Potter_i_el_calze_de_foc.html?hl=&id=V9XOAAAACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=V9XOAAAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Després de passar l&#39;estiu a casa dels seus tiets i d&#39;assistir amb els seus amics, el Ron i l&#39;Hermione, a la final del Mundial de Quidditch, el Harry torna a l&#39;Escola de Màgia i Bruixeria de Hogwarts per fer-hi el quart curs."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "QvttAAAACAAJ",
+      "etag": "k8j1CP3p0io",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/QvttAAAACAAJ",
+      "volumeInfo": {
+        "title": "Harry Potter i el misteri del Príncep",
+        "authors": [
+          "J. K. Rowling"
+        ],
+        "publisher": "Editorial Empúries",
+        "publishedDate": "2006",
+        "description": "En Harry està passant les vacances d ́estiu a casa els Dursleys, com cada any. Té moltes coses al cap que el distreuen, però, des de la mort del seu estimat padrí, Sirius Black, fins els terribles atacs dels cavallers de la mort a la Conselleria d'Afers Màgics passant pel terrible duel que va presenciar entre Lord Voldemort i el professor Dumbledore. Tot i que és ple estiu, una estranya boira entela els vidres de les finestres de Londres. Assegut a la seva habitació de Privet Drive, en Harry Potter espera, molt nerviós, l'arribada del professor Dumbledore. Una de les darreres vegades que el va veure va ser en ple duel contra Voldemort, i en Harry no s'acaba de creure que el professor Dumbledore el visiti a casa seva personalment. Per què el vol veure amb tanta urgència, en Dumbledore? Què és el que no pot esperar a que Harry torni a Hogwarts al cap d'unes setmanes?",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8497871715"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788497871716"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 640,
+        "printType": "BOOK",
+        "categories": [
+          "Literary Criticism"
+        ],
+        "averageRating": 3.0,
+        "ratingsCount": 2,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=QvttAAAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=QvttAAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "ca",
+        "previewLink": "http://books.google.pt/books?id=QvttAAAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=9&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=QvttAAAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Harry_Potter_i_el_misteri_del_Pr%C3%ADncep.html?hl=&id=QvttAAAACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=QvttAAAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "En Harry està passant les vacances d ́estiu a casa els Dursleys, com cada any."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "JP_uOgAACAAJ",
+      "etag": "hLKTHivgMW0",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/JP_uOgAACAAJ",
+      "volumeInfo": {
+        "title": "Harry Potter i les relíquies de la mort",
+        "authors": [
+          "J. K. Rowling"
+        ],
+        "publishedDate": "2008",
+        "description": "En Harry ha rebut l'encàrrec de complir una missió sinistra, perillosa i aparentment impossible: localitzar i destruir la resta d'horricreus d'en Voldemort. En Harry no s'havia sentit mai tan sol ni s'havia enfrontat a un futur tan carregat d'amenaces com aquesta vegada, però ha de treure forces de flaquesa per completar la tasca que se li ha encomanat. Ha de deixar enrere el caliu, la seguretat i la companyia del Cau per seguir sense por ni vacil·lació el camí inexorable que li han marcat...En aquesta setena i última novel·la de la sèrie de Harry Potter, J.K. Rowling revela de forma espectacular les respostes a les moltes preguntes que havien quedat pendents fins ara. El relat, amb una trama rica i captivadora, es descabdella a un ritme trepidant i confirma l'autora com una mestra de la narrativa, amb uns llibres dignes de ser llegits i rellegits una vegada i una altra.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8497872851"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788497872850"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 736,
+        "printType": "BOOK",
+        "categories": [
+          "Literary Criticism"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=JP_uOgAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=JP_uOgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "ca",
+        "previewLink": "http://books.google.pt/books?id=JP_uOgAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&cd=10&source=gbs_api",
+        "infoLink": "http://books.google.pt/books?id=JP_uOgAACAAJ&dq=Harry+Potter+e+a+Pedra+Filosofal+inauthor:Rowling&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Harry_Potter_i_les_rel%C3%ADquies_de_la_mort.html?hl=&id=JP_uOgAACAAJ"
+      },
+      "saleInfo": {
+        "country": "PT",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PT",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=JP_uOgAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "En aquesta setena i última novel·la de la sèrie de Harry Potter, J.K. Rowling revela de forma espectacular les respostes a les moltes preguntes que havien quedat pendents fins ara."
+      }
+    }
+  ]
+}

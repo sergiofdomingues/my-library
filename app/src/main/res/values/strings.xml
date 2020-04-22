@@ -1,0 +1,55 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Common -->
+    <string name="app_name">Library</string>
+    <string name="check_box_read">Read</string>
+    <string name="no_title">No title</string>
+    <string name="no_author" tools:ignore="Typos">No author</string>
+    <string name="no_date">No date</string>
+    <string name="no_isbn">No ISBN</string>
+    <string name="read">Read</string>
+    <string name="not_read" />
+    <string name="save_book_icon">Save</string>
+    <string name="add_book_icon">Add</string>
+    <string name="book_title">Book title</string>
+    <string name="book_author" tools:ignore="Typos">Book author</string>
+    <string name="fileprovider" translatable="false">io.bloco.biblioteca.fileprovider</string>
+
+    <!-- Activity label name -->
+    <string name="main_activity_label">Books</string>
+    <string name="add_book_activity_label">Add book</string>
+    <string name="book_info_activity_label">Book details</string>
+
+    <!-- Fields Validation -->
+    <string name="enter_book_title">Enter book title</string>
+    <string name="invalid_book_date">Enter a valid date</string>
+
+    <!-- Labels -->
+    <string name="about_this_book">About this book</string>
+
+    <!-- Buttons -->
+    <string name="take_photo">take photo</string>
+    <string name="upload_photo">upload photo</string>
+
+    <!-- Content Description-->
+    <string name="desciprion_cover">Cover</string>
+
+    <!-- Dialog options -->
+    <string name="delete_option">Delete</string>
+
+    <!-- Hints -->
+    <string name="hint_book_title">Title</string>
+    <string name="hint_book_isbn">Isbn</string>
+    <string name="hint_book_date">Publication date</string>
+    <string name="search_query_hint">Enter book title or ISBN</string>
+    <string name="search">Search</string>
+
+    <!-- Search Book Activity-->
+    <string name="connection_error">
+        Seems like you\'re not connected to internet.
+        Please check your connection and try again.
+    </string>
+    <string name="search_book_activity_label">Search book</string>
+</resources>
+
+
