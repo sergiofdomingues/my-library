@@ -3,6 +3,7 @@ package io.bloco.biblioteca.database
 import androidx.annotation.VisibleForTesting
 import io.bloco.biblioteca.helpers.DateHelpers.stringToDate
 import io.bloco.biblioteca.model.Book
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,23 +14,15 @@ import javax.inject.Inject
 
 class BookRepository @Inject constructor(private val bookDao: BookDao) {
 
-    fun getBooks(): Observable<List<Book>> {
+    fun getBooks() =
+        Observable
+            .fromCallable { bookDao.getAllBooks() }
+            .subscribeOn(Schedulers.io())
 
-        val observable: Observable<List<Book>> = Observable.create { emitter ->
-            val books = bookDao.getAllBooks()
-            emitter.onNext(books)
-        }
-        observable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-        return observable
-    }
-
-    fun addBook(newBook: Book): Observable<Unit> {
-        return Observable.create { emitter ->
-            bookDao.insertBook(newBook)
-            emitter.onNext(Unit)
-        }
-    }
+    fun addBook(newBook: Book) =
+        Completable
+            .fromAction { bookDao.insertBook(newBook) }
+            .subscribeOn(Schedulers.io())
 
     fun deleteBook(book: Book): Observable<Unit> {
         return Observable.create {emitter ->

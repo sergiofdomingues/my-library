@@ -84,7 +84,8 @@ class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemCl
         if (api.queryIsAnIsbn(query))
             api.performSearchByIsbn(query) { refreshFoundBooksList(it) }
         else
-            api.performSearchByQuery(query)?.subscribe {responseBooksList ->
+            api.performSearchByQuery(query)
+                .subscribe({ responseBooksList ->
                 if (responseBooksList == null) {
                     messageManager.showError(R.string.connection_error)
                 }
@@ -93,7 +94,7 @@ class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemCl
                     foundBooksList.addAll(it)
                     adapter.notifyDataSetChanged()
                 }
-            }
+            }, { Timber.e(it, "Error searching") })
     }
 
     private fun refreshFoundBooksList(responseBooksList: (List<FoundBook>)?) {

@@ -11,22 +11,11 @@ import javax.inject.Inject
 
 class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
 
-    fun performSearchByQuery(
-        query: String//, onComplete: ((List<FoundBook>?) -> Unit)
-    ): Observable<List<FoundBook>>? {
-        var observableList: Observable<List<FoundBook>>? = null
-
-        val call: Call<BookResponse>? =
-            apiService.getBookByQuery(query, API_KEY)
-        call?.enqueue(object : Callback<BookResponse> {
-
-            override fun onResponse(
-                call: Call<BookResponse>?,
-                response: Response<BookResponse>?
-            ) {
-                observableList = Observable.create { emitter ->
-
-                    val booksList: List<BookResponse.Item>? = response?.body()?.items
+    fun performSearchByQuery(query: String)=
+            apiService
+                .getBookByQuery(query, API_KEY)
+                .map { response ->
+                    val booksList: List<BookResponse.Item>? = response.items
                     val newFoundBooksList = mutableListOf<FoundBook>()
 
                     booksList?.let {
@@ -60,22 +49,13 @@ class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
                                             )
                                         )
                                         //onComplete.invoke(newFoundBooksList)
-                                        emitter.onNext(newFoundBooksList)
                                     }
                                 }
                             }
                         }
+                        newFoundBooksList
                     }
-                }
             }
-
-            override fun onFailure(call: Call<BookResponse>?, t: Throwable?) {
-                Timber.d("MYCALLBACK FAIL: ${t.toString()}")
-                //onComplete.invoke(null)
-            }
-        })
-        return observableList
-    }
 
     fun performSearchByIsbn(
         query: String,
