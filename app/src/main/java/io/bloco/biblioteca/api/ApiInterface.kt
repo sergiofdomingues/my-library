@@ -9,7 +9,7 @@ interface ApiInterface {
 
     @GET("volumes/{isbn}")
     fun getBookByIsbn(@Path("isbn") bookIsbn: String,
-    @Query("API_KEY") apiKey: String) : Call<BookResponse>
+                      @Query("API_KEY") apiKey: String) : Call<BookResponse>
 
     @GET("volumes")
     fun getBookByQuery(@Query("q") query: String,

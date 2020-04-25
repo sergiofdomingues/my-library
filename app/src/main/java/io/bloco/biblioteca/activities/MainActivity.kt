@@ -4,29 +4,32 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.bloco.biblioteca.App
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.adapter.BooksRecyclerAdapter
+import io.bloco.biblioteca.database.BookRepository
 import io.bloco.biblioteca.helpers.DividerItemDecoration
 import io.bloco.biblioteca.helpers.FileManager
 import io.bloco.biblioteca.model.Book
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import timber.log.Timber
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), BooksRecyclerAdapter.ListItemLongClick {
+class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
 
-    private val booksList = mutableListOf<Book>()
-    private val linearLayoutManager by lazy { LinearLayoutManager(this) }
+    @Inject
+    lateinit var bookRepository: BookRepository
     private val adapter by lazy { BooksRecyclerAdapter(booksList, this) }
-    private val bookRepository by lazy { (application as App).getBookRepository() }
+
+    private val linearLayoutManager by lazy { LinearLayoutManager(this) }
+    private val booksList = mutableListOf<Book>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getActivityComponent().inject(this)
         setContentView(R.layout.activity_main)
 
         bookRepository.initBooksInDb() // Fake some books

@@ -2,8 +2,9 @@ package io.bloco.biblioteca.helpers
 
 import io.bloco.biblioteca.model.Book
 import java.util.*
+import javax.inject.Inject
 
-class Validation {
+class Validation @Inject constructor() {
 
     fun validateBook(book: Book): List<ValidationErrors> {
         val errorList = mutableListOf<ValidationErrors>()

@@ -1,16 +1,16 @@
 package io.bloco.biblioteca
 
 import io.bloco.biblioteca.api.ApiCaller
-import io.bloco.biblioteca.api.ApiInterface
 import io.bloco.biblioteca.api.BookSearchResult
-import io.bloco.biblioteca.api.RetrofitInstance
 import io.bloco.biblioteca.model.FoundBook
+import io.bloco.biblioteca.testhelpers.NetworkHelper.provideApi
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ApiCallerTest {
-    private val api =
-        ApiCaller(RetrofitInstance().getDebugClient().create(ApiInterface::class.java))
+    private var api = ApiCaller(provideApi())
+    //private val api = ApiCaller(RetrofitInstance().getDebugClient().create(ApiInterface::class.java))
+
     private val foundBooksList = mutableListOf<FoundBook>()
 
     @Test
@@ -22,7 +22,7 @@ class ApiCallerTest {
     }
 
     private fun receiveUpdatedFoundBooksList(response: (BookSearchResult<Any>)) {
-        when(response) {
+        when (response) {
             is BookSearchResult.Success -> {
                 foundBooksList.clear()
                 foundBooksList.addAll(response.data as List<FoundBook>)

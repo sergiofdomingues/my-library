@@ -6,15 +6,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 import java.lang.Exception
+import javax.inject.Inject
 
-class ApiCaller(private val apiService: ApiInterface?) {
+class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
 
     fun performSearchByQuery(
         query: String,
         onComplete: ((BookSearchResult<Any>) -> Unit)
     ) {
         val call: Call<BookResponse>? =
-            apiService?.getBookByQuery(query, API_KEY)
+            apiService.getBookByQuery(query, API_KEY)
         call?.enqueue(object : Callback<BookResponse> {
 
             override fun onResponse(
