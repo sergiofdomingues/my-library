@@ -9,7 +9,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThat
 import org.junit.Test
 
-
 class FileManagerTest {
     private val context = InstrumentationContext.useContext()
     private val fileManager = FileManager(context)

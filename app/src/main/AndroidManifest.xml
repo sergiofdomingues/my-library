@@ -8,9 +8,9 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -23,19 +23,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="io.bloco.biblioteca.activities.SearchBookActivity"
+        <activity android:name=".activities.BaseActivity"></activity>
+        <activity
+            android:name=".activities.SearchBookActivity"
             android:label="@string/search_book_activity_label"
-            android:parentActivityName="io.bloco.biblioteca.activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name="io.bloco.biblioteca.activities.AddBookActivity"
+            android:name=".activities.AddBookActivity"
             android:label="@string/add_book_activity_label"
-            android:parentActivityName="io.bloco.biblioteca.activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name="io.bloco.biblioteca.activities.BookInfoActivity"
+            android:name=".activities.BookInfoActivity"
             android:label="@string/book_info_activity_label"
-            android:parentActivityName="io.bloco.biblioteca.activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name="io.bloco.biblioteca.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

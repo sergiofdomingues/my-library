@@ -4,8 +4,9 @@ import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Response
 import okhttp3.ResponseBody
+import javax.inject.Inject
 
-class MockInterceptor : Interceptor {
+class MockInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(chain.request())
             .newBuilder()
@@ -21,4 +22,4 @@ class MockInterceptor : Interceptor {
     companion object {
         private const val JSON_RESPONSE_FILE = "book_search_response.json"
     }
-}
+} 

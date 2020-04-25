@@ -12,6 +12,7 @@ import io.bloco.biblioteca.activities.AddBookActivity
 import io.bloco.biblioteca.activities.MainActivity
 import io.bloco.biblioteca.activities.SearchBookActivity
 import io.bloco.biblioteca.testhelpers.ActivityAsserter.assertCurrentActivity
+import io.bloco.biblioteca.testhelpers.AppHelper.appComponent
 import io.bloco.biblioteca.testhelpers.BookFactory
 import io.bloco.biblioteca.testhelpers.InstrumentationContext
 import io.bloco.biblioteca.testhelpers.Waiter.waitForAddBookCallBack
@@ -28,7 +29,8 @@ class MainActivityTest {
     var activityTestRule = ActivityTestRule<MainActivity>(
         MainActivity::class.java, true, false
     )
-    private val repository = (InstrumentationContext.useContext() as App).getBookRepository()
+    private val repository = appComponent.bookRepository()
+    //private val repository = (InstrumentationContext.useContext() as App).getBookRepository()
 
     @Test
     fun checkListVisibility() {
