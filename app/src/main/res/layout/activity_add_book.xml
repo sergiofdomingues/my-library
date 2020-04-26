@@ -17,30 +17,30 @@
             android:layout_height="250dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/degraded_pane"
-            android:src="@drawable/ic_no_cover"
-            android:contentDescription="@string/desciprion_cover"/>
+            android:contentDescription="@string/desciprion_cover"
+            android:src="@drawable/ic_no_cover" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTakePhoto"
-                android:layout_weight="1"
+                style="@style/Library.TextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/take_photo"
                 android:layout_marginEnd="8dp"
-                style="?android:attr/borderlessButtonStyle" />
-
-            <Button
-                android:id="@+id/btnUploadPhoto"
                 android:layout_weight="1"
+                android:text="@string/take_photo" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUploadPhoto"
+                style="@style/Library.TextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/upload_photo"
-                style="?android:attr/borderlessButtonStyle" />
+                android:layout_weight="1"
+                android:text="@string/upload_photo" />
 
         </LinearLayout>
 
