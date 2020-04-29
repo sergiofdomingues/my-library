@@ -13,7 +13,7 @@
     <string name="add_book_icon">Add</string>
     <string name="book_title">Book title</string>
     <string name="book_author" tools:ignore="Typos">Book author</string>
-    <string name="fileprovider" translatable="false">io.bloco.biblioteca.fileprovider</string>
+    <string name="fileprovider" translatable="false">com.sergiodomingues.library.fileprovider</string>
 
     <!-- Activity label name -->
     <string name="main_activity_label">Books</string>
