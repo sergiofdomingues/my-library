@@ -1,30 +1,28 @@
-package io.bloco.biblioteca.activities
+package io.bloco.biblioteca.bookadd.ui
 
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
+import com.jakewharton.rxbinding2.view.clicks
+import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindToLifecycle
 import io.bloco.biblioteca.R
+import io.bloco.biblioteca.base.BaseActivity
+import io.bloco.biblioteca.base.viewmodel.ViewModelFactory
+import io.bloco.biblioteca.bookadd.AddBookViewModel
 import io.bloco.biblioteca.database.BookRepository
 import io.bloco.biblioteca.helpers.*
 import io.bloco.biblioteca.helpers.DateHelpers.dateToStringDatePicker
 import io.bloco.biblioteca.model.Book
 import io.bloco.biblioteca.model.FoundBook
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_add_book.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-import timber.log.Timber
-import java.io.File
-import java.io.IOException
 import java.util.*
 import javax.inject.Inject
-
 
 class AddBookActivity : BaseActivity() {
 
@@ -32,24 +30,64 @@ class AddBookActivity : BaseActivity() {
     lateinit var bookRepository: BookRepository
 
     @Inject
-    lateinit var fileManager: FileManager
-
-    @Inject
     lateinit var imageLoader: ImageLoader
 
     @Inject
-    lateinit var intentManager: IntentManager
+    lateinit var intentBuilder: IntentBuilder
 
+    @Inject
+    lateinit var intentResultDispatcherBook: BookCoverIntentResultDispatcher
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory<AddBookViewModel>
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(AddBookViewModel::class.java)
+    }
     private val datePicker by lazy { initializeDatePicker() }
     private val calendar = Calendar.getInstance()
     private var bookSuccessfullyAdded = false
     private var currentPhotoPath: String? = null
-    private var tempFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getActivityComponent().inject(this)
         setContentView(R.layout.activity_add_book)
+
+        changeBookCover
+            .clicks()
+            .bindToLifecycle(this)
+            .subscribe {
+                viewModel.startChangingBookCover()
+            }
+
+        viewModel
+            .startPickPhotoIntentChooser()
+            .bindToLifecycle(this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                startActivityForResult(
+                    intentBuilder.getImageChooserIntent(this, it),
+                    REQUEST_PHOTO_INTENT_CHOOSER
+                )
+            }
+
+        viewModel
+            .changeCover()
+            .bindToLifecycle(this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                currentPhotoPath = it.toString()
+                imageLoader.loadPhotoCoverInto(it, ivCoverThumbnail)
+            }
+
+        activityResults()
+            .bindToLifecycle(this)
+            .map { intentResultDispatcherBook.dispatch(it) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                viewModel.coverPhotoIntentOutcome(it)
+            }
 
         val chosenBook: FoundBook? = intent.getParcelableExtra(CHOSEN_BOOK)
         chosenBook?.let {
@@ -57,8 +95,6 @@ class AddBookActivity : BaseActivity() {
             currentPhotoPath = chosenBook.thumbnail
         }
         etDate.setOnClickListener { datePicker.show() }
-        btnTakePhoto.setOnClickListener { dispatchTakePictureIntent() }
-        btnUploadPhoto.setOnClickListener { dispatchUploadPictureIntent() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -68,7 +104,6 @@ class AddBookActivity : BaseActivity() {
             val newBook = makeBookFromFields()
             val errorList = Validation().validateBook(newBook)
             if (errorList.isEmpty()) {
-                bookSuccessfullyAdded = true
                 bookRepository.addBook(newBook) { returnToSearchActivity() }
                 return true
             } else {
@@ -78,24 +113,6 @@ class AddBookActivity : BaseActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        // Take a pic
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            currentPhotoPath = tempFile?.path
-            currentPhotoPath?.let {
-                imageLoader.loadImageInto(it, ivCoverThumbnail)
-            }
-        }
-
-        // Load a pic
-        if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
-            data?.data?.let {
-                loadPicAsync(it)
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -115,62 +132,12 @@ class AddBookActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        if (!bookSuccessfullyAdded)
-            doAsync { fileManager.deletePhotoFile(tempFile?.path) }
+        if (!bookSuccessfullyAdded) {
+            currentPhotoPath?.let {
+                viewModel.addingBookCanceled(it)
+            }
+        }
         super.onDestroy()
-    }
-
-    private fun dispatchTakePictureIntent() {
-        takePicAsync { startTakePicIntent(it) }
-    }
-
-    private fun dispatchUploadPictureIntent() {
-        startActivityForResult(
-            intentManager.getUploadPictureIntent(),
-            REQUEST_SELECT_PHOTO
-        )
-    }
-
-    private fun takePicAsync(onComplete: ((File) -> Unit)) {
-        doAsync {
-            try {
-                tempFile?.let { fileManager.deletePhotoFile(it.path) }
-                tempFile = fileManager.createImageFile().also { file ->
-                    uiThread {
-                        onComplete.invoke(file)
-                    }
-                }
-            } catch (e: IOException) {
-                Timber.e(e, "Error occurred while creating the File")
-            }
-        }
-    }
-
-    private fun loadPicAsync(picUri: Uri) {
-        doAsync {
-            tempFile?.let { fileManager.deletePhotoFile(it.path) }
-            tempFile = fileManager.copyPhotoFileToAppStorage(picUri)
-            currentPhotoPath = tempFile?.path
-            uiThread {
-                currentPhotoPath?.let { path ->
-                    imageLoader.loadImageInto(path, ivCoverThumbnail)
-                }
-            }
-        }
-    }
-
-    private fun startTakePicIntent(tempFile: File) {
-        val photoURI: Uri = FileProvider.getUriForFile(
-            this, getString(R.string.fileprovider), tempFile
-        )
-        val takePicIntent =
-            intentManager.getTakePictureIntent(MediaStore.EXTRA_OUTPUT, photoURI)
-        intent.resolveActivity(packageManager)?.also {
-            startActivityForResult(
-                takePicIntent,
-                REQUEST_TAKE_PHOTO
-            )
-        }
     }
 
     private fun showLayoutErrors(errorList: List<ValidationErrors>) {
@@ -194,7 +161,7 @@ class AddBookActivity : BaseActivity() {
         etDate.setText(chosenBook.publishedDate)
         etIsbn.setText(chosenBook.isbn)
         chosenBook.thumbnail?.let {
-            imageLoader.loadImageInto(it, ivCoverThumbnail)
+            imageLoader.loadPhotoCoverInto(it, ivCoverThumbnail)
         }
     }
 
@@ -213,13 +180,8 @@ class AddBookActivity : BaseActivity() {
         )
     }
 
-    private fun makeBookFromFields(): Book {
-        currentPhotoPath?.let { path ->
-            if (path.startsWith(applicationInfo.dataDir, true)) // Book manually added
-                currentPhotoPath = Uri.fromFile(File(path)).toString()
-        }
-
-        return Book(
+    private fun makeBookFromFields() =
+        Book(
             title = etTitle.text.toString(),
             author = etAuthor.text.toString(),
             publishDate = DateHelpers.parseStringToDate(etDate.text.toString()),
@@ -227,7 +189,6 @@ class AddBookActivity : BaseActivity() {
             read = cbRead.isChecked,
             uriCover = currentPhotoPath
         )
-    }
 
     private fun resetLayoutErrors() {
         inLayoutTitle.isErrorEnabled = false
@@ -269,7 +230,6 @@ class AddBookActivity : BaseActivity() {
         private const val CHOSEN_BOOK = "ADDING_BOOK"
 
         // Photo loader
-        private const val REQUEST_TAKE_PHOTO = 1
-        private const val REQUEST_SELECT_PHOTO = 2
+        const val REQUEST_PHOTO_INTENT_CHOOSER = 11
     }
 }

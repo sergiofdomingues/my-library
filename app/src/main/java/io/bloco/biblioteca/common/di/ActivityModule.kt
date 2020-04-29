@@ -3,7 +3,7 @@ package io.bloco.biblioteca.common.di
 import android.app.Activity
 import dagger.Module
 import dagger.Provides
-import io.bloco.biblioteca.activities.BaseActivity
+import io.bloco.biblioteca.base.BaseActivity
 
 @Module
 class ActivityModule(private val activity: BaseActivity) {

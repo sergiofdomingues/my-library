@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".App"
+        android:name=".base.App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -23,21 +23,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.BaseActivity"></activity>
+        <activity android:name=".base.BaseActivity"></activity>
         <activity
-            android:name=".activities.SearchBookActivity"
+            android:name=".booksearch.SearchBookActivity"
             android:label="@string/search_book_activity_label"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".bookmain.ui.MainActivity" />
         <activity
-            android:name=".activities.AddBookActivity"
+            android:name=".bookadd.ui.AddBookActivity"
             android:label="@string/add_book_activity_label"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".bookmain.ui.MainActivity" />
         <activity
-            android:name=".activities.BookInfoActivity"
+            android:name=".bookdetails.BookDetailsActivity"
             android:label="@string/book_info_activity_label"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".bookmain.ui.MainActivity" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".bookmain.ui.MainActivity"
             android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

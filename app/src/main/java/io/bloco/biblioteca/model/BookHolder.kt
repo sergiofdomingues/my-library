@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import io.bloco.biblioteca.R
 import io.bloco.biblioteca.adapter.BooksRecyclerAdapter
-import io.bloco.biblioteca.activities.BookInfoActivity
+import io.bloco.biblioteca.bookdetails.BookDetailsActivity
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
 class BookHolder(v: View, private val interfaceRef: BooksRecyclerAdapter.ListItemLongClick)
@@ -24,7 +24,7 @@ class BookHolder(v: View, private val interfaceRef: BooksRecyclerAdapter.ListIte
     override fun onClick(v: View?) {
         val context = itemView.context
         book?.let {
-            val showBookIntent = BookInfoActivity.getIntent(context, it)
+            val showBookIntent = BookDetailsActivity.getIntent(context, it)
             context.startActivity(showBookIntent)
         }
     }

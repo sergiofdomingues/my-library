@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".activities.AddBookActivity">
+    tools:context=".bookadd.ui.AddBookActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,38 +11,30 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/ivCoverThumbnail"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/degraded_pane"
-            android:contentDescription="@string/desciprion_cover"
-            android:src="@drawable/ic_no_cover" />
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/ivCoverThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="24dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/degraded_pane"
+                android:contentDescription="@string/desciprion_cover"
+                android:src="@drawable/ic_no_cover" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnTakePhoto"
-                style="@style/Library.TextButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:text="@string/take_photo" />
+            <ImageButton
+                android:id="@+id/changeBookCover"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="16dp"
+                android:background="@drawable/image_loader"
+                android:src="@drawable/ic_add_photo" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnUploadPhoto"
-                style="@style/Library.TextButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/upload_photo" />
-
-        </LinearLayout>
+        </FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inLayoutTitle"

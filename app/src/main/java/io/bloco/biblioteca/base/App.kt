@@ -1,12 +1,10 @@
-package io.bloco.biblioteca
+package io.bloco.biblioteca.base
 
 import android.app.Application
 import android.os.StrictMode
 import io.bloco.biblioteca.common.di.ApplicationComponent
 import io.bloco.biblioteca.common.di.ApplicationModule
 import io.bloco.biblioteca.common.di.DaggerApplicationComponent
-import io.bloco.biblioteca.database.AppDatabase
-import io.bloco.biblioteca.database.BookRepository
 
 @Suppress("unused")
 class App : Application() {

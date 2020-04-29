@@ -5,7 +5,7 @@ import android.content.res.Resources
 import com.bumptech.glide.Glide
 import dagger.Module
 import dagger.Provides
-import io.bloco.biblioteca.App
+import io.bloco.biblioteca.base.App
 import javax.inject.Singleton
 
 @Module

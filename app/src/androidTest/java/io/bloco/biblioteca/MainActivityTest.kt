@@ -8,13 +8,12 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
-import io.bloco.biblioteca.activities.AddBookActivity
-import io.bloco.biblioteca.activities.MainActivity
-import io.bloco.biblioteca.activities.SearchBookActivity
+import io.bloco.biblioteca.bookadd.ui.AddBookActivity
+import io.bloco.biblioteca.bookmain.ui.MainActivity
+import io.bloco.biblioteca.booksearch.SearchBookActivity
 import io.bloco.biblioteca.testhelpers.ActivityAsserter.assertCurrentActivity
 import io.bloco.biblioteca.testhelpers.AppHelper.appComponent
 import io.bloco.biblioteca.testhelpers.BookFactory
-import io.bloco.biblioteca.testhelpers.InstrumentationContext
 import io.bloco.biblioteca.testhelpers.Waiter.waitForAddBookCallBack
 import org.hamcrest.Matchers.equalToIgnoringCase
 import org.junit.Rule
