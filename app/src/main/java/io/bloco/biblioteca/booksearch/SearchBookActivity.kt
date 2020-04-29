@@ -1,4 +1,4 @@
-package io.bloco.biblioteca.activities
+package io.bloco.biblioteca.booksearch
 
 import android.app.Activity
 import android.content.Context
@@ -10,9 +10,11 @@ import android.widget.SearchView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.bloco.biblioteca.R
+import io.bloco.biblioteca.base.BaseActivity
 import io.bloco.biblioteca.adapter.SearchBooksRecyclerAdapter
 import io.bloco.biblioteca.api.ApiCaller
 import io.bloco.biblioteca.api.BookSearchResult
+import io.bloco.biblioteca.bookadd.ui.AddBookActivity
 import io.bloco.biblioteca.common.MessageManager
 import io.bloco.biblioteca.model.FoundBook
 import kotlinx.android.synthetic.main.activity_search_book.*

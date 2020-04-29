@@ -50,6 +50,9 @@
         Please check your connection and try again.
     </string>
     <string name="search_book_activity_label">Search book</string>
+
+    <!-- Add Book -->
+    <string name="avatar_choose_option">Choose an option</string>
 </resources>
 
 

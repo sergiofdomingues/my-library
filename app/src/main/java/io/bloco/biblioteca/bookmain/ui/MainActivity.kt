@@ -1,19 +1,22 @@
-package io.bloco.biblioteca.activities
+package io.bloco.biblioteca.bookmain.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.bloco.biblioteca.R
+import io.bloco.biblioteca.base.BaseActivity
+import io.bloco.biblioteca.booksearch.SearchBookActivity
 import io.bloco.biblioteca.adapter.BooksRecyclerAdapter
+import io.bloco.biblioteca.base.viewmodel.ViewModelFactory
+import io.bloco.biblioteca.bookmain.MainViewModel
 import io.bloco.biblioteca.database.BookRepository
 import io.bloco.biblioteca.helpers.DividerItemDecoration
 import io.bloco.biblioteca.helpers.FileManager
 import io.bloco.biblioteca.model.Book
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.doAsync
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -21,8 +24,17 @@ class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
 
     @Inject
     lateinit var bookRepository: BookRepository
-    private val adapter by lazy { BooksRecyclerAdapter(booksList, this) }
 
+    @Inject
+    lateinit var fileManager: FileManager
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory<MainViewModel>
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+    }
+    private val adapter by lazy { BooksRecyclerAdapter(booksList, this) }
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
     private val booksList = mutableListOf<Book>()
 
@@ -32,7 +44,7 @@ class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
         getActivityComponent().inject(this)
         setContentView(R.layout.activity_main)
 
-        bookRepository.initBooksInDb() // Fake some books
+        //bookRepository.initBooksInDb() // Fake some books
         recViewBooksList.layoutManager = linearLayoutManager
         recViewBooksList.addItemDecoration(DividerItemDecoration(this))
         recViewBooksList.itemAnimator = DefaultItemAnimator()
@@ -61,10 +73,7 @@ class MainActivity : BaseActivity(), BooksRecyclerAdapter.ListItemLongClick {
     override fun itemDelete(book: Book) {
         book.uriCover?.let {
             if (!it.startsWith("http")) {
-                val fileManager = FileManager(this)
-                doAsync {
-                    fileManager.deletePhotoFile(Uri.parse(book.uriCover))
-                }
+                viewModel.bookDeletionClicked(book.uriCover)
             }
         }
         bookRepository.deleteBook(book) { getAllBooks() }

@@ -6,7 +6,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import io.bloco.biblioteca.activities.BookInfoActivity
+import io.bloco.biblioteca.bookdetails.BookDetailsActivity
 import io.bloco.biblioteca.helpers.DateHelpers.dateToString
 import io.bloco.biblioteca.testhelpers.BookFactory
 import io.bloco.biblioteca.testhelpers.InstrumentationContext
@@ -15,18 +15,18 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class BookInfoActivityTest {
+class BookDetailsActivityTest {
 
     @get:Rule
     var activityTestRule =
-        ActivityTestRule<BookInfoActivity>(
-            BookInfoActivity::class.java, true, false
+        ActivityTestRule<BookDetailsActivity>(
+            BookDetailsActivity::class.java, true, false
         )
 
     @Test
     fun checkIfBookDetailsAreDisplayed() {
         val book = BookFactory.makeCompleteBook()
-        val intent = BookInfoActivity.getIntent(
+        val intent = BookDetailsActivity.getIntent(
             InstrumentationContext.useContext(),
             book
         )

@@ -3,7 +3,7 @@ package io.bloco.biblioteca.common.di
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import io.bloco.biblioteca.App
+import io.bloco.biblioteca.base.App
 import io.bloco.biblioteca.database.AppDatabase
 import io.bloco.biblioteca.database.BookDao
 import javax.inject.Singleton
