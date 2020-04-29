@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="io.bloco.biblioteca">
+    package="com.sergiodomingues.library">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".base.App"
+        android:name="com.sergiodomingues.library.base.App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -23,21 +23,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".base.BaseActivity"></activity>
+        <activity android:name="com.sergiodomingues.library.base.BaseActivity"></activity>
         <activity
-            android:name=".booksearch.SearchBookActivity"
+            android:name="com.sergiodomingues.library.booksearch.SearchBookActivity"
             android:label="@string/search_book_activity_label"
-            android:parentActivityName=".bookmain.ui.MainActivity" />
+            android:parentActivityName="com.sergiodomingues.library.bookmain.ui.MainActivity" />
         <activity
-            android:name=".bookadd.ui.AddBookActivity"
+            android:name="com.sergiodomingues.library.bookadd.ui.AddBookActivity"
             android:label="@string/add_book_activity_label"
-            android:parentActivityName=".bookmain.ui.MainActivity" />
+            android:parentActivityName="com.sergiodomingues.library.bookmain.ui.MainActivity" />
         <activity
-            android:name=".bookdetails.BookDetailsActivity"
+            android:name="com.sergiodomingues.library.bookdetails.BookDetailsActivity"
             android:label="@string/book_info_activity_label"
-            android:parentActivityName=".bookmain.ui.MainActivity" />
+            android:parentActivityName="com.sergiodomingues.library.bookmain.ui.MainActivity" />
         <activity
-            android:name=".bookmain.ui.MainActivity"
+            android:name="com.sergiodomingues.library.bookmain.ui.MainActivity"
             android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
