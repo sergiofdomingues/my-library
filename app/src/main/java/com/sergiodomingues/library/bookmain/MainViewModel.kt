@@ -1,27 +1,62 @@
 package com.sergiodomingues.library.bookmain
 
-import com.sergiodomingues.library.base.viewmodel.BaseViewModel
-import com.sergiodomingues.library.helpers.FileManager
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.sergiodomingues.library.base.viewmodel.BaseViewModel
+import com.sergiodomingues.library.database.BookRepository
+import com.sergiodomingues.library.helpers.FileManager
+import com.sergiodomingues.library.model.Book
+import com.sergiodomingues.library.util.Operation
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val fileManager: FileManager
+    private val fileManager: FileManager,
+    private val bookRepository: BookRepository
 ) : BaseViewModel() {
 
-    private val bookCoverDeletion = BehaviorRelay.create<String>()
+    private val bookCoverDeletion = BehaviorRelay.create<Book>()
+    private val getListOfBooks = BehaviorRelay.createDefault(Unit)
+
+    private val updateBooks = BehaviorRelay.create<List<Book>>()
 
     init {
         bookCoverDeletion
+            .map { it.uriCover }
+            .filter { it.isNotEmpty() && !it.startsWith("http") }
             .flatMapSingle { fileManager.deletePhotoFile(it) }
             .subscribe()
+            .addTo(disposables)
+
+        bookCoverDeletion
+            .flatMapSingle { bookRepository.deleteBook(it.id) }
+            .subscribe {
+                when (it) {
+                    is Operation.Success<Unit> -> {
+                        getListOfBooks.accept(Unit)
+                    }
+                }
+            }
+            .addTo(disposables)
+
+        getListOfBooks
+            .flatMapSingle { bookRepository.getBooks() }
+            .distinctUntilChanged()
+            .subscribe {
+                when (it) {
+                    is Operation.Success<List<Book>> -> {
+                        updateBooks.accept(it.result)
+                    }
+                }
+            }
             .addTo(disposables)
     }
 
     // Input
 
-    fun bookDeletionClicked(filePath: String) = bookCoverDeletion.accept(filePath)
+    fun bookDeletionClicked(book: Book) = bookCoverDeletion.accept(book)
+    fun bookListChanged() = getListOfBooks.accept(Unit)
 
     // Output
+
+    fun updateBooks() = updateBooks.hide()
 }

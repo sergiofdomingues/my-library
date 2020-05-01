@@ -116,6 +116,7 @@ dependencies {
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
     implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.2.0'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.2'
+    implementation "androidx.room:room-rxjava2:$room_version"
 
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"

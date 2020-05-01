@@ -55,6 +55,15 @@ class AddBookActivity : BaseActivity() {
         getActivityComponent().inject(this)
         setContentView(R.layout.activity_add_book)
 
+        val chosenBook: FoundBook? = intent.getParcelableExtra(
+            CHOSEN_BOOK
+        )
+        chosenBook?.let {
+            initDetailFields(it)
+            currentPhotoPath = chosenBook.thumbnail
+        }
+        etDate.setOnClickListener { datePicker.show() }
+
         changeBookCover
             .clicks()
             .bindToLifecycle(this)
@@ -89,15 +98,6 @@ class AddBookActivity : BaseActivity() {
             .subscribe {
                 viewModel.coverPhotoIntentOutcome(it)
             }
-
-        val chosenBook: FoundBook? = intent.getParcelableExtra(
-            CHOSEN_BOOK
-        )
-        chosenBook?.let {
-            initDetailFields(it)
-            currentPhotoPath = chosenBook.thumbnail
-        }
-        etDate.setOnClickListener { datePicker.show() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
