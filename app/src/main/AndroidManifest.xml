@@ -23,7 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.sergiodomingues.library.base.BaseActivity"></activity>
         <activity
             android:name="com.sergiodomingues.library.booksearch.SearchBookActivity"
             android:label="@string/search_book_activity_label"

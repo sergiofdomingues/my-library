@@ -12,7 +12,7 @@ import java.util.*
 @Entity
 data class Book(
     @SerializedName("id")
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @SerializedName("title")
     @NonNull val title: String,
     val author: String?,

@@ -1,8 +1,8 @@
 package com.sergiodomingues.library.database
 
 import androidx.annotation.VisibleForTesting
-import com.sergiodomingues.library.helpers.DateHelpers.stringToDate
 import com.sergiodomingues.library.model.Book
+import com.sergiodomingues.library.util.toOperation
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import timber.log.Timber
@@ -10,28 +10,12 @@ import javax.inject.Inject
 
 class BookRepository @Inject constructor(private val bookDao: BookDao) {
 
-    fun getBooks(onComplete: ((List<Book>) -> Unit)) {
-        doAsync {
-            //val books = memoryDataBase.toList()
-            val books = bookDao.getAllBooks()
-            uiThread {
-                onComplete.invoke(books)
-            }
-        }
-    }
-
-    fun getCountBooks(onComplete: ((Int) -> Unit)? = null) {
-        doAsync {
-            val booksCount = bookDao.countBooks()
-            uiThread {
-                onComplete?.invoke(booksCount)
-            }
-        }
-    }
+    fun getBooks() =
+        bookDao.getAllBooks()
+            .toOperation()
 
     fun addBook(newBook: Book, onComplete: (() -> Unit)? = null) {
         doAsync {
-            //memoryDataBase.add(newBook)
             try {
                 bookDao.insertBook(newBook)
             } catch (e: Exception) {
@@ -41,14 +25,17 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
                 onComplete?.invoke()
             }
         }
-
     }
 
-    fun deleteBook(book: Book, onComplete: (() -> Unit)? = null) {
+    fun deleteBook(id: Long) =
+        bookDao.deleteBookById(id)
+            .toOperation()
+
+    fun getCountBooks(onComplete: ((Int) -> Unit)? = null) {
         doAsync {
-            bookDao.deleteBookById(book.id)
+            val booksCount = bookDao.countBooks()
             uiThread {
-                onComplete?.invoke()
+                onComplete?.invoke(booksCount)
             }
         }
     }
@@ -76,7 +63,7 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
         bookDao.deleteAllBooks()
     }
 
-    fun initBooksInDb() {
+/*    fun initBooksInDb() {
         doAsync {
             if (bookDao.getAllBooks().isNotEmpty()) return@doAsync
             bookDao.insertMultipleBooks(
@@ -112,5 +99,5 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
                 )
             )
         }
-    }
+    }*/
 }

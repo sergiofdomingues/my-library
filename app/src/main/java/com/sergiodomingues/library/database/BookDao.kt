@@ -5,6 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sergiodomingues.library.model.Book
+import io.reactivex.Completable
+import io.reactivex.Single
 
 @Dao
 interface BookDao {
@@ -12,13 +14,13 @@ interface BookDao {
     fun getBookById(id: Int): Book
 
     @Query("SELECT * FROM Book")
-    fun getAllBooks(): List<Book>
+    fun getAllBooks(): Single<List<Book>>
 
     @Query("DELETE FROM Book WHERE id = :id")
-    fun deleteBookById(id: Int) //DOES NOT WORK WELL
+    fun deleteBookById(id: Long): Completable //DOES NOT WORK WELL
 
     @Query("DELETE FROM Book WHERE title = :title")
-    fun deleteBookByTitle(title: String)
+    fun deleteBookByTitle(title: String): Completable
 
     @Query("SELECT count(*) FROM Book")
     fun countBooks(): Int

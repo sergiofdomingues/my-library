@@ -1,12 +1,12 @@
 package com.sergiodomingues.library.bookadd
 
 import android.net.Uri
+import com.jakewharton.rxrelay2.BehaviorRelay
+import com.jakewharton.rxrelay2.PublishRelay
 import com.sergiodomingues.library.base.viewmodel.BaseViewModel
 import com.sergiodomingues.library.helpers.BookCoverIntentResultDispatcher.Outcome
 import com.sergiodomingues.library.helpers.FileManager
 import com.sergiodomingues.library.util.Operation
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.rxkotlin.addTo
 import java.io.File
 import javax.inject.Inject
