@@ -1,6 +1,6 @@
 package com.sergiodomingues.library
 
-import com.sergiodomingues.library.helpers.Validation
+import com.sergiodomingues.library.helpers.BookValidator
 import com.sergiodomingues.library.helpers.ValidationErrors
 import com.sergiodomingues.library.model.Book
 import com.sergiodomingues.library.testhelpers.BookFactory.makeIncompleteBook
@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import java.util.*
 
-class ValidationTest {
+class BookValidatorTest {
 
     private val calendar = Calendar.getInstance()
     private val year = calendar.get(Calendar.YEAR)
@@ -25,7 +25,7 @@ class ValidationTest {
     fun validateBookTitle() {
         var errorList: List<ValidationErrors>?
         var book: Book?
-        val validator = Validation()
+        val validator = BookValidator()
 
         setValidDate()
         book = makeIncompleteBook(
@@ -34,7 +34,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assertEquals(errorList.size, 1)
         assertEquals(errorList[0], ValidationErrors.TITLE_INVALID)
 
@@ -44,7 +44,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assertEquals(errorList.size, 0)
     }
 
@@ -53,7 +53,7 @@ class ValidationTest {
 
         var errorList: List<ValidationErrors>?
         var book: Book?
-        val validator = Validation()
+        val validator = BookValidator()
 
         // Invalid book
         setInvalidDate()
@@ -63,7 +63,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assertEquals(errorList.size, 1)
         assertEquals(errorList[0], ValidationErrors.DATE_INVALID)
 
@@ -75,7 +75,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assertEquals(errorList.size, 0)
     }
 
@@ -84,7 +84,7 @@ class ValidationTest {
 
         var errorList: List<ValidationErrors>?
         var book: Book?
-        val validator = Validation()
+        val validator = BookValidator()
 
         setInvalidDate()
         book = makeIncompleteBook(
@@ -93,7 +93,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assertEquals(errorList.size, 2)
         assert(
             errorList.containsAll(
@@ -111,7 +111,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assertEquals(errorList.size, 1)
         assert(errorList.contains(ValidationErrors.TITLE_INVALID))
 
@@ -121,7 +121,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assert(errorList.isEmpty())
 
         setInvalidDate()
@@ -131,7 +131,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assertEquals(errorList.size, 2)
         assert(
             errorList.containsAll(
@@ -149,7 +149,7 @@ class ValidationTest {
             ISBN,
             READ
         )
-        errorList = validator.validateBook(book)
+        errorList = validator.validate(book)
         assert(errorList.isEmpty())
     }
 

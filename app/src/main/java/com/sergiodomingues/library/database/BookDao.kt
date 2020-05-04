@@ -26,7 +26,7 @@ interface BookDao {
     fun countBooks(): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertBook(newBook: Book)
+    fun insertBook(newBook: Book): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMultipleBooks(books: List<Book>)

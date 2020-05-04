@@ -8,7 +8,7 @@ import com.sergiodomingues.library.base.BaseActivity
 import com.sergiodomingues.library.helpers.DateHelpers.dateToString
 import com.sergiodomingues.library.helpers.ImageLoader
 import com.sergiodomingues.library.model.Book
-import kotlinx.android.synthetic.main.activity_book_info.*
+import kotlinx.android.synthetic.main.activity_book_details.*
 import javax.inject.Inject
 
 class BookDetailsActivity : BaseActivity() {
@@ -20,7 +20,7 @@ class BookDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getActivityComponent().inject(this)
-        setContentView(R.layout.activity_book_info)
+        setContentView(R.layout.activity_book_details)
 
         selectedBook = intent.getParcelableExtra(BOOK_KEY)
         selectedBook?.let {
@@ -33,7 +33,9 @@ class BookDetailsActivity : BaseActivity() {
         tvBookAuthor.text = selectedBook.author ?: ""
         tvBookIsbn.text = selectedBook.isbn ?: ""
         tvBookDate.text = dateToString(selectedBook.publishDate)
-        selectedBook.uriCover?.let { imageLoader.loadPhotoCoverInto(it, ivBookCover) }
+        selectedBook.imageCover?.let {
+            if (it.isNotEmpty()) imageLoader.loadPhotoCoverInto(it, ivBookCover)
+        }
     }
 
     companion object {

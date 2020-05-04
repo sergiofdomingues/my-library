@@ -5,7 +5,6 @@ import com.sergiodomingues.library.model.Book
 import com.sergiodomingues.library.util.toOperation
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import timber.log.Timber
 import javax.inject.Inject
 
 class BookRepository @Inject constructor(private val bookDao: BookDao) {
@@ -14,18 +13,9 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
         bookDao.getAllBooks()
             .toOperation()
 
-    fun addBook(newBook: Book, onComplete: (() -> Unit)? = null) {
-        doAsync {
-            try {
-                bookDao.insertBook(newBook)
-            } catch (e: Exception) {
-                Timber.d("ExceptionAddingBook%s", e.toString())
-            }
-            uiThread {
-                onComplete?.invoke()
-            }
-        }
-    }
+    fun addBook(newBook: Book) =
+        bookDao.insertBook(newBook)
+            .toOperation()
 
     fun deleteBook(id: Long) =
         bookDao.deleteBookById(id)

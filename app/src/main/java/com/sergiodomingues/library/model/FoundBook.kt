@@ -9,4 +9,4 @@ data class FoundBook(val title: String,
                      val publishedDate: String? = null,
                      val isbn: String? = null,
                      val googleId: String,
-                     var thumbnail: String?) : Parcelable
+                     var imageCover: String = "") : Parcelable

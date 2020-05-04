@@ -4,9 +4,9 @@ import com.sergiodomingues.library.model.Book
 import java.util.*
 import javax.inject.Inject
 
-class Validation @Inject constructor() {
+class BookValidator @Inject constructor() {
 
-    fun validateBook(book: Book): List<ValidationErrors> {
+    fun validate(book: Book): List<ValidationErrors> {
         val errorList = mutableListOf<ValidationErrors>()
 
         // Check title
