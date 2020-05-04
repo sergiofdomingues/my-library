@@ -46,7 +46,7 @@ class ApiCaller @Inject constructor(private val apiService: ApiInterface) {
                                 var isbn: String? = null
                                 isbnList?.let { isbn = getIsbn(isbnList) }
                                 val googleId = element.id
-                                val thumbnail = bookInfo.imageLinks?.smallThumbnail
+                                val thumbnail = bookInfo.imageLinks?.smallThumbnail ?: ""
                                 if (title != null && googleId != null) {
                                     newFoundBooksList.add(
                                         FoundBook(

@@ -8,17 +8,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
+import com.jakewharton.rxbinding2.view.clicks
 import com.sergiodomingues.library.R
 import com.sergiodomingues.library.base.BaseActivity
 import com.sergiodomingues.library.base.viewmodel.ViewModelFactory
 import com.sergiodomingues.library.bookadd.AddBookViewModel
-import com.sergiodomingues.library.database.BookRepository
 import com.sergiodomingues.library.helpers.*
 import com.sergiodomingues.library.helpers.DateHelpers.dateToStringDatePicker
 import com.sergiodomingues.library.helpers.DateHelpers.parseStringToDate
 import com.sergiodomingues.library.model.Book
 import com.sergiodomingues.library.model.FoundBook
-import com.jakewharton.rxbinding2.view.clicks
 import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindToLifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_add_book.*
@@ -26,9 +25,6 @@ import java.util.*
 import javax.inject.Inject
 
 class AddBookActivity : BaseActivity() {
-
-    @Inject
-    lateinit var bookRepository: BookRepository
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -58,11 +54,17 @@ class AddBookActivity : BaseActivity() {
         val chosenBook: FoundBook? = intent.getParcelableExtra(
             CHOSEN_BOOK
         )
-        chosenBook?.let {
-            initDetailFields(it)
-            currentPhotoPath = chosenBook.thumbnail
-        }
         etDate.setOnClickListener { datePicker.show() }
+
+        viewModel
+            .initBookDetailFields()
+            .bindToLifecycle(this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                initBookDetailFields(it)
+            }
+
+        chosenBook?.let { viewModel.chosenBookProvidedByIntent(it) }
 
         changeBookCover
             .clicks()
@@ -87,8 +89,23 @@ class AddBookActivity : BaseActivity() {
             .bindToLifecycle(this)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                currentPhotoPath = it.toString()
                 imageLoader.loadPhotoCoverInto(it, ivCoverThumbnail)
+            }
+
+        viewModel
+            .returnToSearch()
+            .bindToLifecycle(this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                returnToSearchActivity()
+            }
+
+        viewModel
+            .showInputFieldErrors()
+            .bindToLifecycle(this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                showInvalidFieldErrors(it)
             }
 
         activityResults()
@@ -100,20 +117,16 @@ class AddBookActivity : BaseActivity() {
             }
     }
 
+    private fun showInvalidFieldErrors(errorList: List<ValidationErrors>) {
+        bookSuccessfullyAdded = false
+        resetLayoutErrors()
+        showLayoutErrors(errorList)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int? = item.itemId
         if (id == R.id.itemSaveBook) {
-
-            val newBook = makeBookFromFields()
-            val errorList = Validation().validateBook(newBook)
-            if (errorList.isEmpty()) {
-                bookRepository.addBook(newBook) { returnToSearchActivity() }
-                return true
-            } else {
-                bookSuccessfullyAdded = false
-                resetLayoutErrors()
-                showLayoutErrors(errorList)
-            }
+            viewModel.saveBookClicked(makeBookFromFields())
         }
         return super.onOptionsItemSelected(item)
     }
@@ -122,16 +135,6 @@ class AddBookActivity : BaseActivity() {
         menuInflater.inflate(R.menu.menu_add, menu)
         super.onCreateOptionsMenu(menu)
         return true
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("photoPath", currentPhotoPath)
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        currentPhotoPath = savedInstanceState.getString("photoPath")
-        super.onRestoreInstanceState(savedInstanceState)
     }
 
     override fun onDestroy() {
@@ -158,12 +161,12 @@ class AddBookActivity : BaseActivity() {
         }
     }
 
-    private fun initDetailFields(chosenBook: FoundBook) {
+    private fun initBookDetailFields(chosenBook: FoundBook) {
         etTitle.setText(chosenBook.title)
         etAuthor.setText(chosenBook.author)
         etDate.setText(chosenBook.publishedDate)
         etIsbn.setText(chosenBook.isbn)
-        chosenBook.thumbnail?.let {
+        chosenBook.imageCover?.let {
             imageLoader.loadPhotoCoverInto(it, ivCoverThumbnail)
         }
     }
@@ -191,8 +194,7 @@ class AddBookActivity : BaseActivity() {
                 etDate.text.toString()
             ),
             isbn = etIsbn.text.toString(),
-            read = cbRead.isChecked,
-            uriCover = currentPhotoPath
+            read = cbRead.isChecked
         )
 
     private fun resetLayoutErrors() {
@@ -216,8 +218,6 @@ class AddBookActivity : BaseActivity() {
                 ADD_NEW_BOOK
             )
         }
-
-    // Static
 
     companion object {
 

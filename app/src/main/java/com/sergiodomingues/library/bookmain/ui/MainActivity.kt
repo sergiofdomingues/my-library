@@ -67,11 +67,7 @@ class MainActivity : BaseActivity(),
         }
     }
 
-    override fun itemDelete(book: Book) {
-        book.uriCover?.let {
-            viewModel.bookDeletionClicked(book)
-        }
-    }
+    override fun itemDelete(book: Book) = viewModel.bookDeletionClicked(book)
 
     private fun refreshList(books: List<Book>) {
         booksList.clear()

@@ -14,20 +14,20 @@ class MainViewModel @Inject constructor(
     private val bookRepository: BookRepository
 ) : BaseViewModel() {
 
-    private val bookCoverDeletion = BehaviorRelay.create<Book>()
+    private val bookDeletion = BehaviorRelay.create<Book>()
     private val getListOfBooks = BehaviorRelay.createDefault(Unit)
 
     private val updateBooks = BehaviorRelay.create<List<Book>>()
 
     init {
-        bookCoverDeletion
-            .map { it.uriCover }
+        bookDeletion
+            .map { it.imageCover }
             .filter { it.isNotEmpty() && !it.startsWith("http") }
             .flatMapSingle { fileManager.deletePhotoFile(it) }
             .subscribe()
             .addTo(disposables)
 
-        bookCoverDeletion
+        bookDeletion
             .flatMapSingle { bookRepository.deleteBook(it.id) }
             .subscribe {
                 when (it) {
@@ -53,7 +53,7 @@ class MainViewModel @Inject constructor(
 
     // Input
 
-    fun bookDeletionClicked(book: Book) = bookCoverDeletion.accept(book)
+    fun bookDeletionClicked(book: Book) = bookDeletion.accept(book)
     fun bookListChanged() = getListOfBooks.accept(Unit)
 
     // Output

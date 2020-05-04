@@ -21,5 +21,5 @@ data class Book(
     @SerializedName("isbn")
     val isbn: String?,
     val read: Boolean = false,
-    val uriCover: String? = null
+    var imageCover: String? = ""
 ) : Parcelable
