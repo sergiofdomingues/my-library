@@ -11,7 +11,10 @@ import com.sergiodomingues.library.adapter.BooksRecyclerAdapter
 import com.sergiodomingues.library.base.BaseActivity
 import com.sergiodomingues.library.base.viewmodel.ViewModelFactory
 import com.sergiodomingues.library.bookmain.MainViewModel
+import com.sergiodomingues.library.bookmain.MainViewModel.Error
+import com.sergiodomingues.library.bookmain.MainViewModel.Error.CouldNotUpdateList
 import com.sergiodomingues.library.booksearch.SearchBookActivity
+import com.sergiodomingues.library.common.MessageManager
 import com.sergiodomingues.library.helpers.DividerItemDecoration
 import com.sergiodomingues.library.model.Book
 import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindToLifecycle
@@ -22,6 +25,9 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(),
     BooksRecyclerAdapter.ListItemLongClick {
+
+    @Inject
+    lateinit var messageManager: MessageManager
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<MainViewModel>
@@ -56,6 +62,14 @@ class MainActivity : BaseActivity(),
             .subscribe {
                 refreshList(it)
             }
+
+        viewModel
+            .errors()
+            .bindToLifecycle(this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                showError(it)
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,6 +87,12 @@ class MainActivity : BaseActivity(),
         booksList.clear()
         booksList.addAll(books)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun showError(error: Error) {
+        if (error == CouldNotUpdateList) {
+            messageManager.showError(R.string.main_error_updating_books)
+        }
     }
 
     companion object {

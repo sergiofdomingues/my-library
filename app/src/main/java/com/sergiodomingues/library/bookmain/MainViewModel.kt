@@ -18,6 +18,7 @@ class MainViewModel @Inject constructor(
     private val getListOfBooks = BehaviorRelay.createDefault(Unit)
 
     private val updateBooks = BehaviorRelay.create<List<Book>>()
+    private val errors = BehaviorRelay.create<Error>()
 
     init {
         bookDeletion
@@ -46,6 +47,9 @@ class MainViewModel @Inject constructor(
                     is Operation.Success<List<Book>> -> {
                         updateBooks.accept(it.result)
                     }
+                    is Operation.Error<List<Book>> -> {
+                        errors.accept(Error.CouldNotUpdateList)
+                    }
                 }
             }
             .addTo(disposables)
@@ -59,4 +63,7 @@ class MainViewModel @Inject constructor(
     // Output
 
     fun updateBooks() = updateBooks.hide()
+    fun errors() = errors.hide()
+
+    enum class Error { CouldNotUpdateList }
 }
