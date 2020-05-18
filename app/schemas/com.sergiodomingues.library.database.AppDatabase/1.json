@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "908650d05cc390b3d135303e9aa1b557",
+    "identityHash": "2fe1f773a2dfc9e8aa499f96ac5c970b",
     "entities": [
       {
         "tableName": "Book",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `author` TEXT, `publishDate` INTEGER, `isbn` TEXT, `read` INTEGER NOT NULL, `uriCover` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `author` TEXT, `publishDate` INTEGER, `isbn` TEXT, `read` INTEGER NOT NULL, `imageCover` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -45,8 +45,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "uriCover",
-            "columnName": "uriCover",
+            "fieldPath": "imageCover",
+            "columnName": "imageCover",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -64,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '908650d05cc390b3d135303e9aa1b557')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2fe1f773a2dfc9e8aa499f96ac5c970b')"
     ]
   }
 }

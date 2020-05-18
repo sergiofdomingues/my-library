@@ -44,6 +44,9 @@
     <string name="search_query_hint">Enter book title or ISBN</string>
     <string name="search">Search</string>
 
+    <!-- Main Activity -->
+    <string name="main_error_updating_books">Could not load list of books</string>
+
     <!-- Search Book Activity-->
     <string name="connection_error">
         Seems like you\'re not connected to internet.
