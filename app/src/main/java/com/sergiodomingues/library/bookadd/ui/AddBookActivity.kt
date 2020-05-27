@@ -13,9 +13,12 @@ import com.sergiodomingues.library.R
 import com.sergiodomingues.library.base.BaseActivity
 import com.sergiodomingues.library.base.viewmodel.ViewModelFactory
 import com.sergiodomingues.library.bookadd.AddBookViewModel
-import com.sergiodomingues.library.helpers.*
+import com.sergiodomingues.library.helpers.BookCoverIntentResultDispatcher
 import com.sergiodomingues.library.helpers.DateHelpers.dateToStringDatePicker
 import com.sergiodomingues.library.helpers.DateHelpers.parseStringToDate
+import com.sergiodomingues.library.helpers.ImageLoader
+import com.sergiodomingues.library.helpers.IntentBuilder
+import com.sergiodomingues.library.helpers.ValidationErrors
 import com.sergiodomingues.library.model.Book
 import com.sergiodomingues.library.model.FoundBook
 import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindToLifecycle
@@ -44,7 +47,6 @@ class AddBookActivity : BaseActivity() {
     private val datePicker by lazy { initializeDatePicker() }
     private val calendar = Calendar.getInstance()
     private var bookSuccessfullyAdded = false
-    private var currentPhotoPath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,9 +141,7 @@ class AddBookActivity : BaseActivity() {
 
     override fun onDestroy() {
         if (!bookSuccessfullyAdded) {
-            currentPhotoPath?.let {
-                viewModel.addingBookCanceled(it)
-            }
+            viewModel.bookDiscarded()
         }
         super.onDestroy()
     }

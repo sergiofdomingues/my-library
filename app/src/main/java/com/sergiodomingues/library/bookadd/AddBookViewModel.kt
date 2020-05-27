@@ -29,20 +29,20 @@ class AddBookViewModel @Inject constructor(
     private val coverPhotoIntentOutcome = BehaviorRelay.create<Outcome>()
     private val photoTaken = PublishRelay.create<Unit>()
     private val photoPicked = PublishRelay.create<Uri>()
-    private val bookCoverDeletion = BehaviorRelay.create<String>()
     private val validBookSaveRequested = BehaviorRelay.create<Book>()
     private val saveBookClicked = BehaviorRelay.create<Book>()
 
     private val initBookDetailFields = PublishRelay.create<FoundBook>()
     private val coverPhotoFile = BehaviorRelay.create<File>()
-    private val changeCover = BehaviorRelay.createDefault("")
+    private val coverPhotoUri = BehaviorRelay.createDefault("")
     private val returnToSearch = BehaviorRelay.create<Unit>()
     private val showInputFieldErrors = BehaviorRelay.create<List<ValidationErrors>>()
+    private val bookDiscarded = PublishRelay.create<Unit>()
 
     init {
         chosenBookProvidedByIntent
             .subscribe {
-                changeCover.accept(it.imageCover)
+                coverPhotoUri.accept(it.imageCover)
                 initBookDetailFields.accept(it)
             }
             .addTo(disposables)
@@ -64,7 +64,7 @@ class AddBookViewModel @Inject constructor(
         photoTaken
             .flatMap { coverPhotoFile.take(1) }
             .subscribe {
-                changeCover.accept(it.path)
+                coverPhotoUri.accept(it.path)
             }
             .addTo(disposables)
 
@@ -78,14 +78,9 @@ class AddBookViewModel @Inject constructor(
             }
             .subscribe {
                 if (it is Operation.Success<File>) {
-                    changeCover.accept(it.result.path)
+                    coverPhotoUri.accept(it.result.path)
                 }
             }
-            .addTo(disposables)
-
-        bookCoverDeletion
-            .flatMapSingle { fileManager.deletePhotoFile(it) }
-            .subscribe()
             .addTo(disposables)
 
         validBookSaveRequested
@@ -97,12 +92,20 @@ class AddBookViewModel @Inject constructor(
 
         Observables.combineLatest(
             saveBookClicked.hide(),
-            changeCover.hide()
+            coverPhotoUri.hide()
         )
             .subscribe {
                 validateBook(it.first, it.second)
             }
             .addTo(disposables)
+
+        /* Do not dispose this stream.
+        *  If so, it will be unsubscribed from observers inside AddBookActivity's onDestroy before even doing its purpose.
+        */
+        bookDiscarded
+            .flatMap { coverPhotoUri.take(1) }
+            .flatMapSingle { fileManager.deletePhotoFile(it) }
+            .subscribe()
     }
 
     // Input
@@ -110,15 +113,14 @@ class AddBookViewModel @Inject constructor(
     fun startChangingBookCover() = startChangingBookCover.accept(Unit)
     fun photoTaken() = photoTaken.accept(Unit)
     fun photoPicked(uri: Uri) = photoPicked.accept(uri)
-    fun addingBookCanceled(filePath: String) = bookCoverDeletion.accept(filePath)
     fun coverPhotoIntentOutcome(outcome: Outcome) = coverPhotoIntentOutcome.accept(outcome)
     fun chosenBookProvidedByIntent(book: FoundBook) = chosenBookProvidedByIntent.accept(book)
     fun saveBookClicked(book: Book) = saveBookClicked.accept(book)
+    fun bookDiscarded() = bookDiscarded.accept(Unit)
 
     // Output
-
     fun startPickPhotoIntentChooser() = startPickPhotoIntentChooser.hide()
-    fun changeCover() = changeCover.hide().filter { it.isNotEmpty() }
+    fun changeCover() = coverPhotoUri.hide().filter { it.isNotEmpty() }
     fun returnToSearch() = returnToSearch.hide()
     fun initBookDetailFields() = initBookDetailFields.hide()
     fun showInputFieldErrors() = showInputFieldErrors.hide()
