@@ -1,121 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.sergiodomingues.library.bookadd.ui.AddBookActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:fitsSystemWindows="true">
 
-        <FrameLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <ImageView
-                android:id="@+id/ivCoverThumbnail"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_margin="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/degraded_pane"
-                android:contentDescription="@string/desciprion_cover"
-                android:src="@drawable/ic_no_cover" />
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <ImageButton
-                android:id="@+id/changeBookCover"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end|bottom"
-                android:layout_margin="16dp"
-                android:background="@drawable/image_loader"
-                android:src="@drawable/ic_add_photo" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inLayoutTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTitle"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_book_title"
-                android:importantForAutofill="no"
-                android:inputType="textCapWords" />
+                android:layout_height="wrap_content">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    android:id="@+id/ivCoverThumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_margin="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/degraded_pane"
+                    android:contentDescription="@string/desciprion_cover"
+                    android:src="@drawable/ic_no_cover" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+                <ImageButton
+                    android:id="@+id/changeBookCover"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/image_loader"
+                    android:contentDescription="@string/load_photo_content_description"
+                    android:src="@drawable/ic_add_photo"
+                    android:tint="@android:color/white" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAuthor"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/book_author"
-                android:importantForAutofill="no"
-                android:inputType="textCapWords" />
-        </com.google.android.material.textfield.TextInputLayout>
+            </FrameLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inLayoutIsbn"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etIsbn"
-                style="@style/TextAppearance.AppCompat.Body1"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inLayoutTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_book_isbn"
-                android:importantForAutofill="no"
-                android:inputType="number" />
+                android:layout_margin="8dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_book_title"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapWords" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inLayoutDate"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDate"
-                style="@style/TextAppearance.AppCompat.Body1"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:cursorVisible="false"
+                android:layout_margin="8dp">
 
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/hint_book_date"
-                android:importantForAutofill="no"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAuthor"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/book_author"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/cbRead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="8dp"
-            android:text="@string/check_box_read" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inLayoutIsbn"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
 
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etIsbn"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_book_isbn"
+                    android:importantForAutofill="no"
+                    android:inputType="number" />
 
-</ScrollView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inLayoutDate"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDate"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/hint_book_date"
+                    android:importantForAutofill="no"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbRead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:text="@string/check_box_read" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/itemSearchBook"
-        android:title="@string/search"
+    <item
+        android:id="@+id/itemSearchBook"
         android:icon="@drawable/ic_search"
-        app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="android.widget.SearchView" />
+        android:title="@string/search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />
 
     <item
         android:id="@+id/itemAddBook"
-        android:title="@string/add_book_icon"
         android:icon="@drawable/ic_add_book"
-        app:showAsAction="always"
-        />
+        android:title="@string/add_book_icon"
+        app:showAsAction="always" />
 
 </menu>

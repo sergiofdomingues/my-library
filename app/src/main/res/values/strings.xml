@@ -16,7 +16,7 @@
     <string name="fileprovider" translatable="false">com.sergiodomingues.library.fileprovider</string>
 
     <!-- Activity label name -->
-    <string name="main_activity_label">Books</string>
+    <string name="main_activity_label">My Books</string>
     <string name="add_book_activity_label">Add book</string>
     <string name="book_info_activity_label">Book details</string>
 
@@ -55,7 +55,8 @@
     <string name="search_book_activity_label">Search book</string>
 
     <!-- Add Book -->
-    <string name="avatar_choose_option">Choose an option</string>
+    <string name="load_photo_choose_option">Choose an option</string>
+    <string name="load_photo_content_description">Load photo for book cover</string>
 </resources>
 
 

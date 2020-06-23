@@ -52,6 +52,8 @@ class AddBookActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         getActivityComponent().inject(this)
         setContentView(R.layout.activity_add_book)
+        setNavigation(R.drawable.ic_close_left)
+        setSupportActionBar(toolbar)
 
         val chosenBook: FoundBook? = intent.getParcelableExtra(
             CHOSEN_BOOK
@@ -125,18 +127,18 @@ class AddBookActivity : BaseActivity() {
         showLayoutErrors(errorList)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_add, menu)
+        super.onCreateOptionsMenu(menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int? = item.itemId
         if (id == R.id.itemSaveBook) {
             viewModel.saveBookClicked(makeBookFromFields())
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_add, menu)
-        super.onCreateOptionsMenu(menu)
-        return true
     }
 
     override fun onDestroy() {

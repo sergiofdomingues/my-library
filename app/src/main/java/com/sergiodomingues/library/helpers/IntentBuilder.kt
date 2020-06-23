@@ -29,7 +29,7 @@ class IntentBuilder @Inject constructor() {
             allIntents.add(intent)
         }
         val chooserIntent =
-            Intent.createChooser(Intent(), context.getString(R.string.avatar_choose_option))
+            Intent.createChooser(Intent(), context.getString(R.string.load_photo_choose_option))
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, allIntents.toTypedArray())
         return chooserIntent
     }
