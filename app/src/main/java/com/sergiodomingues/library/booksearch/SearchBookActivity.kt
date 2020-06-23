@@ -42,6 +42,8 @@ class SearchBookActivity : BaseActivity(), SearchBooksRecyclerAdapter.ListItemCl
         super.onCreate(savedInstanceState)
         getActivityComponent().inject(this)
         setContentView(R.layout.activity_search_book)
+        setSupportActionBar(toolbar)
+        setNavigation(R.drawable.ic_close_left)
 
         recViewBooksFoundList.layoutManager = linearLayoutManager
         recViewBooksFoundList.addItemDecoration(

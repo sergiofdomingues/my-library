@@ -2,6 +2,7 @@ package com.sergiodomingues.library.bookmain.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -49,6 +50,7 @@ class MainActivity : BaseActivity(),
         recViewBooksList.itemAnimator = DefaultItemAnimator()
         recViewBooksList.adapter = adapter
 
+        fabAddBook.setColorFilter(Color.WHITE)
         fabAddBook.setOnClickListener {
             startActivityForResult(
                 SearchBookActivity.getIntent(this), ADD_NEW_BOOK
