@@ -25,6 +25,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         strictMode()
+        checkTestMode()
     }
 
     private fun strictMode() {
@@ -44,7 +45,7 @@ class App : Application() {
     // Test loading a random test class, to check if we're in test mode
     private fun checkTestMode() {
         mode = try {
-            classLoader.loadClass("com.sergiodomingues.library.MainActivityTest")
+            classLoader.loadClass("com.sergiodomingues.library.AllActivitiesTest")
             Mode.TEST
         } catch (e: Exception) {
             Mode.NORMAL

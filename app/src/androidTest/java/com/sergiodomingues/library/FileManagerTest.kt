@@ -10,7 +10,7 @@ import org.junit.Assert.assertThat
 import org.junit.Test
 
 class FileManagerTest {
-    private val context = InstrumentationContext.useContext()
+/*    private val context = InstrumentationContext.useContext()
     private val fileManager = FileManager(context)
 
     @Test
@@ -53,5 +53,5 @@ class FileManagerTest {
         assertThat(appStorageFile.name, endsWith(".jpg"))
         val path = appStorageFile.path
         assertThat(path, containsString(context.packageName))
-    }
+    }*/
 }

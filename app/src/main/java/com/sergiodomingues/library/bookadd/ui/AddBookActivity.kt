@@ -128,7 +128,7 @@ class AddBookActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_add, menu)
+        menuInflater.inflate(R.menu.menu_save, menu)
         super.onCreateOptionsMenu(menu)
         return true
     }
@@ -168,9 +168,7 @@ class AddBookActivity : BaseActivity() {
         etAuthor.setText(chosenBook.author)
         etDate.setText(chosenBook.publishedDate)
         etIsbn.setText(chosenBook.isbn)
-        chosenBook.imageCover?.let {
-            imageLoader.loadPhotoCoverInto(it, ivCoverThumbnail)
-        }
+        imageLoader.loadPhotoCoverInto(chosenBook.imageCover, ivCoverThumbnail)
     }
 
     private fun initializeDatePicker(): DatePickerDialog {

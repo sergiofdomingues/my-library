@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sergiodomingues.library.R
 import com.sergiodomingues.library.adapter.BooksRecyclerAdapter
 import com.sergiodomingues.library.base.BaseActivity
 import com.sergiodomingues.library.base.viewmodel.ViewModelFactory
 import com.sergiodomingues.library.bookmain.MainViewModel
 import com.sergiodomingues.library.bookmain.MainViewModel.Error
+import com.sergiodomingues.library.bookmain.MainViewModel.Error.CouldNotDeleteBooks
 import com.sergiodomingues.library.bookmain.MainViewModel.Error.CouldNotUpdateList
 import com.sergiodomingues.library.booksearch.SearchBookActivity
 import com.sergiodomingues.library.common.MessageManager
@@ -44,6 +48,7 @@ class MainActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         getActivityComponent().inject(this)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
         recViewBooksList.layoutManager = linearLayoutManager
         recViewBooksList.addItemDecoration(DividerItemDecoration(this))
@@ -74,6 +79,24 @@ class MainActivity : BaseActivity(),
             }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_options, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.subItemAddNewBook -> {
+                return true
+            }
+            R.id.subItemDeleteAllBooks -> {
+                showDeleteAllBooksAlertDialog()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
@@ -92,10 +115,21 @@ class MainActivity : BaseActivity(),
     }
 
     private fun showError(error: Error) {
-        if (error == CouldNotUpdateList) {
-            messageManager.showError(R.string.main_error_updating_books)
+        when (error) {
+            CouldNotUpdateList -> messageManager.showError(R.string.main_error_updating_books)
+            CouldNotDeleteBooks -> messageManager.showError(R.string.main_error_deleting_books)
         }
     }
+
+    private fun showDeleteAllBooksAlertDialog() =
+        MaterialAlertDialogBuilder(this)
+            .setTitle(resources.getString(R.string.main_alert_dialog_delete_all_title))
+            .setMessage(resources.getString(R.string.main_alert_dialog_delete_all_message))
+            .setPositiveButton(resources.getString(R.string.main_alert_dialog_accept)) { _, _ ->
+                viewModel.deleteAllBooks()
+            }
+            .setNeutralButton(resources.getString(R.string.main_alert_dialog_cancel), null)
+            .show()
 
     companion object {
         private const val ADD_NEW_BOOK = 10

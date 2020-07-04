@@ -13,14 +13,14 @@ class MockInterceptor @Inject constructor() : Interceptor {
             .body(
                 ResponseBody.create(
                     "application/json".toMediaTypeOrNull(),
-                    JsonFileLoader()
-                        .loadFile(JSON_RESPONSE_FILE).toByteArray()
+                    JsonFileLoader
+                        .loadResponse(JSON_RESPONSE_FILE).toByteArray()
                 )
             )
             .build()
     }
 
     companion object {
-        private const val JSON_RESPONSE_FILE = "book_search_response.json"
+        private const val JSON_RESPONSE_FILE = "book_search_response"
     }
 } 

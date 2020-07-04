@@ -23,7 +23,7 @@ interface BookDao {
     fun deleteBookByTitle(title: String): Completable
 
     @Query("SELECT count(*) FROM Book")
-    fun countBooks(): Int
+    fun countBooks(): Single<Int>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertBook(newBook: Book): Completable
@@ -32,5 +32,8 @@ interface BookDao {
     fun insertMultipleBooks(books: List<Book>)
 
     @Query("DELETE FROM Book")
-    fun deleteAllBooks()
+    fun deleteAllBooks(): Completable
+
+    @Query("SELECT count(*) FROM Book")
+    fun countBooksForTesting(): Int
 }

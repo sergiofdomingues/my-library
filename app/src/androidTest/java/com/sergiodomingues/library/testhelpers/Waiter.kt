@@ -6,7 +6,7 @@ object Waiter {
 
     fun waitForAddBookCallBack(expectedBooks: Int, repository: BookRepository) {
         var threshold = 1
-        while (repository.getNumBooks() != expectedBooks && threshold < 10) {
+        while (repository.getNumBooksForTesting() != expectedBooks && threshold < 10) {
             Thread.sleep(100)
             threshold++
         }

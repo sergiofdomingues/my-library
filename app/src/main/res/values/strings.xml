@@ -45,7 +45,15 @@
     <string name="search">Search</string>
 
     <!-- Main Activity -->
+    <string name="main_settings_icon">Settings</string>
+    <string name="main_add_new_book_option">Add new book</string>
+    <string name="main_delete_all_books">Delete all books</string>
     <string name="main_error_updating_books">Could not load list of books</string>
+    <string name="main_error_deleting_books">Could not delete your books, please try again later</string>
+    <string name="main_alert_dialog_delete_all_title">Delete all books?</string>
+    <string name="main_alert_dialog_delete_all_message">This will permanently discard all your books! Are you absolutely sure?</string>
+    <string name="main_alert_dialog_accept">Yes</string>
+    <string name="main_alert_dialog_cancel">Cancel</string>
 
     <!-- Search Book Activity-->
     <string name="connection_error">
@@ -53,6 +61,7 @@
         Please check your connection and try again.
     </string>
     <string name="search_book_activity_label">Search book</string>
+    <string name="search_error">Could search books</string>
 
     <!-- Add Book -->
     <string name="load_photo_choose_option">Choose an option</string>

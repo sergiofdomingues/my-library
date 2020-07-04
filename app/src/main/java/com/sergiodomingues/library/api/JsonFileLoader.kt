@@ -4,13 +4,15 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
-import javax.inject.Inject
 
-class JsonFileLoader @Inject constructor() {
+object JsonFileLoader {
 
-    fun loadFile(fileName: String) : String {
+    fun loadResponse(fileName: String) = loadFile("responses/$fileName.json")
+
+    private fun loadFile(fileName: String): String {
         try {
-            val inStream = Objects.requireNonNull(JsonFileLoader::class.java.classLoader)?.getResourceAsStream(fileName)
+            val inStream = Objects.requireNonNull(JsonFileLoader::class.java.classLoader)
+                ?.getResourceAsStream(fileName)
             inStream?.let {
                 val reader = BufferedReader(InputStreamReader(inStream))
                 val total = StringBuilder()
