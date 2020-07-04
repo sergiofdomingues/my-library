@@ -3,8 +3,6 @@ package com.sergiodomingues.library.database
 import androidx.annotation.VisibleForTesting
 import com.sergiodomingues.library.model.Book
 import com.sergiodomingues.library.util.toOperation
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import javax.inject.Inject
 
 class BookRepository @Inject constructor(private val bookDao: BookDao) {
@@ -21,22 +19,13 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
         bookDao.deleteBookById(id)
             .toOperation()
 
-    fun getCountBooks(onComplete: ((Int) -> Unit)? = null) {
-        doAsync {
-            val booksCount = bookDao.countBooks()
-            uiThread {
-                onComplete?.invoke(booksCount)
-            }
-        }
-    }
+    fun deleteAllBooks() =
+        bookDao.deleteAllBooks()
+            .toOperation()
 
-    fun deleteAllBooks(onComplete: (() -> Unit)? = null) {
-        doAsync {
-            bookDao.deleteAllBooks()
-            uiThread {
-                onComplete?.invoke()
-            }
-        }
+    fun getCountBooks() {
+        bookDao.countBooks()
+            .toOperation()
     }
 
     @VisibleForTesting
@@ -45,12 +34,8 @@ class BookRepository @Inject constructor(private val bookDao: BookDao) {
     }
 
     @VisibleForTesting
-    fun getNumBooks(): Int {
-        return bookDao.countBooks()
-    }
-
-    fun deleteAllBooksInDb() {
-        bookDao.deleteAllBooks()
+    fun getNumBooksForTesting(): Int {
+        return bookDao.countBooksForTesting()
     }
 
 /*    fun initBooksInDb() {

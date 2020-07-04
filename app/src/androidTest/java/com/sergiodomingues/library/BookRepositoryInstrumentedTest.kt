@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class BookRepositoryInstrumentedTest {
-
+/*
     private val bookFactory = BookFactory
     private var repository = app.component.bookRepository()
     //private val repository = (InstrumentationContext.useContext() as App).getBookRepository()
@@ -48,5 +48,5 @@ class BookRepositoryInstrumentedTest {
             Thread.sleep(100)
             threshold++
         }
-    }
+    }*/
 }

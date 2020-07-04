@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/itemSettings"
+        android:icon="@drawable/ic_more_options"
+        android:title="@string/main_settings_icon"
+        app:showAsAction="ifRoom">
+
+        <item
+            android:id="@+id/subItemAddNewBook"
+            android:title="@string/main_add_new_book_option"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/subItemDeleteAllBooks"
+            android:title="@string/main_delete_all_books"
+            app:showAsAction="never" />
+
+    </item>
+</menu>

@@ -2,13 +2,14 @@ package com.sergiodomingues.library.common.di
 
 import android.content.res.Resources
 import com.sergiodomingues.library.R
-import com.sergiodomingues.library.api.ApiInterface
+import com.sergiodomingues.library.api.SearchBooksService
 import com.sergiodomingues.library.api.MockInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -17,8 +18,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApi(resources: Resources): ApiInterface =
-        provideRetrofit(resources).create(ApiInterface::class.java)
+    fun provideApi(resources: Resources): SearchBooksService =
+        provideRetrofit(resources).create(SearchBooksService::class.java)
 
     @Provides
     @Singleton
@@ -26,6 +27,7 @@ class NetworkModule {
         Retrofit.Builder()
             .baseUrl(resources.getString(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(provideHttpClient())
             .build()
 
@@ -33,6 +35,7 @@ class NetworkModule {
         Retrofit.Builder()
             .baseUrl(resources.getString(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(provideHttpTestClient())
             .build()
 
